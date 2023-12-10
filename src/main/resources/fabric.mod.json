@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "candlelight",
+	"version": "${version}",
+	"name": "Candlelight Mod",
+	"description": "Mod made for the candlelight server",
+	"authors": [
+		"JammyDodger101!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/candlelight/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.jammydodger101.candlelight.Candlelight"
+		],
+		"clinet": [
+			"net.jammydodger101.candlelight.CandlelightClient"
+		],
+		"fabric-datagen": [
+			"net.jammydodger101.candlelight.CandlelightDataGenerator"
+		]
+	},
+	"mixins": [
+		"candlelight.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14.21",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
