@@ -3,7 +3,8 @@
 	"package": "net.jammydodger101.candlelight.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin"
+		"ExampleMixin",
+		"DeathMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

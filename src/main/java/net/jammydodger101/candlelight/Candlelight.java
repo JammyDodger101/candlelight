@@ -2,6 +2,9 @@ package net.jammydodger101.candlelight;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.jammydodger101.candlelight.block.ModBlocks;
+import net.jammydodger101.candlelight.item.ModItemGroups;
+import net.jammydodger101.candlelight.item.ModItems;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +22,8 @@ public class Candlelight implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		LOGGER.info("Hello Fabric world!");
+		ModBlocks.registerModBlocks();
+		ModItems.registerModItems();
+		ModItemGroups.registerItemGroups();
 	}
 }

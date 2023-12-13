@@ -1,0 +1,7 @@
+// 1.20.1	2023-12-13T17:43:49.5989207	Candlelight Mod/Tags for minecraft:block
+7b7c220a8f3fcf01cc39e9d0d0649f104d99789f data\minecraft\tags\blocks\dragon_immune.json
+7b7c220a8f3fcf01cc39e9d0d0649f104d99789f data\minecraft\tags\blocks\prevent_mob_spawning_inside.json
+7b7c220a8f3fcf01cc39e9d0d0649f104d99789f data\minecraft\tags\blocks\candles.json
+7b7c220a8f3fcf01cc39e9d0d0649f104d99789f data\minecraft\tags\blocks\wither_immune.json
+79808eeccba21728983c3b0100f9cd05084b7c87 data\minecraft\tags\blocks\candle_cakes.json
+7b7c220a8f3fcf01cc39e9d0d0649f104d99789f data\candlelight\tags\blocks\custom_candles.json
