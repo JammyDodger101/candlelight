@@ -2,9 +2,11 @@ package net.jammydodger101.candlelight.mixin;
 
 import com.ibm.icu.util.Output;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
 import net.minecraft.client.font.UnihexFont;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -12,6 +14,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameMode;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,7 +31,22 @@ public abstract class DeathMixin {
 
     @Inject(method = "respawnPlayer", at = @At("HEAD"))
     private void afterRespawn(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfoReturnable<ServerPlayerEntity> cir) {
-        oldPlayer.setSpawnPoint(ModDimension.CANDLELESS_KEY, new BlockPos(0, 0, 0), 0f, true, false);
+        if(!Boolean.TRUE.equals(PlayerCandleHandler.checkPlayerStatus(oldPlayer))) {
+            oldPlayer.sendMessage(Text.literal("you should be being respawned in the other dim buddy"));
+            oldPlayer.sendMessage(Text.literal("check player status returned: " + PlayerCandleHandler.checkPlayerStatus(oldPlayer)));
+
+            oldPlayer.setSpawnPoint(ModDimension.CANDLELESS_KEY, new BlockPos(0, 5, 0), 0f, true, false);
+        } else if (Boolean.TRUE.equals(PlayerCandleHandler.checkPlayerStatus(oldPlayer))) {
+            oldPlayer.sendMessage(Text.literal("yeah ur all good champ"));
+            oldPlayer.sendMessage(Text.literal("check player status returned: " + PlayerCandleHandler.checkPlayerStatus(oldPlayer)));
+
+            if (oldPlayer.getSpawnPointDimension() == ModDimension.CANDLELESS_KEY) {
+                oldPlayer.setSpawnPoint(World.OVERWORLD, new BlockPos(0, 0, 0), 0f, true, false);
+            }
+
+
+        }
+
     }
 
 }

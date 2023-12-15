@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -61,10 +62,9 @@ public class PlayerCandleBlock
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        PlayerCandleHandler.changeCandleStatus(state.getBlock(), !isLitCandle(state));
         if (player.getAbilities().allowModifyWorld && player.getStackInHand(hand).isEmpty() && state.get(LIT).booleanValue()) {
-            if (!world.isClient()) {
-                player.sendMessage(Text.literal("woweewow"));
-            }
+
 
             CandleBlock.extinguish(player, state, world, pos);
             return ActionResult.success(world.isClient);

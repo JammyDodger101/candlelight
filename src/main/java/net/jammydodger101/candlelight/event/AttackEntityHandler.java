@@ -19,7 +19,7 @@ public class AttackEntityHandler implements AttackEntityCallback {
                                  Entity entity, @Nullable EntityHitResult hitResult) {
 
         if (entity instanceof SheepEntity && !world.isClient() && !player.isSpectator()) {
-            new PlayerCandleHandler().checkCandleStatus(player);
+            //new PlayerCandleHandler().checkCandleStatus(player);
         }
 
         return ActionResult.PASS;

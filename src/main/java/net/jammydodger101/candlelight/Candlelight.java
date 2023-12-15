@@ -7,6 +7,7 @@ import net.jammydodger101.candlelight.block.ModBlocks;
 import net.jammydodger101.candlelight.event.AttackEntityHandler;
 import net.jammydodger101.candlelight.item.ModItemGroups;
 import net.jammydodger101.candlelight.item.ModItems;
+import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,5 +33,7 @@ public class Candlelight implements ModInitializer {
 		AttackEntityCallback.EVENT.register(new AttackEntityHandler());
 
 		ModDimension.register();
+		PlayerCandleHandler.addCandlesToList();
+
 	}
 }
