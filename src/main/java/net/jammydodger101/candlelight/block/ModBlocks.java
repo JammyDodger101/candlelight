@@ -3,6 +3,7 @@ package net.jammydodger101.candlelight.block;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jammydodger101.candlelight.Candlelight;
+import net.jammydodger101.candlelight.block.custom.PlayerCandleBlock;
 import net.jammydodger101.candlelight.item.ModItemGroups;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
@@ -17,7 +18,7 @@ import net.minecraft.block.CandleCakeBlock;
 
 public class ModBlocks {
 
-    public static final Block JAMMY_CANDLE = registerBlock("jammy_candle", new CandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE)));
+    public static final Block JAMMY_CANDLE = registerBlock("jammy_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "JammyDodger101"));
     public static final Block JAMMY_CANDLE_CAKE = registerBlock("jammy_candle_cake", new CandleCakeBlock(JAMMY_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
 
     public static final Block RUBY_BLOCK = registerBlock("ruby_block", new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
@@ -30,6 +31,7 @@ public class ModBlocks {
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
         return Registry.register(Registries.BLOCK, new Identifier(Candlelight.MOD_ID, name), block);
+
     }
 
     private static CandleBlock createCandleBlock(MapColor color) {

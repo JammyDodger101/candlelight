@@ -2,9 +2,12 @@ package net.jammydodger101.candlelight;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.jammydodger101.candlelight.block.ModBlocks;
+import net.jammydodger101.candlelight.event.AttackEntityHandler;
 import net.jammydodger101.candlelight.item.ModItemGroups;
 import net.jammydodger101.candlelight.item.ModItems;
+import net.jammydodger101.candlelight.world.dimension.ModDimension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,5 +28,9 @@ public class Candlelight implements ModInitializer {
 		ModBlocks.registerModBlocks();
 		ModItems.registerModItems();
 		ModItemGroups.registerItemGroups();
+
+		AttackEntityCallback.EVENT.register(new AttackEntityHandler());
+
+		ModDimension.register();
 	}
 }
