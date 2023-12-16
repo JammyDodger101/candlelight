@@ -1,7 +1,10 @@
 {
-  "block.candlelight.jammy_candle" : "Candle - JammyDodger101",
+  "block.candlelight.jammy_candle" : "§bCandle",
+  "block.candlelight.jammy_candle.tooltip" : "JammyDodger101",
 
   "block.candlelight.ruby_block" : "Block of Ruby",
+
+  "item.candlelight.reviver" : "Reviver",
 
   "itemgroup.candlelight" : "Candlelight Group"
 }

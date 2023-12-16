@@ -32,7 +32,7 @@ public abstract class PlayerEffectApplierMixin {
     private void applyEffects(CallbackInfo ci) {
         counter = 0;
         for (Boolean playerTrapped:
-              PlayerCandleHandler.trappedPlayer) {
+              PlayerCandleHandler.trappedPlayerBools) {
             if(playerTrapped) {
                 String playerName = PlayerCandleHandler.candleOwners.get(counter);
                 //if(Objects.equals(playerName, )) {

@@ -1,4 +1,4 @@
-// 1.20.1	2023-12-13T17:43:49.5974327	Candlelight Mod/Model Definitions
+// 1.20.1	2023-12-16T10:52:17.3538409	Candlelight Mod/Model Definitions
 3742e03d237ea636d128c0aa834cea8ab84c689a assets\candlelight\blockstates\jammy_candle.json
 162c825c3b2d53236ee934f522f85942987f3109 assets\candlelight\models\block\jammy_candle_cake_lit.json
 63c9271852e72573ee8bc31ae16f6297f5a7a9ed assets\candlelight\models\block\jammy_candle_four_candles_lit.json
@@ -7,6 +7,7 @@ be67985fda93323450e721c442e6b971376e3515 assets\candlelight\models\block\jammy_c
 992300a15e8a44a916d9731c1a5323c948ac1f14 assets\candlelight\blockstates\ruby_block.json
 bba16fb78f4c1526e3d9cfb21b074607c9f16f71 assets\candlelight\models\block\jammy_candle_three_candles.json
 aa7bcd826c3ac1bce5885e91ea1f22c33d431d3e assets\candlelight\models\block\jammy_candle_two_candles.json
+a6ea4e0b57294dfde134df56cbd442c996a21eec assets\candlelight\models\item\reviver.json
 ab8f3bac62fcd495a8c2644d55d80e34ad7b2f74 assets\candlelight\models\block\jammy_candle_one_candle_lit.json
 2b7ceba932d114c34dbf9efa6bac0e47c59efdd8 assets\candlelight\models\block\jammy_candle_one_candle.json
 0dcb42ab15eec1a38967a4c2ff233bade4da036b assets\candlelight\models\block\jammy_candle_four_candles.json
