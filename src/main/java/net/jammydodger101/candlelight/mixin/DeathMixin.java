@@ -6,6 +6,8 @@ import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
 import net.minecraft.client.font.UnihexFont;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
@@ -27,7 +29,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(PlayerManager.class)
 public abstract class DeathMixin {
 
-    @Shadow @Final private MinecraftServer server;
 
     @Inject(method = "respawnPlayer", at = @At("HEAD"))
     private void afterRespawn(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfoReturnable<ServerPlayerEntity> cir) {
@@ -36,18 +37,19 @@ public abstract class DeathMixin {
             oldPlayer.sendMessage(Text.literal("check player status returned: " + PlayerCandleHandler.checkPlayerStatus(oldPlayer)));
 
             oldPlayer.setSpawnPoint(ModDimension.CANDLELESS_KEY, new BlockPos(0, 5, 0), 0f, true, false);
+            PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, true);
         } else if (Boolean.TRUE.equals(PlayerCandleHandler.checkPlayerStatus(oldPlayer))) {
             oldPlayer.sendMessage(Text.literal("yeah ur all good champ"));
             oldPlayer.sendMessage(Text.literal("check player status returned: " + PlayerCandleHandler.checkPlayerStatus(oldPlayer)));
 
-            if (oldPlayer.getSpawnPointDimension() == ModDimension.CANDLELESS_KEY) {
+            if (oldPlayer.getSpawnPointDimension() == ModDimension.CANDLELESS_KEY ) {
                 oldPlayer.setSpawnPoint(World.OVERWORLD, new BlockPos(0, 0, 0), 0f, true, false);
+                PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
             }
-
+            PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
 
         }
 
     }
-
 }
 

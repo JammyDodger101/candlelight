@@ -11,7 +11,7 @@ public class ModDimension {
 
     public static final RegistryKey<World> CANDLELESS_KEY = RegistryKey.of(RegistryKeys.WORLD,
             new Identifier(Candlelight.MOD_ID, "candleless"));
-    public static final RegistryKey<DimensionType> TEST_DIMENSION_TYPE_KEY = RegistryKey.of(RegistryKeys.DIMENSION_TYPE, CANDLELESS_KEY.getValue());
+    public static final RegistryKey<DimensionType> CANDLELESS_TYPE_KEY = RegistryKey.of(RegistryKeys.DIMENSION_TYPE, CANDLELESS_KEY.getValue());
 
     public static void register() {
         Candlelight.LOGGER.debug("Registering ModDimensions for " + Candlelight.MOD_ID);

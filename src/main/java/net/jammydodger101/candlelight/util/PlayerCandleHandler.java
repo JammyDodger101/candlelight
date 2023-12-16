@@ -15,13 +15,15 @@ public class PlayerCandleHandler {
     public static List<Block> candles = new ArrayList<>();
     public static List<String> candleOwners = new ArrayList<>();
     public static List<Boolean> candleStatus = new ArrayList<>();
+    public static List<Boolean> trappedPlayer = new ArrayList<>();
 
     public static int listPos = 0;
 
     public static void addCandlesToList() {
         candles.add(ModBlocks.JAMMY_CANDLE);
         candleOwners.add(MinecraftClient.getInstance().getSession().getUsername());
-        candleStatus.add(true);
+        candleStatus.add(false);
+        trappedPlayer.add(false);
     }
 
 
@@ -49,6 +51,15 @@ public class PlayerCandleHandler {
             return;
         }
         candleStatus.set(listPos, newStatus);
+    }
+
+    public static void changePlayerTrappedStatus(PlayerEntity player, boolean newStatus) {
+        try {
+            listPos = candleOwners.indexOf(player.getName().getString());
+        } catch (Exception e) {
+            return;
+        }
+        trappedPlayer.set(listPos, newStatus);
     }
 
 

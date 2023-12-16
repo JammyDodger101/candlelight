@@ -6,10 +6,12 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.minecraft.block.*;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -154,4 +156,6 @@ public class PlayerCandleBlock
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         return Block.sideCoversSmallSquare(world, pos.down(), Direction.UP);
     }
+
+
 }
