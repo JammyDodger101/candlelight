@@ -2,13 +2,17 @@ package net.jammydodger101.candlelight.util;
 
 import net.jammydodger101.candlelight.Candlelight;
 import net.jammydodger101.candlelight.block.ModBlocks;
+import net.jammydodger101.candlelight.item.ModItems;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -86,17 +90,28 @@ public class PlayerCandleHandler {
         //trappedPlayerEntities.set(listPos, player);
     }
 
-    public static void reviveEveryone(PlayerEntity user, ServerWorld destination, World world) {
+    public static void reviveEveryone(PlayerEntity user, ServerWorld destination, World world, Hand hand) {
+
+        ItemStack itemStack = user.getStackInHand(hand);
 
         Candlelight.LOGGER.info("Reviving Players");
         ServerWorld overWorld = ((ServerWorld)world).getServer().getWorld(World.OVERWORLD);
         ServerWorld targetWorld = ((ServerWorld)world).getServer().getWorld(ModDimension.CANDLELESS_KEY);
 
+
+
+
         //world.getServer().getPlayerManager().getPlayer()
 
         int listPos = 0;
 
-        if (!trappedPlayerBools.isEmpty()) {
+        if (trappedPlayerBools.contains(true)) {
+
+            user.incrementStat(Stats.USED.getOrCreateStat(ModItems.REVIVER));
+            if(!user.isSpectator()) {
+                itemStack.decrement(1);
+            }
+
             for (Boolean trapped :
                     trappedPlayerBools) {
 

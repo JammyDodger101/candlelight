@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -30,11 +31,17 @@ public class ReviverItem extends Item {
                 return TypedActionResult.fail(itemStack);
             }
 
-            PlayerCandleHandler.reviveEveryone(user, serverWorld, world);
+            PlayerCandleHandler.reviveEveryone(user, serverWorld, world, hand);
             //return TypedActionResult.success(itemStack);
+            user.incrementStat(Stats.USED.getOrCreateStat(this));
+            if(!user.isSpectator()) {
+                itemStack.decrement(1);
+            }
+
         }
 
-        return TypedActionResult.success(itemStack);
+
+        return TypedActionResult.success(itemStack, world.isClient());
 
 
     }
