@@ -5,7 +5,8 @@
 	"mixins": [
 		"ExampleMixin",
 		"DeathMixin",
-		"BreakCandleMixin"
+		"BreakCandleMixin",
+		"PlayerEffectApplierMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

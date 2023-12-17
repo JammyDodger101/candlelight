@@ -22,27 +22,13 @@ import java.util.Objects;
 
 @Mixin(ServerPlayerEntity.class)
 public abstract class PlayerEffectApplierMixin {
-    @Shadow
-    public abstract @Nullable Text getPlayerListName();
 
-    private LivingEntity livingEntity;
 
-    private int counter = 0;
+    @Shadow public abstract ServerWorld getServerWorld();
+
     @Inject(method = "playerTick", at = @At("TAIL"))
     private void applyEffects(CallbackInfo ci) {
-        counter = 0;
-        for (Boolean playerTrapped:
-              PlayerCandleHandler.trappedPlayerBools) {
-            if(playerTrapped) {
-                String playerName = PlayerCandleHandler.candleOwners.get(counter);
-                //if(Objects.equals(playerName, )) {
-                    //MinecraftClient.getInstance().world..addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 99, 1));
 
-                //}
-
-
-            }
-            counter++;
-        }
+        PlayerCandleHandler.applyEffectsToTrappedPlayers(getServerWorld());
     }
 }

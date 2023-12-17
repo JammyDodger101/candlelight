@@ -6,6 +6,10 @@ import net.jammydodger101.candlelight.item.ModItems;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -90,6 +94,37 @@ public class PlayerCandleHandler {
         //trappedPlayerEntities.set(listPos, player);
     }
 
+    public static void applyEffectsToTrappedPlayers(World world) {
+
+        int listPos = 0;
+
+        for (Boolean trapped :
+                trappedPlayerBools) {
+
+            if(trapped!=null) {
+                if (trapped) {
+                    String playerName = candleOwners.get(listPos);
+
+                    ServerPlayerEntity serverPlayer = world.getServer().getPlayerManager().getPlayer(playerName);
+
+                    //serverPlayer.sendMessage(Text.literal("ur being effected"));
+
+                    if (serverPlayer != null) {
+                        if (world.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
+                            if (!serverPlayer.hasStatusEffect(StatusEffects.BLINDNESS)) {
+                                serverPlayer.sendMessage(Text.literal("ur being effected"));
+
+                                serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 999999999 , 2, false, false, false));
+                            }
+                        }
+                    }
+
+                }
+            }
+            listPos++;
+        }
+    }
+
     public static void reviveEveryone(PlayerEntity user, ServerWorld destination, World world, Hand hand) {
 
         ItemStack itemStack = user.getStackInHand(hand);
@@ -122,10 +157,10 @@ public class PlayerCandleHandler {
 
                     if(world.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
                         //serverPlayer.sendMessage(Text.literal("sending you to " + destination.toString()));
-                        serverPlayer.sendMessage(Text.literal(candleStatus.get(listPos).toString()));
-                        serverPlayer.sendMessage(Text.literal(candles.get(listPos).toString()));
-                        serverPlayer.sendMessage(Text.literal(candleOwners.get(listPos).toString()));
-                        serverPlayer.sendMessage(Text.literal(trappedPlayerBools.get(listPos).toString()));
+                        //serverPlayer.sendMessage(Text.literal(candleStatus.get(listPos).toString()));
+                        //serverPlayer.sendMessage(Text.literal(candles.get(listPos).toString()));
+                        //serverPlayer.sendMessage(Text.literal(candleOwners.get(listPos).toString()));
+                        //serverPlayer.sendMessage(Text.literal(trappedPlayerBools.get(listPos).toString()));
 
                         //user.sendMessage(Text.literal("succkess"));
 
@@ -134,6 +169,13 @@ public class PlayerCandleHandler {
                         serverPlayer.fallDistance = 0.0f;
 
                         trappedPlayerBools.set(listPos, false);
+
+                        if (!serverPlayer.hasStatusEffect(StatusEffects.BLINDNESS)) {
+
+                            serverPlayer.removeStatusEffect(StatusEffects.BLINDNESS);
+                        }
+
+
                     }
                     //user.sendMessage(Text.literal("womp"));
 
