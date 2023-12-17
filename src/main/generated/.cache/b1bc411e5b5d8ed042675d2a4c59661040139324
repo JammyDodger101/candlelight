@@ -1,4 +1,6 @@
-// 1.20.1	2023-12-16T10:52:17.355824	Candlelight Mod/Block Loot Tables
+// 1.20.1	2023-12-17T18:28:43.4676292	Candlelight Mod/Block Loot Tables
+1373e9c218442390294288a988c663dbb260f65b data\candlelight\loot_tables\blocks\pom_candle_cake.json
 9a71440c54dd3e14ded107f88b3c01c45dcfd52b data\candlelight\loot_tables\blocks\jammy_candle.json
 5c843bef57478ceac926864f53269229f68deec0 data\candlelight\loot_tables\blocks\jammy_candle_cake.json
 eea3135fee4fcca0107f497f49e1a79fa7883f26 data\candlelight\loot_tables\blocks\ruby_block.json
+f778afaf814c446ac27f956399089a30f9f27ae2 data\candlelight\loot_tables\blocks\pom_candle.json

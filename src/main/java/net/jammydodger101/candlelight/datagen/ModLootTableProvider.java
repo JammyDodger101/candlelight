@@ -13,7 +13,9 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
     public void generate() {
 
         addDrop(ModBlocks.JAMMY_CANDLE);
+        addDrop(ModBlocks.POM_CANDLE);
         addDrop(ModBlocks.JAMMY_CANDLE_CAKE, candleCakeDrops(ModBlocks.JAMMY_CANDLE));
+        addDrop(ModBlocks.POM_CANDLE_CAKE, candleCakeDrops(ModBlocks.POM_CANDLE));
         addDrop(ModBlocks.RUBY_BLOCK);
     }
 }

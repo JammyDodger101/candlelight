@@ -34,9 +34,9 @@ public class ReviverItem extends Item {
             PlayerCandleHandler.reviveEveryone(user, serverWorld, world, hand);
             //return TypedActionResult.success(itemStack);
             user.incrementStat(Stats.USED.getOrCreateStat(this));
-            if(!user.isSpectator()) {
-                itemStack.decrement(1);
-            }
+
+            itemStack.decrement(1);
+
 
         }
 

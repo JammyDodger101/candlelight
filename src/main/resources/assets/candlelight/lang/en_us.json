@@ -1,5 +1,7 @@
 {
   "block.candlelight.jammy_candle" : "§bCandle",
+  "block.candlelight.pom_candle" : "§bCandle",
+
   "block.candlelight.jammy_candle.tooltip" : "JammyDodger101",
 
   "block.candlelight.ruby_block" : "Block of Ruby",

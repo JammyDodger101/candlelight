@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "candlelight:jammy_candle"
+    "candlelight:jammy_candle",
+    "candlelight:pom_candle"
   ]
 }

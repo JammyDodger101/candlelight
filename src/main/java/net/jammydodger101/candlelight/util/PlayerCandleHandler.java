@@ -40,7 +40,8 @@ public class PlayerCandleHandler {
             trappedPlayerBools.add(null);
         }
 
-        listAdder(ModBlocks.JAMMY_CANDLE, MinecraftClient.getInstance().getSession().getUsername(), false, false);
+        listAdder(ModBlocks.JAMMY_CANDLE, "Jammydodger101", false, false);
+        listAdder(ModBlocks.POM_CANDLE, "PomPomDexter", false, false);
 
 
 
@@ -150,32 +151,34 @@ public class PlayerCandleHandler {
             for (Boolean trapped :
                     trappedPlayerBools) {
 
-                if(trapped) {
-                    String playerName = candleOwners.get(listPos);
+                if (trapped != null) {
+                    if (trapped) {
+                        String playerName = candleOwners.get(listPos);
 
-                    ServerPlayerEntity serverPlayer = world.getServer().getPlayerManager().getPlayer(playerName);
+                        ServerPlayerEntity serverPlayer = world.getServer().getPlayerManager().getPlayer(playerName);
 
-                    if(world.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
-                        //serverPlayer.sendMessage(Text.literal("sending you to " + destination.toString()));
-                        //serverPlayer.sendMessage(Text.literal(candleStatus.get(listPos).toString()));
-                        //serverPlayer.sendMessage(Text.literal(candles.get(listPos).toString()));
-                        //serverPlayer.sendMessage(Text.literal(candleOwners.get(listPos).toString()));
-                        //serverPlayer.sendMessage(Text.literal(trappedPlayerBools.get(listPos).toString()));
+                        if (world.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
+                            //serverPlayer.sendMessage(Text.literal("sending you to " + destination.toString()));
+                            //serverPlayer.sendMessage(Text.literal(candleStatus.get(listPos).toString()));
+                            //serverPlayer.sendMessage(Text.literal(candles.get(listPos).toString()));
+                            //serverPlayer.sendMessage(Text.literal(candleOwners.get(listPos).toString()));
+                            //serverPlayer.sendMessage(Text.literal(trappedPlayerBools.get(listPos).toString()));
 
-                        //user.sendMessage(Text.literal("succkess"));
+                            //user.sendMessage(Text.literal("succkess"));
 
-                        serverPlayer.stopRiding();
-                        serverPlayer.teleport(world.getServer().getWorld(World.OVERWORLD),0,1, 0, Set.of(), 0f, 0f);
-                        serverPlayer.fallDistance = 0.0f;
+                            serverPlayer.stopRiding();
+                            serverPlayer.teleport(world.getServer().getWorld(World.OVERWORLD), 0, 1, 0, Set.of(), 0f, 0f);
+                            serverPlayer.fallDistance = 0.0f;
 
-                        trappedPlayerBools.set(listPos, false);
+                            trappedPlayerBools.set(listPos, false);
 
-                        if (!serverPlayer.hasStatusEffect(StatusEffects.BLINDNESS)) {
+                            if (serverPlayer.hasStatusEffect(StatusEffects.BLINDNESS)) {
 
-                            serverPlayer.removeStatusEffect(StatusEffects.BLINDNESS);
+                                serverPlayer.removeStatusEffect(StatusEffects.BLINDNESS);
+                            }
+
+
                         }
-
-
                     }
                     //user.sendMessage(Text.literal("womp"));
 
