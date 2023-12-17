@@ -31,10 +31,10 @@ public class ReviverItem extends Item {
             }
 
             PlayerCandleHandler.reviveEveryone(user, serverWorld, world);
-            return TypedActionResult.success(itemStack);
+            //return TypedActionResult.success(itemStack);
         }
 
-        return TypedActionResult.consume(itemStack);
+        return TypedActionResult.success(itemStack);
 
 
     }

@@ -42,6 +42,7 @@ public abstract class PlayerEffectApplierMixin {
 
 
             }
+            counter++;
         }
     }
 }

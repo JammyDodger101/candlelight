@@ -34,13 +34,13 @@ public abstract class DeathMixin {
     private void afterRespawn(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfoReturnable<ServerPlayerEntity> cir) {
         if(!Boolean.TRUE.equals(PlayerCandleHandler.checkPlayerStatus(oldPlayer))) {
             oldPlayer.sendMessage(Text.literal("you should be being respawned in the other dim buddy"));
-            oldPlayer.sendMessage(Text.literal("check player status returned: " + PlayerCandleHandler.checkPlayerStatus(oldPlayer)));
+            //oldPlayer.sendMessage(Text.literal("check player status returned: " + PlayerCandleHandler.checkPlayerStatus(oldPlayer)));
 
             oldPlayer.setSpawnPoint(ModDimension.CANDLELESS_KEY, new BlockPos(0, 5, 0), 0f, true, false);
             PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, true);
         } else if (Boolean.TRUE.equals(PlayerCandleHandler.checkPlayerStatus(oldPlayer))) {
             oldPlayer.sendMessage(Text.literal("yeah ur all good champ"));
-            oldPlayer.sendMessage(Text.literal("check player status returned: " + PlayerCandleHandler.checkPlayerStatus(oldPlayer)));
+            //oldPlayer.sendMessage(Text.literal("check player status returned: " + PlayerCandleHandler.checkPlayerStatus(oldPlayer)));
 
             if (oldPlayer.getSpawnPointDimension() == ModDimension.CANDLELESS_KEY ) {
                 oldPlayer.setSpawnPoint(World.OVERWORLD, new BlockPos(0, 0, 0), 0f, true, false);
