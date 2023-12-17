@@ -26,11 +26,10 @@ public class BreakCandleMixin{
     @Inject(method = "onStacksDropped", at = @At("HEAD"))
     public void checkIfCandleBroke(BlockState state, ServerWorld world, BlockPos pos, ItemStack tool, boolean dropExperience, CallbackInfo ci) {
         if(!world.isClient()){
-            //PlayerEntity player = world.getRandomAlivePlayer();
-            //player.sendMessage(Text.literal("never break that block ever again liberal"));
+
 
             if (state.isIn(ModTags.Blocks.CUSTOM_CANDLES)) {
-                //player.sendMessage(Text.literal("candle broken"));
+
                 for (Block candleBlock :
                         PlayerCandleHandler.candles) {
                     if (state.isOf(candleBlock)) {
