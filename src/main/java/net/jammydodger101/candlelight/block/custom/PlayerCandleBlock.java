@@ -35,6 +35,7 @@ import java.util.List;
 
 public class PlayerCandleBlock
         extends CandleBlock
+
         implements Waterloggable {
 
     public static final int field_31050 = 1;
@@ -73,6 +74,9 @@ public class PlayerCandleBlock
         }
         return ActionResult.PASS;
     }
+
+
+
 
     @Override
     public boolean canReplace(BlockState state, ItemPlacementContext context) {
