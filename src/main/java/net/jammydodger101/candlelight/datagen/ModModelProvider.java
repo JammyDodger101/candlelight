@@ -19,6 +19,8 @@ public class ModModelProvider extends FabricModelProvider {
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         blockStateModelGenerator.registerCandle(ModBlocks.JAMMY_CANDLE, ModBlocks.JAMMY_CANDLE_CAKE);
         blockStateModelGenerator.registerCandle(ModBlocks.POM_CANDLE, ModBlocks.POM_CANDLE_CAKE);
+        blockStateModelGenerator.registerCandle(ModBlocks.SPAM_CANDLE, ModBlocks.SPAM_CANDLE_CAKE);
+        blockStateModelGenerator.registerCandle(ModBlocks.CRAY_CANDLE, ModBlocks.CRAY_CANDLE_CAKE);
 
         BlockStateModelGenerator.BlockTexturePool rubyPool = blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.RUBY_BLOCK);
 

@@ -33,9 +33,7 @@ public class ReviverItem extends Item {
 
             PlayerCandleHandler.reviveEveryone(user, serverWorld, world, hand);
             //return TypedActionResult.success(itemStack);
-            user.incrementStat(Stats.USED.getOrCreateStat(this));
 
-            itemStack.decrement(1);
 
 
         }

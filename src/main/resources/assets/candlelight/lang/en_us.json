@@ -1,6 +1,8 @@
 {
   "block.candlelight.jammy_candle" : "§bCandle",
   "block.candlelight.pom_candle" : "§bCandle",
+  "block.candlelight.spam_candle" : "§bCandle",
+  "block.candlelight.cray_candle" : "§bCandle",
 
   "block.candlelight.jammy_candle.tooltip" : "JammyDodger101",
 

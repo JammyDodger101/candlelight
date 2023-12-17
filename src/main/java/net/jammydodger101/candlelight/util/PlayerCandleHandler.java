@@ -42,6 +42,8 @@ public class PlayerCandleHandler {
 
         listAdder(ModBlocks.JAMMY_CANDLE, "Jammydodger101", false, false);
         listAdder(ModBlocks.POM_CANDLE, "PomPomDexter", false, false);
+        listAdder(ModBlocks.SPAM_CANDLE, "Spamhash", false, false);
+        listAdder(ModBlocks.CRAY_CANDLE, "CrayZink", false, false);
 
 
 
@@ -144,9 +146,9 @@ public class PlayerCandleHandler {
         if (trappedPlayerBools.contains(true)) {
 
             user.incrementStat(Stats.USED.getOrCreateStat(ModItems.REVIVER));
-            if(!user.isSpectator()) {
-                itemStack.decrement(1);
-            }
+
+            itemStack.decrement(1);
+
 
             for (Boolean trapped :
                     trappedPlayerBools) {
@@ -167,7 +169,7 @@ public class PlayerCandleHandler {
                             //user.sendMessage(Text.literal("succkess"));
 
                             serverPlayer.stopRiding();
-                            serverPlayer.teleport(world.getServer().getWorld(World.OVERWORLD), 0, 1, 0, Set.of(), 0f, 0f);
+                            serverPlayer.teleport(world.getServer().getWorld(World.OVERWORLD), 58, 112, 200, Set.of(), 0f, 0f);
                             serverPlayer.fallDistance = 0.0f;
 
                             trappedPlayerBools.set(listPos, false);

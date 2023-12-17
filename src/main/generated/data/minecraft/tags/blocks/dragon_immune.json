@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "candlelight:jammy_candle",
-    "candlelight:pom_candle"
+    "candlelight:pom_candle",
+    "candlelight:spam_candle",
+    "candlelight:cray_candle"
   ]
 }
