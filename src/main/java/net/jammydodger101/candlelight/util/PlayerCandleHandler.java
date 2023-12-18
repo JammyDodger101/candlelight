@@ -128,28 +128,21 @@ public class PlayerCandleHandler {
         }
     }
 
-    public static void reviveEveryone(PlayerEntity user, ServerWorld destination, World world, Hand hand) {
+    public static void reviveEveryone(PlayerEntity user, World world, Hand hand, ServerWorld serverWorld) {
 
         ItemStack itemStack = user.getStackInHand(hand);
-
-
-        ServerWorld overWorld = ((ServerWorld)world).getServer().getWorld(World.OVERWORLD);
-        ServerWorld targetWorld = ((ServerWorld)world).getServer().getWorld(ModDimension.CANDLELESS_KEY);
-
-
-
-
-        //world.getServer().getPlayerManager().getPlayer()
 
         int listPos = 0;
 
         if (trappedPlayerBools.contains(true)) {
 
-            user.incrementStat(Stats.USED.getOrCreateStat(ModItems.REVIVER));
-            if(!user.isSpectator()) {
-                itemStack.decrement(1);
-            }
+            user.sendMessage(Text.literal(itemStack.getItem().getName().toString()));
+            user.sendMessage(Text.literal(hand.name()));
+            user.sendMessage(user.getStackInHand(hand).getName());
+
+
             user.sendMessage(Text.literal("decrement ><"));
+
 
             Candlelight.LOGGER.info("Reviving Players");
 
@@ -160,29 +153,24 @@ public class PlayerCandleHandler {
                     if (trapped) {
                         String playerName = candleOwners.get(listPos);
 
-                        ServerPlayerEntity serverPlayer = world.getServer().getPlayerManager().getPlayer(playerName);
+                        ServerPlayerEntity serverPlayer = serverWorld.getServer().getPlayerManager().getPlayer(playerName);
 
-                        if (world.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
-                            //serverPlayer.sendMessage(Text.literal("sending you to " + destination.toString()));
-                            //serverPlayer.sendMessage(Text.literal(candleStatus.get(listPos).toString()));
-                            //serverPlayer.sendMessage(Text.literal(candles.get(listPos).toString()));
-                            //serverPlayer.sendMessage(Text.literal(candleOwners.get(listPos).toString()));
-                            //serverPlayer.sendMessage(Text.literal(trappedPlayerBools.get(listPos).toString()));
+                        if (serverPlayer != null) {
+                            if (serverWorld.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
 
-                            //user.sendMessage(Text.literal("succkess"));
+                                serverPlayer.stopRiding();
+                                serverPlayer.teleport(serverWorld, 58, 112, 200, Set.of(), 0f, 0f);
+                                serverPlayer.fallDistance = 0.0f;
 
-                            serverPlayer.stopRiding();
-                            serverPlayer.teleport(world.getServer().getWorld(World.OVERWORLD), 58, 112, 200, Set.of(), 0f, 0f);
-                            serverPlayer.fallDistance = 0.0f;
+                                trappedPlayerBools.set(listPos, false);
 
-                            trappedPlayerBools.set(listPos, false);
+                                if (serverPlayer.hasStatusEffect(StatusEffects.BLINDNESS)) {
 
-                            if (serverPlayer.hasStatusEffect(StatusEffects.BLINDNESS)) {
+                                    serverPlayer.removeStatusEffect(StatusEffects.BLINDNESS);
+                                }
 
-                                serverPlayer.removeStatusEffect(StatusEffects.BLINDNESS);
+
                             }
-
-
                         }
                     }
                     //user.sendMessage(Text.literal("womp"));
@@ -191,6 +179,9 @@ public class PlayerCandleHandler {
                 listPos++;
 
             }
+            user.sendMessage(Text.literal(itemStack.getItem().getName().toString()));
+            user.sendMessage(Text.literal(hand.name()));
+            user.sendMessage(user.getStackInHand(hand).getName());
         }
 
 

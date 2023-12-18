@@ -1,5 +1,6 @@
 package net.jammydodger101.candlelight.item.custom;
 
+import net.jammydodger101.candlelight.item.ModItems;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.client.report.ReporterEnvironment;
@@ -30,17 +31,28 @@ public class ReviverItem extends Item {
             if (serverWorld == null) {
                 return TypedActionResult.fail(itemStack);
             }
-
-            PlayerCandleHandler.reviveEveryone(user, serverWorld, world, hand);
+            serverWorld.getServer().getPlayerManager().getPlayer(user.getEntityName());
+            PlayerCandleHandler.reviveEveryone(user, world, hand, serverWorld);
             //return TypedActionResult.success(itemStack);
 
-
+            user.incrementStat(Stats.USED.getOrCreateStat(this));
+            if (!user.isSpectator()) {
+                itemStack.decrement(1);
+            }
+            return TypedActionResult.success(itemStack, world.isClient());
 
         }
 
 
-        return TypedActionResult.success(itemStack, world.isClient());
 
 
+        return TypedActionResult.fail(itemStack);
+
+
+    }
+
+    @Override
+    public boolean hasGlint(ItemStack stack) {
+        return true;
     }
 }
