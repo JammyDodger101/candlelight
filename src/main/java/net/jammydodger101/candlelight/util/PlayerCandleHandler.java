@@ -65,8 +65,8 @@ public class PlayerCandleHandler {
 
         for (Block candle : candles
              ) {
-            player.sendMessage(Text.literal(player.getName().getString()));
-            player.sendMessage(Text.literal(candleOwners.get(candles.indexOf(candle))));
+            //player.sendMessage(Text.literal(player.getName().getString()));
+            //player.sendMessage(Text.literal(candleOwners.get(candles.indexOf(candle))));
             if (Objects.equals(candleOwners.get(candles.indexOf(candle)), player.getName().getString())) {
                 return candleStatus.get(candles.indexOf(candle));
             }
@@ -115,7 +115,7 @@ public class PlayerCandleHandler {
                     if (serverPlayer != null) {
                         if (world.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
                             if (!serverPlayer.hasStatusEffect(StatusEffects.BLINDNESS)) {
-                                serverPlayer.sendMessage(Text.literal("ur being effected"));
+                                //serverPlayer.sendMessage(Text.literal("ur being effected"));
 
                                 serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 999999999 , 2, false, false, false));
                             }
@@ -136,12 +136,12 @@ public class PlayerCandleHandler {
 
         if (trappedPlayerBools.contains(true)) {
 
-            user.sendMessage(Text.literal(itemStack.getItem().getName().toString()));
-            user.sendMessage(Text.literal(hand.name()));
-            user.sendMessage(user.getStackInHand(hand).getName());
+            //user.sendMessage(Text.literal(itemStack.getItem().getName().toString()));
+            //user.sendMessage(Text.literal(hand.name()));
+            //user.sendMessage(user.getStackInHand(hand).getName());
 
 
-            user.sendMessage(Text.literal("decrement ><"));
+            //user.sendMessage(Text.literal("decrement ><"));
 
 
             Candlelight.LOGGER.info("Reviving Players");
@@ -179,9 +179,9 @@ public class PlayerCandleHandler {
                 listPos++;
 
             }
-            user.sendMessage(Text.literal(itemStack.getItem().getName().toString()));
-            user.sendMessage(Text.literal(hand.name()));
-            user.sendMessage(user.getStackInHand(hand).getName());
+            //user.sendMessage(Text.literal(itemStack.getItem().getName().toString()));
+            //user.sendMessage(Text.literal(hand.name()));
+            //user.sendMessage(user.getStackInHand(hand).getName());
         }
 
 
