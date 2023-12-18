@@ -40,7 +40,7 @@ public class PlayerCandleHandler {
             trappedPlayerBools.add(null);
         }
 
-        listAdder(ModBlocks.JAMMY_CANDLE, "Jammydodger101", false, false);
+        listAdder(ModBlocks.JAMMY_CANDLE, MinecraftClient.getInstance().getSession().getUsername(), false, false);
         listAdder(ModBlocks.POM_CANDLE, "PomPomDexter", false, false);
         listAdder(ModBlocks.SPAM_CANDLE, "Spamhash", false, false);
         listAdder(ModBlocks.CRAY_CANDLE, "CrayZink", false, false);
@@ -132,7 +132,7 @@ public class PlayerCandleHandler {
 
         ItemStack itemStack = user.getStackInHand(hand);
 
-        Candlelight.LOGGER.info("Reviving Players");
+
         ServerWorld overWorld = ((ServerWorld)world).getServer().getWorld(World.OVERWORLD);
         ServerWorld targetWorld = ((ServerWorld)world).getServer().getWorld(ModDimension.CANDLELESS_KEY);
 
@@ -146,9 +146,12 @@ public class PlayerCandleHandler {
         if (trappedPlayerBools.contains(true)) {
 
             user.incrementStat(Stats.USED.getOrCreateStat(ModItems.REVIVER));
+            if(!user.isSpectator()) {
+                itemStack.decrement(1);
+            }
+            user.sendMessage(Text.literal("decrement ><"));
 
-            itemStack.decrement(1);
-
+            Candlelight.LOGGER.info("Reviving Players");
 
             for (Boolean trapped :
                     trappedPlayerBools) {
