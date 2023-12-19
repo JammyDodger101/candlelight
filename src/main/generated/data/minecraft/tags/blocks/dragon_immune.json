@@ -6,6 +6,9 @@
     "candlelight:spam_candle",
     "candlelight:em_candle",
     "candlelight:croc_candle",
+    "candlelight:cat_candle",
+    "candlelight:lean_candle",
+    "candlelight:deluxe_candle",
     "candlelight:cray_candle"
   ]
 }

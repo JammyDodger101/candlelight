@@ -24,12 +24,18 @@ public class ModBlocks {
     public static final Block CRAY_CANDLE = registerBlock("cray_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "CrayZink"));
     public static final Block EM_CANDLE = registerBlock("em_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "CrayZink"));
     public static final Block CROC_CANDLE = registerBlock("croc_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "CrockSmarter"));
+    public static final Block CAT_CANDLE = registerBlock("cat_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "a_random_cat"));
+    public static final Block LEAN_CANDLE = registerBlock("lean_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "LeanTheLiquid"));
+    public static final Block DELUXE_CANDLE = registerBlock("deluxe_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "LeanTheLiquid"));
     public static final Block JAMMY_CANDLE_CAKE = registerBlock("jammy_candle_cake", new CandleCakeBlock(JAMMY_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
     public static final Block POM_CANDLE_CAKE = registerBlock("pom_candle_cake", new CandleCakeBlock(POM_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
     public static final Block SPAM_CANDLE_CAKE = registerBlock("spam_candle_cake", new CandleCakeBlock(SPAM_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
     public static final Block CRAY_CANDLE_CAKE = registerBlock("cray_candle_cake", new CandleCakeBlock(CRAY_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
     public static final Block EM_CANDLE_CAKE = registerBlock("em_candle_cake", new CandleCakeBlock(EM_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
     public static final Block CROC_CANDLE_CAKE = registerBlock("croc_candle_cake", new CandleCakeBlock(CROC_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
+    public static final Block CAT_CANDLE_CAKE = registerBlock("cat_candle_cake", new CandleCakeBlock(CAT_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
+    public static final Block LEAN_CANDLE_CAKE = registerBlock("lean_candle_cake", new CandleCakeBlock(LEAN_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
+    public static final Block DELUXE_CANDLE_CAKE = registerBlock("deluxe_candle_cake", new CandleCakeBlock(DELUXE_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
 
     public static final Block RUBY_BLOCK = registerBlock("ruby_block", new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
 
