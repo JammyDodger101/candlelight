@@ -1,8 +1,10 @@
 {
-  "block.candlelight.jammy_candle" : "§bCandle",
-  "block.candlelight.pom_candle" : "§bCandle",
-  "block.candlelight.spam_candle" : "§bCandle",
-  "block.candlelight.cray_candle" : "§bCandle",
+  "block.candlelight.jammy_candle" : "§bCandle - Jammydodger101",
+  "block.candlelight.pom_candle" : "§bCandle - PomPomDexter",
+  "block.candlelight.spam_candle" : "§bCandle - Spamhash",
+  "block.candlelight.cray_candle" : "§bCandle - CrayZink",
+  "block.candlelight.em_candle" : "§bCandle - Longpotter",
+  "block.candlelight.croc_candle" : "§bCandle - CrockSmarter",
 
   "block.candlelight.jammy_candle.tooltip" : "JammyDodger101",
 

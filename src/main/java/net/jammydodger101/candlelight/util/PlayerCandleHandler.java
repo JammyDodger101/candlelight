@@ -44,9 +44,8 @@ public class PlayerCandleHandler {
         listAdder(ModBlocks.POM_CANDLE, "PomPomDexter", false, false);
         listAdder(ModBlocks.SPAM_CANDLE, "Spamhash", false, false);
         listAdder(ModBlocks.CRAY_CANDLE, "CrayZink", false, false);
-
-
-
+        listAdder(ModBlocks.EM_CANDLE, "Longpotter", false, false);
+        listAdder(ModBlocks.CROC_CANDLE, "CrockSmarter", false, false);
     }
 
     public static void listAdder(Block block, String playerName, Boolean candleStatusBool, Boolean playerTrapped) {

@@ -4,6 +4,8 @@
     "candlelight:jammy_candle",
     "candlelight:pom_candle",
     "candlelight:spam_candle",
+    "candlelight:em_candle",
+    "candlelight:croc_candle",
     "candlelight:cray_candle"
   ]
 }

@@ -18,14 +18,20 @@ public class ModItemGroups {
         entries.add(ModBlocks.POM_CANDLE_CAKE);
         entries.add(ModBlocks.SPAM_CANDLE_CAKE);
         entries.add(ModBlocks.CRAY_CANDLE_CAKE);
+        entries.add(ModBlocks.EM_CANDLE_CAKE);
+        entries.add(ModBlocks.CROC_CANDLE_CAKE);
         entries.add(ModBlocks.JAMMY_CANDLE);
         entries.add(ModBlocks.POM_CANDLE);
         entries.add(ModBlocks.SPAM_CANDLE);
         entries.add(ModBlocks.CRAY_CANDLE);
+        entries.add(ModBlocks.EM_CANDLE);
+        entries.add(ModBlocks.CROC_CANDLE);
         entries.add(ModItems.REVIVER);
     }).build());
 
     public static void registerItemGroups() {
         Candlelight.LOGGER.info("Registering Item Groups for " + Candlelight.MOD_ID);
     }
+
+
 }
