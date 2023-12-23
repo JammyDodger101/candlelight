@@ -26,6 +26,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Objects;
+
 @Mixin(PlayerManager.class)
 public abstract class DeathMixin {
 
@@ -33,10 +35,10 @@ public abstract class DeathMixin {
     @Inject(method = "respawnPlayer", at = @At("HEAD"))
     private void afterRespawn(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfoReturnable<ServerPlayerEntity> cir) {
 
-            if(!Boolean.TRUE.equals(PlayerCandleHandler.checkPlayerStatus(oldPlayer))) {
+            if(Boolean.TRUE.equals(PlayerCandleHandler.checkPlayerStatus(oldPlayer))) {
 
-                if(PlayerCandleHandler.checkPlayerStatus(oldPlayer)) {
-                    if (oldPlayer.getSpawnPointDimension() == ModDimension.CANDLELESS_KEY ) {
+                if (Objects.equals(PlayerCandleHandler.checkPlayerStatus(oldPlayer), true)) {
+                    if (oldPlayer.getSpawnPointDimension() == ModDimension.CANDLELESS_KEY) {
                         oldPlayer.setSpawnPoint(World.OVERWORLD, new BlockPos(0, 0, 0), 0f, true, false);
                         PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
                     }
@@ -50,15 +52,7 @@ public abstract class DeathMixin {
                 //oldPlayer.sendMessage(Text.literal("check player status returned: " + PlayerCandleHandler.checkPlayerStatus(oldPlayer)));
 
 
-            } else if (Boolean.TRUE.equals(PlayerCandleHandler.checkPlayerStatus(oldPlayer))) {
-                //oldPlayer.sendMessage(Text.literal("yeah ur all good champ"));
-                //oldPlayer.sendMessage(Text.literal("check player status returned: " + PlayerCandleHandler.checkPlayerStatus(oldPlayer)));
-
-
-
             }
-
-
 
     }
 }
