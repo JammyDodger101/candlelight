@@ -40,7 +40,7 @@ public class PlayerCandleHandler {
             trappedPlayerBools.add(null);
         }
 
-        listAdder(ModBlocks.JAMMY_CANDLE, "Jammydodger101", false, false);
+        listAdder(ModBlocks.JAMMY_CANDLE, MinecraftClient.getInstance().getSession().getUsername(), false, false);
         listAdder(ModBlocks.POM_CANDLE, "PomPomDexter", false, false);
         listAdder(ModBlocks.SPAM_CANDLE, "Spamhash", false, false);
         listAdder(ModBlocks.CRAY_CANDLE, "CrayZink", false, false);

@@ -32,23 +32,33 @@ public abstract class DeathMixin {
 
     @Inject(method = "respawnPlayer", at = @At("HEAD"))
     private void afterRespawn(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfoReturnable<ServerPlayerEntity> cir) {
-        if(!Boolean.TRUE.equals(PlayerCandleHandler.checkPlayerStatus(oldPlayer))) {
-            //oldPlayer.sendMessage(Text.literal("you should be being respawned in the other dim buddy"));
-            //oldPlayer.sendMessage(Text.literal("check player status returned: " + PlayerCandleHandler.checkPlayerStatus(oldPlayer)));
 
-            oldPlayer.setSpawnPoint(ModDimension.CANDLELESS_KEY, new BlockPos(0, 5, 0), 0f, true, false);
-            PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, true);
-        } else if (Boolean.TRUE.equals(PlayerCandleHandler.checkPlayerStatus(oldPlayer))) {
-            //oldPlayer.sendMessage(Text.literal("yeah ur all good champ"));
-            //oldPlayer.sendMessage(Text.literal("check player status returned: " + PlayerCandleHandler.checkPlayerStatus(oldPlayer)));
+            if(!Boolean.TRUE.equals(PlayerCandleHandler.checkPlayerStatus(oldPlayer))) {
 
-            if (oldPlayer.getSpawnPointDimension() == ModDimension.CANDLELESS_KEY ) {
-                oldPlayer.setSpawnPoint(World.OVERWORLD, new BlockPos(0, 0, 0), 0f, true, false);
-                PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
+                if(PlayerCandleHandler.checkPlayerStatus(oldPlayer)) {
+                    if (oldPlayer.getSpawnPointDimension() == ModDimension.CANDLELESS_KEY ) {
+                        oldPlayer.setSpawnPoint(World.OVERWORLD, new BlockPos(0, 0, 0), 0f, true, false);
+                        PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
+                    }
+                    PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
+                } else {
+                    oldPlayer.setSpawnPoint(ModDimension.CANDLELESS_KEY, new BlockPos(0, 5, 0), 0f, true, false);
+                    PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, true);
+                }
+
+                //oldPlayer.sendMessage(Text.literal("you should be being respawned in the other dim buddy"));
+                //oldPlayer.sendMessage(Text.literal("check player status returned: " + PlayerCandleHandler.checkPlayerStatus(oldPlayer)));
+
+
+            } else if (Boolean.TRUE.equals(PlayerCandleHandler.checkPlayerStatus(oldPlayer))) {
+                //oldPlayer.sendMessage(Text.literal("yeah ur all good champ"));
+                //oldPlayer.sendMessage(Text.literal("check player status returned: " + PlayerCandleHandler.checkPlayerStatus(oldPlayer)));
+
+
+
             }
-            PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
 
-        }
+
 
     }
 }
