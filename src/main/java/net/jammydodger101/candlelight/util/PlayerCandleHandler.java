@@ -76,6 +76,22 @@ public class PlayerCandleHandler {
         return null;
     }
 
+    public static Boolean checkPlayerStatusCommand(String playerName) {
+        //player.sendMessage(Text.literal("searching"));
+        //player.sendMessage(Text.literal(player.getName().getString()));
+
+
+        for (Block candle : candles
+        ) {
+            //player.sendMessage(Text.literal(player.getName().getString()));
+            //player.sendMessage(Text.literal(candleOwners.get(candles.indexOf(candle))));
+            if (Objects.equals(candleOwners.get(candles.indexOf(candle)), playerName)) {
+                return candleStatus.get(candles.indexOf(candle));
+            }
+        }
+        return null;
+    }
+
     public static void changeCandleStatus(Block candleBlock, boolean newStatus) {
         try {
             listPos = candles.indexOf(candleBlock);

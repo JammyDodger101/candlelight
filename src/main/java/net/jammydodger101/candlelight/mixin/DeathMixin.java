@@ -35,9 +35,9 @@ public abstract class DeathMixin {
     @Inject(method = "respawnPlayer", at = @At("HEAD"))
     private void afterRespawn(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfoReturnable<ServerPlayerEntity> cir) {
 
-            if(Boolean.TRUE.equals(PlayerCandleHandler.checkPlayerStatus(oldPlayer))) {
+            if(PlayerCandleHandler.checkPlayerStatus(oldPlayer) != null) {
 
-                if (Objects.equals(PlayerCandleHandler.checkPlayerStatus(oldPlayer), true)) {
+                if (PlayerCandleHandler.checkPlayerStatus(oldPlayer) == Boolean.TRUE) {
                     if (oldPlayer.getSpawnPointDimension() == ModDimension.CANDLELESS_KEY) {
                         oldPlayer.setSpawnPoint(World.OVERWORLD, new BlockPos(0, 0, 0), 0f, true, false);
                         PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
