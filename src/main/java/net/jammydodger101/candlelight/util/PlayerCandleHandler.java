@@ -12,6 +12,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
@@ -40,7 +41,7 @@ public class PlayerCandleHandler {
             trappedPlayerBools.add(null);
         }
 
-        listAdder(ModBlocks.JAMMY_CANDLE, "Jammydodger101", false, false);
+        listAdder(ModBlocks.JAMMY_CANDLE, MinecraftClient.getInstance().getSession().getUsername(), false, false);
         listAdder(ModBlocks.POM_CANDLE, "PomPomDexter", false, false);
         listAdder(ModBlocks.SPAM_CANDLE, "Spamhash", false, false);
         listAdder(ModBlocks.CRAY_CANDLE, "CrayZink", false, false);
@@ -204,6 +205,52 @@ public class PlayerCandleHandler {
 
 
 
+    }
+
+    public static void reviveCommand(ServerWorld serverWorld) {
+        int listPos = 0;
+
+        if (trappedPlayerBools.contains(true)) {
+
+            Candlelight.LOGGER.info("Reviving Players");
+
+            for (Boolean trapped :
+                    trappedPlayerBools) {
+
+                if (trapped != null) {
+                    if (trapped) {
+                        String playerName = candleOwners.get(listPos);
+
+                        ServerPlayerEntity serverPlayer = serverWorld.getServer().getPlayerManager().getPlayer(playerName);
+
+                        if (serverPlayer != null) {
+                            if (serverWorld.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
+
+                                serverPlayer.stopRiding();
+                                serverPlayer.teleport(serverWorld.getServer().getOverworld(), 58, 112, 200, Set.of(), 0f, 0f);
+                                serverPlayer.fallDistance = 0.0f;
+
+                                trappedPlayerBools.set(listPos, false);
+
+                                if (serverPlayer.hasStatusEffect(StatusEffects.BLINDNESS)) {
+
+                                    serverPlayer.removeStatusEffect(StatusEffects.BLINDNESS);
+                                }
+
+
+                            }
+                        }
+                    }
+                    //user.sendMessage(Text.literal("womp"));
+
+                }
+                listPos++;
+
+            }
+            //user.sendMessage(Text.literal(itemStack.getItem().getName().toString()));
+            //user.sendMessage(Text.literal(hand.name()));
+            //user.sendMessage(user.getStackInHand(hand).getName());
+        }
     }
 
 }
