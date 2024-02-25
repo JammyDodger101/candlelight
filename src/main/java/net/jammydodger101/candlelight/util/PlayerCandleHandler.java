@@ -49,7 +49,7 @@ public class PlayerCandleHandler {
         listAdder(ModBlocks.CROC_CANDLE, "CrockSmarter", false, false);
         listAdder(ModBlocks.CAT_CANDLE, "a_random_cat", false, false);
         listAdder(ModBlocks.LEAN_CANDLE, "LeanTheLiquid", false, false);
-        listAdder(ModBlocks.DELUXE_CANDLE, "RealDeluxe", false, false);
+        //listAdder(ModBlocks.DELUXE_CANDLE, "RealDeluxe", false, false);
     }
 
     public static void listAdder(Block block, String playerName, Boolean candleStatusBool, Boolean playerTrapped) {
