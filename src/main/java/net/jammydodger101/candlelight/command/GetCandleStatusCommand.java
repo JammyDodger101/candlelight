@@ -25,13 +25,13 @@ public class GetCandleStatusCommand {
         Boolean candleStatus = PlayerCandleHandler.checkPlayerStatusCommand(id);
         if (candleStatus != null) {
             if (candleStatus == Boolean.TRUE) {
-                player.sendMessage(Text.literal("candle is lit"));
+                player.sendMessage(Text.literal("Candle is lit"));
             } else {
-                player.sendMessage(Text.literal("candle is NOT lit"));
+                player.sendMessage(Text.literal("Candle is NOT lit"));
             }
             return 1;
         }
-        player.sendMessage(Text.literal("player does not exist"));
+        player.sendMessage(Text.literal("Player does not exist (check capitalisation?)"));
         return -1;
     }
 }
