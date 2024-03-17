@@ -12,7 +12,10 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
@@ -25,15 +28,18 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import org.spongepowered.asm.mixin.injection.Inject;
 
 import java.util.List;
 
 public class PlayerCandleBlock
+
         extends CandleBlock
 
         implements Waterloggable {
@@ -44,6 +50,7 @@ public class PlayerCandleBlock
     public static final BooleanProperty LIT = AbstractCandleBlock.LIT;
     private static final VoxelShape ONE_CANDLE_SHAPE = Block.createCuboidShape(7.0, 0.0, 7.0, 9.0, 6.0, 9.0);
 
+    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public String PLAYER_NAME = null;
 
 
@@ -65,13 +72,18 @@ public class PlayerCandleBlock
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        PlayerCandleHandler.changeCandleStatus(state.getBlock(), !isLitCandle(state));
+
         if (player.getAbilities().allowModifyWorld && player.getStackInHand(hand).isEmpty() && state.get(LIT).booleanValue()) {
 
 
             CandleBlock.extinguish(player, state, world, pos);
             return ActionResult.success(world.isClient);
-        }
+        } //else if (player.getAbilities().allowModifyWorld && player.getStackInHand(hand).getItem(). && state.get(LIT).booleanValue()) {
+
+        //}
+
+
+
         return ActionResult.PASS;
     }
 
@@ -130,6 +142,7 @@ public class PlayerCandleBlock
         }
         BlockState blockState = (BlockState)state.with(WATERLOGGED, true);
         if (state.get(LIT).booleanValue()) {
+            PlayerCandleHandler.changeCandleStatus(state.getBlock(), !isLitCandle(state));
             CandleBlock.extinguish(null, blockState, world, pos);
         } else {
             world.setBlockState(pos, blockState, Block.NOTIFY_ALL);
@@ -161,5 +174,27 @@ public class PlayerCandleBlock
         return Block.sideCoversSmallSquare(world, pos.down(), Direction.UP);
     }
 
+    @Override
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+
+        PlayerCandleHandler.changeCandleStatus(state.getBlock(), state.get(LIT).booleanValue());
+        if (!state.get(LIT).booleanValue()) {
+            return;
+        }
+
+        this.getParticleOffsets(state).forEach(offset -> PlayerCandleBlock.spawnCandleParticles(world, offset.add(pos.getX(), pos.getY(), pos.getZ()), random));
+    }
+
+
+    public static void spawnCandleParticles(World world, Vec3d vec3d, Random random) {
+        float f = random.nextFloat();
+        if (f < 0.3f) {
+            world.addParticle(ParticleTypes.END_ROD, vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, 0.0);
+            if (f < 0.17f) {
+                world.playSound(vec3d.x + 0.5, vec3d.y + 0.5, vec3d.z + 0.5, SoundEvents.BLOCK_CANDLE_AMBIENT, SoundCategory.BLOCKS, 1.0f + random.nextFloat(), random.nextFloat() * 0.7f + 0.3f, false);
+            }
+        }
+        world.addParticle(ParticleTypes.EXPLOSION, vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, 0.0);
+    }
 
 }

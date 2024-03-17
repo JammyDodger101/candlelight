@@ -11,6 +11,7 @@ import net.minecraft.server.command.ServerCommandSource;
 public class RevivePlayersCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("revive")
+                    .requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(2))
                     .executes(RevivePlayersCommand::run));
 
     }

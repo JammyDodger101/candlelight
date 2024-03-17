@@ -13,14 +13,17 @@ import net.minecraft.text.Text;
 public class GetCandleStatusCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("candleStatus")
+                .requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(2))
                 .then(CommandManager.argument("playerName", StringArgumentType.string())
                         .executes(GetCandleStatusCommand::run)));
 
     }
 
     private static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+
         ServerPlayerEntity player = context.getSource().getPlayer();
         String id = StringArgumentType.getString(context, "playerName");
+
 
         Boolean candleStatus = PlayerCandleHandler.checkPlayerStatusCommand(id);
         if (candleStatus != null) {
