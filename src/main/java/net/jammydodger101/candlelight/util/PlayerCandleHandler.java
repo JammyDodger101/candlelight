@@ -21,6 +21,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.spongepowered.include.com.google.gson.Gson;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -36,32 +37,42 @@ public class PlayerCandleHandler {
     //public static List<PlayerEntity> trappedPlayerEntities = new ArrayList<>();
     public static List<Boolean> candleStatus = new ArrayList<>();
     public static List<Boolean> trappedPlayerBools = new ArrayList<>();
+    public static List<List<Double>> candleCoordinates = new ArrayList<>();
+
+    public static List<Double> tempList = new ArrayList<>();
+
 
     public static int listPos = 0;
 
     public static void addCandlesToList() {
         for (int i = 0; i < 20; i++) {
             //trappedPlayerEntities.add(null);
-            trappedPlayerBools.add(null);
+            //if(trappedPlayerBools.get(i) != null) {
+              //  trappedPlayerBools.set(i, null);
+            //}
+
+            //if(candleStatus.get(i) != null) {
+              //  candleStatus.set(i, null);
+            //}
         }
 
-        candles.clear();
-        candleOwners.clear();
-        candleStatus.clear();
-        trappedPlayerBools.clear();
+        //candles.clear();
+        //candleOwners.clear();
+        //candleStatus.clear();
+        //trappedPlayerBools.clear();
 
-        //listAdder(ModBlocks.JAMMY_CANDLE, MinecraftClient.getInstance().getSession().getUsername(), false, false);
-        //listAdder(ModBlocks.POM_CANDLE, "PomPomDexter", false, false);
-        //listAdder(ModBlocks.SPAM_CANDLE, "Spamhash", false, false);
-        //listAdder(ModBlocks.CRAY_CANDLE, "CrayZink", false, false);
-        //listAdder(ModBlocks.EM_CANDLE, "Longpotter", false, false);
-        //listAdder(ModBlocks.CROC_CANDLE, "CrockSmarter", false, false);
-        //listAdder(ModBlocks.CAT_CANDLE, "a_random_cat", false, false);
-        //listAdder(ModBlocks.LEAN_CANDLE, "LeanTheLiquid", false, false);
-        //listAdder(ModBlocks.DELUXE_CANDLE, "RealDeluxe", false, false);
+        listAdder(ModBlocks.JAMMY_CANDLE, MinecraftClient.getInstance().getSession().getUsername(), false, false);
+        listAdder(ModBlocks.POM_CANDLE, "PomPomDexter", false, false);
+        listAdder(ModBlocks.SPAM_CANDLE, "Spamhash", false, false);
+        listAdder(ModBlocks.CRAY_CANDLE, "CrayZink", false, false);
+        listAdder(ModBlocks.EM_CANDLE, "Longpotter", false, false);
+        listAdder(ModBlocks.CROC_CANDLE, "CrockSmarter", false, false);
+        listAdder(ModBlocks.CAT_CANDLE, "a_random_cat", false, false);
+        listAdder(ModBlocks.LEAN_CANDLE, "LeanTheLiquid", false, false);
+        listAdder(ModBlocks.DELUXE_CANDLE, "RealDeluxe", false, false);
 
-        addDataToFile("jammyCandle", MinecraftClient.getInstance().getSession().getUsername(), "JAMMY_CANDLE", false, false);
-        addDataToFile("pomCandle", "PomPomDexter", "POM_CANDLE", false, false);
+        //addDataToFile("jammyCandle", MinecraftClient.getInstance().getSession().getUsername(), "JAMMY_CANDLE", false, false);
+        //addDataToFile("pomCandle", "PomPomDexter", "POM_CANDLE", false, false);
     }
 
     public static void listAdder(Block block, String playerName, Boolean candleStatusBool, Boolean playerTrapped) {
@@ -69,6 +80,8 @@ public class PlayerCandleHandler {
         candleOwners.add(playerName);
         candleStatus.add(candleStatusBool);
         trappedPlayerBools.add(playerTrapped);
+        //candleCoordinates.add(coordinates);
+        //, List<Double> coordinates
     }
 
     // this version is for the start function
@@ -244,7 +257,7 @@ public class PlayerCandleHandler {
         ) {
             //player.sendMessage(Text.literal(player.getName().getString()));
             //player.sendMessage(Text.literal(candleOwners.get(candles.indexOf(candle))));
-            if (Objects.equals(candleOwners.get(candles.indexOf(candle)), playerName)) {
+            if (Objects.equals(candleOwners.get(candles.indexOf(candle)).toLowerCase(), playerName.toLowerCase())) {
                 return candleStatus.get(candles.indexOf(candle));
             }
         }
@@ -258,7 +271,7 @@ public class PlayerCandleHandler {
             return;
         }
         candleStatus.set(listPos, newStatus);
-        addDataToFile(candleToString(candleBlock),newStatus,2);
+        //addDataToFile(candleToString(candleBlock),newStatus,2);
     }
 
     public static void changePlayerTrappedStatus(PlayerEntity player, boolean newStatus) {
@@ -270,7 +283,7 @@ public class PlayerCandleHandler {
         if (listPos != -1) {
             trappedPlayerBools.set(listPos, newStatus);
             //player.sendMessage(Text.literal("changed player trapped status to " + newStatus + "at list pos " + listPos));
-            addDataToFile(candleToString(candles.get(listPos)),newStatus,1);
+            //addDataToFile(candleToString(candles.get(listPos)),newStatus,1);
         }
 
         //trappedPlayerEntities.set(listPos, player);
@@ -342,7 +355,7 @@ public class PlayerCandleHandler {
                                 serverPlayer.fallDistance = 0.0f;
 
                                 trappedPlayerBools.set(listPos, false);
-                                addDataToFile(candleToString(candles.get(listPos)),false,1);
+                                //addDataToFile(candleToString(candles.get(listPos)),false,1);
 
                                 if (serverPlayer.hasStatusEffect(StatusEffects.BLINDNESS)) {
 
@@ -392,7 +405,7 @@ public class PlayerCandleHandler {
                                 serverPlayer.fallDistance = 0.0f;
 
                                 trappedPlayerBools.set(listPos, false);
-                                addDataToFile(candleToString(candles.get(listPos)),false,1);
+                                //addDataToFile(candleToString(candles.get(listPos)),false,1);
 
                                 if (serverPlayer.hasStatusEffect(StatusEffects.BLINDNESS)) {
 

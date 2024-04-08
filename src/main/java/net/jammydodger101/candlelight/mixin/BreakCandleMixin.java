@@ -15,16 +15,19 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AbstractBlock.class)
-public class BreakCandleMixin{
+public abstract class BreakCandleMixin{
 
 
-    @Inject(method = "onStacksDropped", at = @At("HEAD"))
-    public void checkIfCandleBroke(BlockState state, ServerWorld world, BlockPos pos, ItemStack tool, boolean dropExperience, CallbackInfo ci) {
+    @Shadow protected abstract Block asBlock();
+
+    @Inject(method = "onStateReplaced", at = @At("HEAD"))
+    public void checkIfCandleBroke(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved, CallbackInfo ci) {
         if(!world.isClient()){
 
 
@@ -33,10 +36,13 @@ public class BreakCandleMixin{
                 for (Block candleBlock :
                         PlayerCandleHandler.candles) {
                     if (state.isOf(candleBlock)) {
-                        PlayerCandleHandler.candleStatus.set(PlayerCandleHandler.candles.indexOf(candleBlock), false);
+                        if (!newState.isOf(this.asBlock())) {
+                            PlayerCandleHandler.candleStatus.set(PlayerCandleHandler.candles.indexOf(candleBlock), false);
+                            world.getPlayers().get(0).sendMessage(Text.literal("Candle is broken"));
+                        }
+
                     }
                 }
-
             }
         }
     }

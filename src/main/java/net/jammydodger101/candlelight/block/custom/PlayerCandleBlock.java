@@ -7,6 +7,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -52,6 +53,11 @@ public class PlayerCandleBlock
 
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public String PLAYER_NAME = null;
+
+    public double XCoord;
+    public double YCoord;
+    public double ZCoord;
+
 
 
     private static final Int2ObjectMap<List<Vec3d>> CANDLES_TO_PARTICLE_OFFSETS = Util.make(() -> {
@@ -177,10 +183,19 @@ public class PlayerCandleBlock
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
 
+        if(!world.isClient()) {
+            XCoord = pos.getX();
+            YCoord = pos.getY();
+            ZCoord = pos.getZ();
+            world.getPlayers().get(0).sendMessage(Text.literal(("Candle is placed at "+ XCoord+ " " + YCoord+" " + ZCoord)));
+        }
+
         PlayerCandleHandler.changeCandleStatus(state.getBlock(), state.get(LIT).booleanValue());
         if (!state.get(LIT).booleanValue()) {
             return;
         }
+
+
 
         this.getParticleOffsets(state).forEach(offset -> PlayerCandleBlock.spawnCandleParticles(world, offset.add(pos.getX(), pos.getY(), pos.getZ()), random));
     }

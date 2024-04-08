@@ -34,7 +34,7 @@ public class GetCandleStatusCommand {
             }
             return 1;
         }
-        player.sendMessage(Text.literal("Player does not exist (check capitalisation?)"));
+        player.sendMessage(Text.literal("Player does not exist"));
         return -1;
     }
 }
