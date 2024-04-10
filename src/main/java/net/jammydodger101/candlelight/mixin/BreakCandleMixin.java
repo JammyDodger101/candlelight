@@ -41,7 +41,6 @@ public abstract class BreakCandleMixin{
                             PlayerCandleHandler.setCandleCoordinates(pos, state, null);
                             world.getPlayers().get(0).sendMessage(Text.literal("Candle is broken"));
                         }
-
                     }
                 }
             }
