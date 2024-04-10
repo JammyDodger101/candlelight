@@ -35,6 +35,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.injection.Inject;
 
 import java.util.List;
@@ -57,6 +58,7 @@ public class PlayerCandleBlock
     public double XCoord;
     public double YCoord;
     public double ZCoord;
+    public BlockPos candlePosition;
 
 
 
@@ -92,9 +94,6 @@ public class PlayerCandleBlock
 
         return ActionResult.PASS;
     }
-
-
-
 
     @Override
     public boolean canReplace(BlockState state, ItemPlacementContext context) {
@@ -183,19 +182,10 @@ public class PlayerCandleBlock
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
 
-        if(!world.isClient()) {
-            XCoord = pos.getX();
-            YCoord = pos.getY();
-            ZCoord = pos.getZ();
-            world.getPlayers().get(0).sendMessage(Text.literal(("Candle is placed at "+ XCoord+ " " + YCoord+" " + ZCoord)));
-        }
-
         PlayerCandleHandler.changeCandleStatus(state.getBlock(), state.get(LIT).booleanValue());
         if (!state.get(LIT).booleanValue()) {
             return;
         }
-
-
 
         this.getParticleOffsets(state).forEach(offset -> PlayerCandleBlock.spawnCandleParticles(world, offset.add(pos.getX(), pos.getY(), pos.getZ()), random));
     }
@@ -209,7 +199,20 @@ public class PlayerCandleBlock
                 world.playSound(vec3d.x + 0.5, vec3d.y + 0.5, vec3d.z + 0.5, SoundEvents.BLOCK_CANDLE_AMBIENT, SoundCategory.BLOCKS, 1.0f + random.nextFloat(), random.nextFloat() * 0.7f + 0.3f, false);
             }
         }
-        world.addParticle(ParticleTypes.EXPLOSION, vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, 0.0);
+        world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, 0.0);
+    }
+
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        candlePosition = pos;
+        if(!world.isClient()) {
+            XCoord = pos.getX();
+            YCoord = pos.getY();
+            ZCoord = pos.getZ();
+            world.getPlayers().get(0).sendMessage(Text.literal(("Candle is placed at " + XCoord + " " + YCoord + " " + ZCoord)));
+        }
+
+        PlayerCandleHandler.setCandleCoordinates(pos, state, this);
     }
 
 }

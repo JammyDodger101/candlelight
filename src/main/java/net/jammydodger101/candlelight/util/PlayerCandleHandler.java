@@ -2,26 +2,22 @@ package net.jammydodger101.candlelight.util;
 
 import net.jammydodger101.candlelight.Candlelight;
 import net.jammydodger101.candlelight.block.ModBlocks;
-import net.jammydodger101.candlelight.item.ModItems;
-import net.jammydodger101.candlelight.world.dimension.ModDimension;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.stat.Stats;
-import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.spongepowered.include.com.google.gson.Gson;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -30,16 +26,19 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-public class PlayerCandleHandler {
+public class PlayerCandleHandler
+
+{
+
+
 
     public static List<Block> candles = new ArrayList<>();
     public static List<String> candleOwners = new ArrayList<>();
     //public static List<PlayerEntity> trappedPlayerEntities = new ArrayList<>();
     public static List<Boolean> candleStatus = new ArrayList<>();
     public static List<Boolean> trappedPlayerBools = new ArrayList<>();
-    public static List<List<Double>> candleCoordinates = new ArrayList<>();
+    public static List<BlockPos> candleCoordinates = new ArrayList<>();
 
-    public static List<Double> tempList = new ArrayList<>();
 
 
     public static int listPos = 0;
@@ -47,9 +46,13 @@ public class PlayerCandleHandler {
     public static void addCandlesToList() {
         for (int i = 0; i < 20; i++) {
             //trappedPlayerEntities.add(null);
-            //if(trappedPlayerBools.get(i) != null) {
-              //  trappedPlayerBools.set(i, null);
-            //}
+            try {
+                if (candleCoordinates.get(i) != null) {
+                    candleCoordinates.set(i, null);
+                }
+            } catch (RuntimeException ignored) {
+                candleCoordinates.add(null);
+            }
 
             //if(candleStatus.get(i) != null) {
               //  candleStatus.set(i, null);
@@ -131,10 +134,6 @@ public class PlayerCandleHandler {
 
     }
 
-    private static void addDataToFile(String fileName, boolean lit, boolean trapped) {
-
-    }
-
     // for updating the lit or trapped variables
     // 1 = trapped
     // 2 = lit
@@ -185,6 +184,9 @@ public class PlayerCandleHandler {
 
     }
 
+    public static int getListLocation(Block candle) {
+        return candles.indexOf(candle);
+    }
 
     //ignore the shitty coding i don't know a better way to do this
     private static Block stringToCandle(String candleName) {
@@ -215,21 +217,39 @@ public class PlayerCandleHandler {
         } else if(Objects.equals(candle, ModBlocks.POM_CANDLE)) {
             return "pomCandle";
         }else if(Objects.equals(candle, ModBlocks.CAT_CANDLE)) {
-            return "jammyCandle";
+            return "catCandle";
         }else if(Objects.equals(candle, ModBlocks.CRAY_CANDLE)) {
-            return "jammyCandle";
+            return "crayCandle";
         }else if(Objects.equals(candle, ModBlocks.CROC_CANDLE)) {
-            return "jammyCandle";
+            return "crocCandle";
         }else if(Objects.equals(candle, ModBlocks.EM_CANDLE)) {
-            return "jammyCandle";
+            return "emCandle";
         }else if(Objects.equals(candle, ModBlocks.LEAN_CANDLE)) {
-            return "jammyCandle";
+            return "leanCandle";
         }else if(Objects.equals(candle, ModBlocks.SPAM_CANDLE)) {
-            return "jammyCandle";
+            return "spamCandle";
         }
         return null;
     }
 
+    public static void setCandleCoordinates(BlockPos pos, BlockState state, Block block) {
+        if (state.getBlock() == block) {
+            candleCoordinates.set(getListLocation(block),pos);
+        } else if (block == null) {
+            candleCoordinates.set(getListLocation(state.getBlock()),null);
+        }
+    }
+
+    public static BlockPos getCandleCoordinates(String playerName) {
+        for (Block candle : candles
+        ) {
+            if (Objects.equals(candleOwners.get(getListLocation(candle)).toLowerCase(), playerName.toLowerCase())) {
+                return candleCoordinates.get(candles.indexOf(candle));
+            }
+
+        }
+        return null;
+    }
 
 
     public static Boolean checkPlayerStatus(PlayerEntity player) {
@@ -241,7 +261,7 @@ public class PlayerCandleHandler {
              ) {
             //player.sendMessage(Text.literal(player.getName().getString()));
             //player.sendMessage(Text.literal(candleOwners.get(candles.indexOf(candle))));
-            if (Objects.equals(candleOwners.get(candles.indexOf(candle)), player.getName().getString())) {
+            if (Objects.equals(candleOwners.get(getListLocation(candle)), player.getName().getString())) {
                 return candleStatus.get(candles.indexOf(candle));
             }
         }
@@ -257,7 +277,7 @@ public class PlayerCandleHandler {
         ) {
             //player.sendMessage(Text.literal(player.getName().getString()));
             //player.sendMessage(Text.literal(candleOwners.get(candles.indexOf(candle))));
-            if (Objects.equals(candleOwners.get(candles.indexOf(candle)).toLowerCase(), playerName.toLowerCase())) {
+            if (Objects.equals(candleOwners.get(getListLocation(candle)).toLowerCase(), playerName.toLowerCase())) {
                 return candleStatus.get(candles.indexOf(candle));
             }
         }
@@ -427,5 +447,6 @@ public class PlayerCandleHandler {
             //user.sendMessage(user.getStackInHand(hand).getName());
         }
     }
+
 
 }

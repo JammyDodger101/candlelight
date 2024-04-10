@@ -1,0 +1,44 @@
+package net.jammydodger101.candlelight;
+
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.PersistentState;
+import net.minecraft.world.PersistentStateManager;
+import net.minecraft.world.World;
+
+import java.util.function.Supplier;
+
+//THIS DOESNT WORK IGNORE THIS FILE
+
+public class StateSaverAndLoader extends PersistentState {
+
+    public Integer totalDirtBlocksBroken = 0;
+
+    @Override
+    public NbtCompound writeNbt(NbtCompound nbt) {
+        nbt.putInt("totalDirtBlocksBroken", totalDirtBlocksBroken);
+        return nbt;
+    }
+
+    public static StateSaverAndLoader createFromNBT(NbtCompound tag) {
+        StateSaverAndLoader state = new StateSaverAndLoader();
+        state.totalDirtBlocksBroken = tag.getInt("totalDirtBlocksBroken");
+        return state;
+    }
+
+    private static Supplier<StateSaverAndLoader> type = new Type<>(
+            StateSaverAndLoader::new,
+            StateSaverAndLoader::createFromNBT,
+            null
+    );
+
+    public static StateSaverAndLoader getServerState(MinecraftServer server) {
+        PersistentStateManager persistentStateManager = server.getWorld(World.OVERWORLD).getPersistentStateManager();
+
+        StateSaverAndLoader state = persistentStateManager.getOrCreate(type, Candlelight.MOD_ID);
+
+        state.markDirty();
+
+        return state;
+    }
+}

@@ -38,6 +38,7 @@ public abstract class BreakCandleMixin{
                     if (state.isOf(candleBlock)) {
                         if (!newState.isOf(this.asBlock())) {
                             PlayerCandleHandler.candleStatus.set(PlayerCandleHandler.candles.indexOf(candleBlock), false);
+                            PlayerCandleHandler.setCandleCoordinates(pos, state, null);
                             world.getPlayers().get(0).sendMessage(Text.literal("Candle is broken"));
                         }
 

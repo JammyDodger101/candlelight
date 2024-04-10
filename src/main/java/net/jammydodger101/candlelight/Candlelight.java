@@ -3,6 +3,9 @@ package net.jammydodger101.candlelight;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jammydodger101.candlelight.block.ModBlocks;
 import net.jammydodger101.candlelight.command.ModCommands;
 import net.jammydodger101.candlelight.event.AttackEntityHandler;
@@ -10,6 +13,11 @@ import net.jammydodger101.candlelight.item.ModItemGroups;
 import net.jammydodger101.candlelight.item.ModItems;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
+import net.minecraft.block.Blocks;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +28,8 @@ public class Candlelight implements ModInitializer {
 	public static final String MOD_ID = "candlelight";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
+	public static final Identifier DIRT_BROKEN = new Identifier(MOD_ID, "dirt_broken");
+	private Integer totalDirtBlocksBroken = 0;
 
 	@Override
 	public void onInitialize() {
@@ -37,6 +47,22 @@ public class Candlelight implements ModInitializer {
 		PlayerCandleHandler.addCandlesToList();
 
 		ModCommands.init();
+
+		//PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
+			//if (state.getBlock() == Blocks.GRASS_BLOCK || state.getBlock() == Blocks.DIRT) {
+				//totalDirtBlocksBroken += 1;
+
+				//MinecraftServer server = world.getServer();
+
+				//PacketByteBuf data = PacketByteBufs.create();
+				//data.writeInt(totalDirtBlocksBroken);
+
+				//ServerPlayerEntity playerEntity = server.getPlayerManager().getPlayer(player.getUuid());
+				//server.execute(() -> {
+					//ServerPlayNetworking.send(playerEntity, DIRT_BROKEN, data);
+				//});
+			//}
+		//});
 
 	}
 }
