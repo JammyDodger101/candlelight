@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 
 import java.lang.reflect.TypeVariable;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Supplier;
 
@@ -26,13 +27,15 @@ public class StateSaverAndLoader extends PersistentState {
         nbt.putInt("totalDirtBlocksBroken", totalDirtBlocksBroken);
 
         NbtCompound playersNbt = new NbtCompound();
-        players.forEach(((uuid, playerData) -> {
+        players.forEach((uuid, playerData) -> {
             NbtCompound playerNbt = new NbtCompound();
 
             playerNbt.putInt("dirtBlocksBroken", playerData.dirtBlocksBroken);
 
+            playerNbt.putBoolean("trapped", playerData.trapped);
+
             playersNbt.put(uuid.toString(), playerNbt);
-        }));
+        });
         nbt.put("players", playersNbt);
 
         return nbt;
@@ -42,11 +45,14 @@ public class StateSaverAndLoader extends PersistentState {
         StateSaverAndLoader state = new StateSaverAndLoader();
         state.totalDirtBlocksBroken = tag.getInt("totalDirtBlocksBroken");
 
+
         NbtCompound playersNbt = tag.getCompound("players");
         playersNbt.getKeys().forEach(key -> {
             PlayerData playerData = new PlayerData();
 
             playerData.dirtBlocksBroken = playersNbt.getCompound(key).getInt("dirtBlocksBroken");
+
+            playerData.trapped = playersNbt.getCompound(key).getBoolean("trapped");
 
             UUID uuid = UUID.fromString(key);
             state.players.put(uuid, playerData);
@@ -67,10 +73,10 @@ public class StateSaverAndLoader extends PersistentState {
     }
 
     public static PlayerData getPlayerState(LivingEntity player) {
-        StateSaverAndLoader serverState = getServerState(player.getWorld().getServer());
+        StateSaverAndLoader serverState = getServerState(Objects.requireNonNull(player.getWorld().getServer()));
 
         PlayerData playerState = serverState.players.computeIfAbsent(player.getUuid(), uuid -> new PlayerData());
 
-        return  playerState;
+        return playerState;
     }
 }

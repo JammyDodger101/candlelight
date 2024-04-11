@@ -5,6 +5,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jammydodger101.candlelight.block.ModBlocks;
 import net.jammydodger101.candlelight.command.ModCommands;
@@ -29,6 +30,9 @@ public class Candlelight implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	public static final Identifier DIRT_BROKEN = new Identifier(MOD_ID, "dirt_broken");
+
+	public static final Identifier INITIAL_SYNC = new Identifier(MOD_ID, "initial_sync");
+
 	//private Integer totalDirtBlocksBroken = 0;
 
 	@Override
@@ -36,6 +40,19 @@ public class Candlelight implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
+
+		ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
+			PlayerData playerState = StateSaverAndLoader.getPlayerState(handler.getPlayer());
+			PacketByteBuf data = PacketByteBufs.create();
+			data.writeInt(playerState.dirtBlocksBroken);
+			data.writeBoolean(playerState.trapped);
+			server.execute(() -> {
+				ServerPlayNetworking.send(handler.getPlayer(), INITIAL_SYNC, data);
+			});
+		}));
+
+
+
 
 		ModBlocks.registerModBlocks();
 		ModItems.registerModItems();

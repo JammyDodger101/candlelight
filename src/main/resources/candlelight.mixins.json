@@ -7,8 +7,7 @@
 		"DeathMixin",
 		"BreakCandleMixin",
 		"PlayerEffectApplierMixin",
-		"PickupCandleMixin",
-		"ModEntityDataSaverMixin"
+		"PickupCandleMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

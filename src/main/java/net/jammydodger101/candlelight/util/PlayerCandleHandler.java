@@ -1,6 +1,8 @@
 package net.jammydodger101.candlelight.util;
 
 import net.jammydodger101.candlelight.Candlelight;
+import net.jammydodger101.candlelight.PlayerData;
+import net.jammydodger101.candlelight.StateSaverAndLoader;
 import net.jammydodger101.candlelight.block.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -12,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.PersistentState;
@@ -59,8 +62,6 @@ public class PlayerCandleHandler
         listAdder(ModBlocks.LEAN_CANDLE, "LeanTheLiquid", false, false);
         listAdder(ModBlocks.DELUXE_CANDLE, "RealDeluxe", false, false);
 
-        //addDataToFile("jammyCandle", MinecraftClient.getInstance().getSession().getUsername(), "JAMMY_CANDLE", false, false);
-        //addDataToFile("pomCandle", "PomPomDexter", "POM_CANDLE", false, false);
     }
 
     public static void listAdder(Block block, String playerName, Boolean candleStatusBool, Boolean playerTrapped) {
@@ -70,103 +71,6 @@ public class PlayerCandleHandler
         trappedPlayerBools.add(null);
         //candleCoordinates.add(coordinates);
         //, List<Double> coordinates
-    }
-
-    // this version is for the start function
-    private static void addDataToFile(String fileName, String playerName, String candleName, boolean lit, boolean trapped) {
-        JSONObject obj = new JSONObject();
-
-        obj.put("playerName", playerName);
-        obj.put("candleName", candleName);
-
-        // file in run folder in directory
-        String fileLocation = "resources\\" + fileName + ".json";
-
-        JSONParser parser = new JSONParser();
-
-        //gets the file and sees if the lit and trapped variables are set
-        try {
-            Object object = parser.parse(new FileReader(fileLocation));
-            JSONObject jsonObject = (JSONObject)object;
-            Boolean isLit = (Boolean) jsonObject.get("lit");
-            Boolean isTrapped = (Boolean) jsonObject.get("trapped");
-
-            //if lit and trapped are there then don't change them
-            if (isLit != null && isTrapped != null) {
-                lit = isLit;
-                trapped = isTrapped;
-            } //if not there then we input them so that there is at least a placeholder
-
-            try (FileWriter file = new FileWriter(fileLocation)) {
-                obj.put("lit", lit);
-                obj.put("trapped", trapped);
-                file.write(obj.toJSONString());
-                //System.out.println("JSON Object write to a File successfully");
-                //System.out.println("JSON Object: " + obj);
-                listAdder(stringToCandle(candleName), playerName, lit, trapped);
-            }
-
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        } catch(Exception e) {
-            e.printStackTrace();
-
-
-        }
-
-
-    }
-
-    // for updating the lit or trapped variables
-    // 1 = trapped
-    // 2 = lit
-    private static void addDataToFile(String fileName, boolean newBool, int trappedOrLit) {
-        JSONParser parser = new JSONParser();
-        JSONObject obj = new JSONObject();
-        String fileLocation = "resources\\" + fileName + ".json";
-
-        try {
-            Object object = parser.parse(new FileReader(fileLocation));
-            JSONObject jsonObject = (JSONObject)object;
-            String playerName = (String) jsonObject.get("playerName");
-            String playerCandle = (String) jsonObject.get("candleName");
-
-            if (trappedOrLit == 1) {
-                Boolean lit = (Boolean) jsonObject.get("lit");
-                Boolean trapped = newBool;
-
-                obj.put("lit", lit);
-                obj.put("trapped", trapped);
-            } else if (trappedOrLit == 2) {
-                Boolean trapped = (Boolean) jsonObject.get("trapped");
-                Boolean lit = newBool;
-
-                obj.put("lit", lit);
-                obj.put("trapped", trapped);
-
-            }
-
-            obj.put("playerName", playerName);
-            obj.put("candleName", playerCandle);
-
-            try (FileWriter file = new FileWriter(fileLocation)) {
-
-                file.write(obj.toJSONString());
-                //System.out.println("JSON Object write to a File successfully");
-                //System.out.println("JSON Object: " + obj);
-            } catch(Exception e) {
-                e.printStackTrace();
-
-            }
-
-
-        } catch(Exception e) {
-            e.printStackTrace();
-
-        }
-
     }
 
     public static int getListLocation(Block candle) {
@@ -261,12 +165,16 @@ public class PlayerCandleHandler
     }
 
     public static Boolean checkPlayerTrappedStatusCommand(String playerName) {
-        for (Block candle : candles
-        ) {
-            if (Objects.equals(candleOwners.get(getListLocation(candle)).toLowerCase(), playerName.toLowerCase())) {
-                return trappedPlayerBools.get(candles.indexOf(candle));
-            }
+        //for (Block candle : candles
+        //) {
+            //if (Objects.equals(candleOwners.get(getListLocation(candle)).toLowerCase(), playerName.toLowerCase())) {
+                //return trappedPlayerBools.get(candles.indexOf(candle));
+            //}
+        //}
+        if (candleOwners.contains(playerName.toLowerCase())) {
+            return trappedPlayerBools.get(candleOwners.indexOf(playerName.toLowerCase()));
         }
+
         return null;
     }
 
@@ -281,11 +189,15 @@ public class PlayerCandleHandler
     }
 
     public static void changePlayerTrappedStatus(PlayerEntity player, boolean newStatus) {
+        player.sendMessage(Text.literal(player.getName().getString()));
         try {
             listPos = candleOwners.indexOf(player.getName().getString());
+
         } catch (Exception e) {
             return;
         }
+
+
         if (listPos != -1) {
 
             trappedPlayerBools.set(listPos, newStatus);
@@ -322,6 +234,7 @@ public class PlayerCandleHandler
 
     public static void reviveEveryone(PlayerEntity user, World world, Hand hand, ServerWorld serverWorld) {
 
+
         ItemStack itemStack = user.getStackInHand(hand);
 
         int listPos = 0;
@@ -340,14 +253,15 @@ public class PlayerCandleHandler
                         ServerPlayerEntity serverPlayer = serverWorld.getServer().getPlayerManager().getPlayer(playerName);
 
                         if (serverPlayer != null) {
+                            PlayerData playerState = StateSaverAndLoader.getPlayerState(serverPlayer);
                             if (serverWorld.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
 
                                 serverPlayer.stopRiding();
                                 serverPlayer.teleport(serverWorld, 58, 112, 200, Set.of(), 0f, 0f);
                                 serverPlayer.fallDistance = 0.0f;
 
-                                CandleData.setTrapped(((IEntityDataSaver) serverPlayer), false);
                                 trappedPlayerBools.set(listPos, false);
+                                playerState.trapped = false;
 
                                 if (serverPlayer.hasStatusEffect(StatusEffects.BLINDNESS)) {
 
@@ -384,6 +298,7 @@ public class PlayerCandleHandler
                         ServerPlayerEntity serverPlayer = serverWorld.getServer().getPlayerManager().getPlayer(playerName);
 
                         if (serverPlayer != null) {
+                            PlayerData playerState = StateSaverAndLoader.getPlayerState(serverPlayer);
                             if (serverWorld.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
 
                                 serverPlayer.stopRiding();
@@ -391,7 +306,7 @@ public class PlayerCandleHandler
                                 serverPlayer.fallDistance = 0.0f;
 
                                 trappedPlayerBools.set(listPos, false);
-                                CandleData.setTrapped(((IEntityDataSaver) serverPlayer), false);
+                                playerState.trapped = false;
 
                                 if (serverPlayer.hasStatusEffect(StatusEffects.BLINDNESS)) {
 
