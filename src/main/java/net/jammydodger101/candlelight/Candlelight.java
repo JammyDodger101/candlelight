@@ -29,7 +29,7 @@ public class Candlelight implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	public static final Identifier DIRT_BROKEN = new Identifier(MOD_ID, "dirt_broken");
-	private Integer totalDirtBlocksBroken = 0;
+	//private Integer totalDirtBlocksBroken = 0;
 
 	@Override
 	public void onInitialize() {
@@ -48,21 +48,27 @@ public class Candlelight implements ModInitializer {
 
 		ModCommands.init();
 
-		//PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
-			//if (state.getBlock() == Blocks.GRASS_BLOCK || state.getBlock() == Blocks.DIRT) {
-				//totalDirtBlocksBroken += 1;
+		PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
+			if (state.getBlock() == Blocks.GRASS_BLOCK || state.getBlock() == Blocks.DIRT) {
+				StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(world.getServer());
 
-				//MinecraftServer server = world.getServer();
+				serverState.totalDirtBlocksBroken += 1;
 
-				//PacketByteBuf data = PacketByteBufs.create();
-				//data.writeInt(totalDirtBlocksBroken);
+				PlayerData playerState = StateSaverAndLoader.getPlayerState(player);
+				playerState.dirtBlocksBroken += 1;
 
-				//ServerPlayerEntity playerEntity = server.getPlayerManager().getPlayer(player.getUuid());
-				//server.execute(() -> {
-					//ServerPlayNetworking.send(playerEntity, DIRT_BROKEN, data);
-				//});
-			//}
-		//});
+				MinecraftServer server = world.getServer();
+
+				PacketByteBuf data = PacketByteBufs.create();
+				data.writeInt(serverState.totalDirtBlocksBroken);
+				data.writeInt(playerState.dirtBlocksBroken);
+
+				ServerPlayerEntity playerEntity = server.getPlayerManager().getPlayer(player.getUuid());
+				server.execute(() -> {
+					ServerPlayNetworking.send(playerEntity, DIRT_BROKEN, data);
+				});
+			}
+		});
 
 	}
 }

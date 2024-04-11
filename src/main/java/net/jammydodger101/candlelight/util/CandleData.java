@@ -13,14 +13,14 @@ public class CandleData {
         return newStatus;
     }
 
-    public static boolean setTrapped(IEntityDataSaver player, boolean trapped) {
+    public static void setTrapped(IEntityDataSaver player, boolean trapped) {
         NbtCompound nbt = player.getPersistantData();
         //boolean status = nbt.getBoolean("status");
-
         nbt.putBoolean("trapped", trapped);
 
-        return trapped;
     }
+
+
 
 
 }

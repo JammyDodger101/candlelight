@@ -14,11 +14,14 @@ public class CandlelightClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.JAMMY_CANDLE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POM_CANDLE, RenderLayer.getCutout());
 
-        //ClientPlayNetworking.registerGlobalReceiver(Candlelight.DIRT_BROKEN, (client, handler, buf, responseSender) -> {
-            //int totalDirtBlockBroken = buf.readInt();
-            //client.execute(() -> {
-                //client.player.sendMessage(Text.literal("Total dirt blocks broken: " + totalDirtBlockBroken));
-            //});
-        //});
+        ClientPlayNetworking.registerGlobalReceiver(Candlelight.DIRT_BROKEN, (client, handler, buf, responseSender) -> {
+            int totalDirtBlockBroken = buf.readInt();
+            int playerSpecificDirtBlocksBroken = buf.readInt();
+
+            client.execute(() -> {
+                client.player.sendMessage(Text.literal("Total dirt blocks broken: " + totalDirtBlockBroken));
+                client.player.sendMessage(Text.literal("Player specific dirt blocks broken: " + playerSpecificDirtBlocksBroken));
+            });
+        });
     }
 }

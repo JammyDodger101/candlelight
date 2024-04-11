@@ -29,9 +29,6 @@ import java.util.Set;
 public class PlayerCandleHandler
 
 {
-
-
-
     public static List<Block> candles = new ArrayList<>();
     public static List<String> candleOwners = new ArrayList<>();
     //public static List<PlayerEntity> trappedPlayerEntities = new ArrayList<>();
@@ -46,25 +43,13 @@ public class PlayerCandleHandler
     public static void addCandlesToList() {
         for (int i = 0; i < 20; i++) {
             //trappedPlayerEntities.add(null);
-            try {
-                if (candleCoordinates.get(i) != null) {
-                    candleCoordinates.set(i, null);
-                }
-            } catch (RuntimeException ignored) {
-                candleCoordinates.add(null);
-            }
 
-            //if(candleStatus.get(i) != null) {
-              //  candleStatus.set(i, null);
-            //}
+            candleCoordinates.add(null);
+
         }
 
-        //candles.clear();
-        //candleOwners.clear();
-        //candleStatus.clear();
-        //trappedPlayerBools.clear();
 
-        listAdder(ModBlocks.JAMMY_CANDLE, MinecraftClient.getInstance().getSession().getUsername(), false, false);
+        listAdder(ModBlocks.JAMMY_CANDLE, "yay", false, false);
         listAdder(ModBlocks.POM_CANDLE, "PomPomDexter", false, false);
         listAdder(ModBlocks.SPAM_CANDLE, "Spamhash", false, false);
         listAdder(ModBlocks.CRAY_CANDLE, "CrayZink", false, false);
@@ -82,7 +67,7 @@ public class PlayerCandleHandler
         candles.add(block);
         candleOwners.add(playerName);
         candleStatus.add(candleStatusBool);
-        trappedPlayerBools.add(playerTrapped);
+        trappedPlayerBools.add(null);
         //candleCoordinates.add(coordinates);
         //, List<Double> coordinates
     }
@@ -302,7 +287,7 @@ public class PlayerCandleHandler
             return;
         }
         if (listPos != -1) {
-            CandleData.setTrapped(((IEntityDataSaver) player), newStatus);
+
             trappedPlayerBools.set(listPos, newStatus);
         }
     }
@@ -361,6 +346,7 @@ public class PlayerCandleHandler
                                 serverPlayer.teleport(serverWorld, 58, 112, 200, Set.of(), 0f, 0f);
                                 serverPlayer.fallDistance = 0.0f;
 
+                                CandleData.setTrapped(((IEntityDataSaver) serverPlayer), false);
                                 trappedPlayerBools.set(listPos, false);
 
                                 if (serverPlayer.hasStatusEffect(StatusEffects.BLINDNESS)) {
@@ -405,6 +391,7 @@ public class PlayerCandleHandler
                                 serverPlayer.fallDistance = 0.0f;
 
                                 trappedPlayerBools.set(listPos, false);
+                                CandleData.setTrapped(((IEntityDataSaver) serverPlayer), false);
 
                                 if (serverPlayer.hasStatusEffect(StatusEffects.BLINDNESS)) {
 

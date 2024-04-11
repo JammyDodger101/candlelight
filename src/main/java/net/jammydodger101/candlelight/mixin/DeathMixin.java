@@ -2,6 +2,8 @@ package net.jammydodger101.candlelight.mixin;
 
 import com.ibm.icu.util.Output;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.jammydodger101.candlelight.util.CandleData;
+import net.jammydodger101.candlelight.util.IEntityDataSaver;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
 import net.minecraft.client.font.UnihexFont;
@@ -34,17 +36,20 @@ public abstract class DeathMixin {
 
     @Inject(method = "respawnPlayer", at = @At("HEAD"))
     private void afterRespawn(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfoReturnable<ServerPlayerEntity> cir) {
-
+            //if their candle status isnt null
             if(PlayerCandleHandler.checkPlayerStatus(oldPlayer) != null) {
-
+                //if their candle is lit
                 if (PlayerCandleHandler.checkPlayerStatus(oldPlayer) == Boolean.TRUE) {
                     if (oldPlayer.getSpawnPointDimension() == ModDimension.CANDLELESS_KEY) {
-                        oldPlayer.setSpawnPoint(World.OVERWORLD, new BlockPos(0, 0, 0), 0f, true, false);
+                        //oldPlayer.setSpawnPoint(World.OVERWORLD, new BlockPos(0, 0, 0), 0f, true, false);
+                        CandleData.setTrapped(((IEntityDataSaver) oldPlayer), false);
                         PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
                     }
+                    CandleData.setTrapped(((IEntityDataSaver) oldPlayer), false);
                     PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
                 } else {
                     oldPlayer.setSpawnPoint(ModDimension.CANDLELESS_KEY, new BlockPos(0, 5, 0), 0f, true, false);
+                    CandleData.setTrapped(((IEntityDataSaver) oldPlayer), true);
                     PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, true);
                 }
 

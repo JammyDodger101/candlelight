@@ -145,6 +145,7 @@ public class PlayerCandleBlock
         if (state.get(WATERLOGGED).booleanValue() || fluidState.getFluid() != Fluids.WATER) {
             return false;
         }
+
         BlockState blockState = (BlockState)state.with(WATERLOGGED, true);
         if (state.get(LIT).booleanValue()) {
             PlayerCandleHandler.changeCandleStatus(state.getBlock(), !isLitCandle(state));
@@ -181,6 +182,7 @@ public class PlayerCandleBlock
 
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+
 
         PlayerCandleHandler.changeCandleStatus(state.getBlock(), state.get(LIT).booleanValue());
         if (!state.get(LIT).booleanValue()) {
