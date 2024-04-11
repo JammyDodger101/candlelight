@@ -21,18 +21,6 @@ public abstract class PlayerEffectApplierMixin {
 
         PlayerCandleHandler.applyEffectsToTrappedPlayers(getServerWorld());
 
-
-        //PlayerCandleHandler.changePlayerTrappedStatus(getServerWorld().play);
-    }
-
-    @Inject(method = "playerTick", at = @At("TAIL"))
-    private void updateTrappedStatus(CallbackInfo ci) {
-        for (ServerPlayerEntity player:
-                getServerWorld().getPlayers()) {
-            //PlayerCandleHandler.changePlayerTrappedStatus(player, ((IEntityDataSaver) player).getPersistantData().getBoolean("trapped"));
-            //player.sendMessage(Text.literal(String.valueOf(((IEntityDataSaver) player).getPersistantData().getBoolean("trapped"))));
-        }
-
     }
 
 }

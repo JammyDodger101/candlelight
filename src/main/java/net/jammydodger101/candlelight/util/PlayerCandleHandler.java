@@ -43,6 +43,7 @@ public class PlayerCandleHandler
 
     public static int listPos = 0;
 
+
     public static void addCandlesToList() {
         for (int i = 0; i < 20; i++) {
             //trappedPlayerEntities.add(null);
@@ -53,14 +54,14 @@ public class PlayerCandleHandler
 
 
         listAdder(ModBlocks.JAMMY_CANDLE, "yay", false, false);
-        listAdder(ModBlocks.POM_CANDLE, "PomPomDexter", false, false);
-        listAdder(ModBlocks.SPAM_CANDLE, "Spamhash", false, false);
-        listAdder(ModBlocks.CRAY_CANDLE, "CrayZink", false, false);
-        listAdder(ModBlocks.EM_CANDLE, "Longpotter", false, false);
-        listAdder(ModBlocks.CROC_CANDLE, "CrockSmarter", false, false);
+        listAdder(ModBlocks.POM_CANDLE, "pompomdexter", false, false);
+        listAdder(ModBlocks.SPAM_CANDLE, "citramin", false, false);
+        listAdder(ModBlocks.CRAY_CANDLE, "crayzink", false, false);
+        listAdder(ModBlocks.EM_CANDLE, "longpotter", false, false);
+        listAdder(ModBlocks.CROC_CANDLE, "crocksmarter", false, false);
         listAdder(ModBlocks.CAT_CANDLE, "a_random_cat", false, false);
-        listAdder(ModBlocks.LEAN_CANDLE, "LeanTheLiquid", false, false);
-        listAdder(ModBlocks.DELUXE_CANDLE, "RealDeluxe", false, false);
+        listAdder(ModBlocks.LEAN_CANDLE, "leantheliquid", false, false);
+        listAdder(ModBlocks.DELUXE_CANDLE, "realdeluxe", false, false);
 
     }
 
@@ -189,7 +190,7 @@ public class PlayerCandleHandler
     }
 
     public static void changePlayerTrappedStatus(PlayerEntity player, boolean newStatus) {
-        player.sendMessage(Text.literal(player.getName().getString()));
+        //player.sendMessage(Text.literal(player.getName().getString()));
         try {
             listPos = candleOwners.indexOf(player.getName().getString());
 
@@ -234,6 +235,7 @@ public class PlayerCandleHandler
 
     public static void reviveEveryone(PlayerEntity user, World world, Hand hand, ServerWorld serverWorld) {
 
+        BlockPos worldSpawn = serverWorld.getSpawnPos();
 
         ItemStack itemStack = user.getStackInHand(hand);
 
@@ -257,7 +259,7 @@ public class PlayerCandleHandler
                             if (serverWorld.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
 
                                 serverPlayer.stopRiding();
-                                serverPlayer.teleport(serverWorld, 58, 112, 200, Set.of(), 0f, 0f);
+                                serverPlayer.teleport(serverWorld.getServer().getOverworld(), worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ() , Set.of(), 0f, 0f);
                                 serverPlayer.fallDistance = 0.0f;
 
                                 trappedPlayerBools.set(listPos, false);
@@ -282,6 +284,9 @@ public class PlayerCandleHandler
     }
 
     public static void reviveCommand(ServerWorld serverWorld) {
+
+        BlockPos worldSpawn = serverWorld.getSpawnPos();
+
         int listPos = 0;
 
         if (trappedPlayerBools.contains(true)) {
@@ -302,7 +307,7 @@ public class PlayerCandleHandler
                             if (serverWorld.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
 
                                 serverPlayer.stopRiding();
-                                serverPlayer.teleport(serverWorld.getServer().getOverworld(), 58, 112, 200, Set.of(), 0f, 0f);
+                                serverPlayer.teleport(serverWorld.getServer().getOverworld(), worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ() , Set.of(), 0f, 0f);
                                 serverPlayer.fallDistance = 0.0f;
 
                                 trappedPlayerBools.set(listPos, false);
@@ -317,7 +322,6 @@ public class PlayerCandleHandler
                             }
                         }
                     }
-
 
                 }
                 listPos++;
