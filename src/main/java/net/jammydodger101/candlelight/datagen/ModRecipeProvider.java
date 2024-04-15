@@ -30,5 +30,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.TOTEM_OF_UNDYING), conditionsFromItem(Items.TOTEM_OF_UNDYING))
                 .offerTo(exporter, new Identifier(getRecipeName(ModItems.REVIVER)));
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.CANDLE_COMPASS, 1)
+                .pattern("FFF")
+                .pattern("FCF")
+                .pattern("FFF")
+                .input('F', ModItems.EVENT_FRAGMENT)
+                .input('C', Items.COMPASS)
+                .criterion(hasItem(ModItems.EVENT_FRAGMENT), conditionsFromItem(ModItems.EVENT_FRAGMENT))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.CANDLE_COMPASS)));
     }
 }

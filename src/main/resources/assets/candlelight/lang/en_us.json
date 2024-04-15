@@ -14,6 +14,8 @@
   "block.candlelight.ruby_block" : "Block of Ruby",
 
   "item.candlelight.reviver" : "Reviver",
+  "item.candlelight.event_fragment" : "Event Fragment",
+  "item.candlelight.candle_compass" : "Candle Compass",
 
   "itemgroup.candlelight" : "Candlelight Group"
 }

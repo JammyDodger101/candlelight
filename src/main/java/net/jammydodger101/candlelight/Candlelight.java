@@ -13,6 +13,7 @@ import net.jammydodger101.candlelight.command.ModCommands;
 import net.jammydodger101.candlelight.event.AttackEntityHandler;
 import net.jammydodger101.candlelight.item.ModItemGroups;
 import net.jammydodger101.candlelight.item.ModItems;
+import net.jammydodger101.candlelight.util.ModLootTableModifiers;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
 import net.minecraft.block.Blocks;
@@ -60,6 +61,8 @@ public class Candlelight implements ModInitializer {
 		ModBlocks.registerModBlocks();
 		ModItems.registerModItems();
 		ModItemGroups.registerItemGroups();
+
+		ModLootTableModifiers.modifyLootTables();
 
 		AttackEntityCallback.EVENT.register(new AttackEntityHandler());
 

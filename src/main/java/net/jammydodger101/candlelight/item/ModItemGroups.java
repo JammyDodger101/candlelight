@@ -14,15 +14,15 @@ import net.minecraft.util.Identifier;
 
 public class ModItemGroups {
     public static final ItemGroup CANDLELIGHT_GROUP = Registry.register(Registries.ITEM_GROUP, new Identifier(Candlelight.MOD_ID, "candlelight"), FabricItemGroup.builder().displayName(Text.translatable("itemgroup.candlelight")).icon(() -> new ItemStack(ModBlocks.JAMMY_CANDLE)).entries((displayContext, entries) -> {
-        entries.add(ModBlocks.JAMMY_CANDLE_CAKE);
-        entries.add(ModBlocks.POM_CANDLE_CAKE);
-        entries.add(ModBlocks.SPAM_CANDLE_CAKE);
-        entries.add(ModBlocks.CRAY_CANDLE_CAKE);
-        entries.add(ModBlocks.EM_CANDLE_CAKE);
-        entries.add(ModBlocks.CROC_CANDLE_CAKE);
-        entries.add(ModBlocks.CAT_CANDLE_CAKE);
-        entries.add(ModBlocks.LEAN_CANDLE_CAKE);
-        entries.add(ModBlocks.DELUXE_CANDLE_CAKE);
+        //entries.add(ModBlocks.JAMMY_CANDLE_CAKE);
+        //entries.add(ModBlocks.POM_CANDLE_CAKE);
+        //entries.add(ModBlocks.SPAM_CANDLE_CAKE);
+        //entries.add(ModBlocks.CRAY_CANDLE_CAKE);
+        //entries.add(ModBlocks.EM_CANDLE_CAKE);
+        //entries.add(ModBlocks.CROC_CANDLE_CAKE);
+        //entries.add(ModBlocks.CAT_CANDLE_CAKE);
+        //entries.add(ModBlocks.LEAN_CANDLE_CAKE);
+        //entries.add(ModBlocks.DELUXE_CANDLE_CAKE);
         entries.add(ModBlocks.JAMMY_CANDLE);
         entries.add(ModBlocks.POM_CANDLE);
         entries.add(ModBlocks.SPAM_CANDLE);
@@ -33,6 +33,8 @@ public class ModItemGroups {
         entries.add(ModBlocks.LEAN_CANDLE);
         entries.add(ModBlocks.DELUXE_CANDLE);
         entries.add(ModItems.REVIVER);
+        entries.add(ModItems.EVENT_FRAGMENT);
+        entries.add(ModItems.CANDLE_COMPASS);
     }).build());
 
     public static void registerItemGroups() {

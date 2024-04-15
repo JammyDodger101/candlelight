@@ -35,5 +35,7 @@ public class ModModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(ModItems.REVIVER, Models.GENERATED);
+        itemModelGenerator.register(ModItems.EVENT_FRAGMENT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.CANDLE_COMPASS, Models.GENERATED);
     }
 }
