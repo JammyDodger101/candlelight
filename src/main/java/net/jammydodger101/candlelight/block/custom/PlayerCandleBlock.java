@@ -211,10 +211,10 @@ public class PlayerCandleBlock
             XCoord = pos.getX();
             YCoord = pos.getY();
             ZCoord = pos.getZ();
-            world.getPlayers().get(0).sendMessage(Text.literal(("Candle is placed at " + XCoord + " " + YCoord + " " + ZCoord)));
+            //world.getPlayers().get(0).sendMessage(Text.literal(("Candle is placed at " + XCoord + " " + YCoord + " " + ZCoord)));
         }
 
-        PlayerCandleHandler.setCandleCoordinates(pos, state, this);
+        PlayerCandleHandler.setCandleCoordinates(pos, state, this, world);
     }
 
 }

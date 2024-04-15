@@ -4,6 +4,7 @@ import net.jammydodger101.candlelight.PlayerData;
 import net.jammydodger101.candlelight.StateSaverAndLoader;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -23,16 +24,23 @@ public abstract class DeathMixin {
         BlockPos worldSpawn = oldPlayer.getWorld().getSpawnPos();
         //if their candle status isn't null
 
+        //MinecraftServer server = oldPlayer.getServer();
+        //StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(server);
+
+        PlayerData playerState = StateSaverAndLoader.getPlayerState(oldPlayer);
+
         if(PlayerCandleHandler.checkPlayerStatus(oldPlayer) != null) {
             //if their candle is lit
             if (PlayerCandleHandler.checkPlayerStatus(oldPlayer) == Boolean.TRUE) {
                 if (oldPlayer.getSpawnPointDimension() == ModDimension.CANDLELESS_KEY) {
                     oldPlayer.setSpawnPoint(World.OVERWORLD, worldSpawn, 0f, true, false);
-                    PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
                 }
+                playerState.trapped = false;
                 PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
             } else {
                 oldPlayer.setSpawnPoint(ModDimension.CANDLELESS_KEY, new BlockPos(0, 5, 0), 0f, true, false);
+
+                playerState.trapped = true;
                 PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, true);
             }
 

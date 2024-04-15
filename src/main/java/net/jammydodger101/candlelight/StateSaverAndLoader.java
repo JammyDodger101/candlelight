@@ -9,10 +9,9 @@ import net.minecraft.world.PersistentState;
 import net.minecraft.world.PersistentStateManager;
 import net.minecraft.world.World;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.TypeVariable;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Supplier;
 
 
@@ -20,11 +19,17 @@ public class StateSaverAndLoader extends PersistentState {
 
     public Integer totalDirtBlocksBroken = 0;
 
+    public HashMap<Integer, String> candleLocations = new HashMap<>();
+
     public HashMap<UUID, PlayerData> players = new HashMap<>();
 
     @Override
     public NbtCompound writeNbt(NbtCompound nbt) {
         nbt.putInt("totalDirtBlocksBroken", totalDirtBlocksBroken);
+
+        NbtCompound locationsTag = new NbtCompound();
+        candleLocations.forEach((index, candleLocation) -> locationsTag.putInt(candleLocation, index));
+        nbt.put("locations", locationsTag);
 
         NbtCompound playersNbt = new NbtCompound();
         players.forEach((uuid, playerData) -> {
@@ -45,6 +50,13 @@ public class StateSaverAndLoader extends PersistentState {
         StateSaverAndLoader state = new StateSaverAndLoader();
         state.totalDirtBlocksBroken = tag.getInt("totalDirtBlocksBroken");
 
+        NbtCompound locationsCompound = tag.getCompound("locations");
+        locationsCompound.getKeys().forEach(s -> {
+            String location = s;
+            int index = locationsCompound.getInt(s);
+            state.candleLocations.put(index,location);
+        });
+
 
         NbtCompound playersNbt = tag.getCompound("players");
         playersNbt.getKeys().forEach(key -> {
@@ -62,10 +74,10 @@ public class StateSaverAndLoader extends PersistentState {
     }
 
     public static StateSaverAndLoader getServerState(MinecraftServer server) {
-        PersistentStateManager persistentStateManager = server.getWorld(World.OVERWORLD).getPersistentStateManager();
+        PersistentStateManager persistentStateManager = Objects.requireNonNull(server.getWorld(World.OVERWORLD)).getPersistentStateManager();
 
         //getOrCreate(Function<NbtCompound, T> readFunction, Supplier<T> supplier, String id)
-        StateSaverAndLoader state = persistentStateManager.getOrCreate(StateSaverAndLoader::createFromNBT, StateSaverAndLoader::new, Candlelight.MOD_ID);
+        StateSaverAndLoader state = persistentStateManager.getOrCreate(StateSaverAndLoader::createFromNBT, StateSaverAndLoader::new,  Candlelight.MOD_ID);
 
         state.markDirty();
 

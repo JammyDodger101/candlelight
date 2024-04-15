@@ -1,5 +1,6 @@
 package net.jammydodger101.candlelight.mixin;
 
+import net.jammydodger101.candlelight.StateSaverAndLoader;
 import net.jammydodger101.candlelight.block.ModBlocks;
 import net.jammydodger101.candlelight.util.ModTags;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
@@ -38,8 +39,8 @@ public abstract class BreakCandleMixin{
                     if (state.isOf(candleBlock)) {
                         if (!newState.isOf(this.asBlock())) {
                             PlayerCandleHandler.candleStatus.set(PlayerCandleHandler.candles.indexOf(candleBlock), false);
-                            PlayerCandleHandler.setCandleCoordinates(pos, state, null);
-                            world.getPlayers().get(0).sendMessage(Text.literal("Candle is broken"));
+                            PlayerCandleHandler.setCandleCoordinates(pos, state, null, world);
+                            //world.getPlayers().get(0).sendMessage(Text.literal("Candle is broken"));
                         }
                     }
                 }

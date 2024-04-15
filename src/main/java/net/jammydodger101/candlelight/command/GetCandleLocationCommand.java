@@ -25,7 +25,7 @@ public class GetCandleLocationCommand {
         ServerPlayerEntity player = context.getSource().getPlayer();
         String id = StringArgumentType.getString(context, "playerName");
 
-        BlockPos pos = PlayerCandleHandler.getCandleCoordinates(id);
+        BlockPos pos = PlayerCandleHandler.getCandleCoordinates(id, player);
 
         if (pos != null) {
 

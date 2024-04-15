@@ -2,6 +2,7 @@ package net.jammydodger101.candlelight;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.event.EventFactory;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -44,8 +45,10 @@ public class Candlelight implements ModInitializer {
 		ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
 			PlayerData playerState = StateSaverAndLoader.getPlayerState(handler.getPlayer());
 			PacketByteBuf data = PacketByteBufs.create();
+
 			data.writeInt(playerState.dirtBlocksBroken);
 			data.writeBoolean(playerState.trapped);
+
 			server.execute(() -> {
 				ServerPlayNetworking.send(handler.getPlayer(), INITIAL_SYNC, data);
 			});
@@ -86,6 +89,8 @@ public class Candlelight implements ModInitializer {
 				});
 			}
 		});
+
+
 
 	}
 }
