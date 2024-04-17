@@ -222,6 +222,8 @@ public class PlayerCandleHandler
 
     public static void applyEffectsToTrappedPlayers(World world) {
 
+        //CandleCompassFunctionality.fillCandleCoordinates(world);
+
         int listPos = 0;
 
         for (Boolean trapped :

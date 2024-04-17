@@ -13,6 +13,8 @@ import net.jammydodger101.candlelight.command.ModCommands;
 import net.jammydodger101.candlelight.event.AttackEntityHandler;
 import net.jammydodger101.candlelight.item.ModItemGroups;
 import net.jammydodger101.candlelight.item.ModItems;
+import net.jammydodger101.candlelight.util.CandleCompassFunctionality;
+import net.jammydodger101.candlelight.util.CandleLocationConverter;
 import net.jammydodger101.candlelight.util.ModLootTableModifiers;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
@@ -52,6 +54,7 @@ public class Candlelight implements ModInitializer {
 
 			server.execute(() -> {
 				ServerPlayNetworking.send(handler.getPlayer(), INITIAL_SYNC, data);
+
 			});
 		}));
 
@@ -67,6 +70,7 @@ public class Candlelight implements ModInitializer {
 		AttackEntityCallback.EVENT.register(new AttackEntityHandler());
 
 		ModDimension.register();
+
 		PlayerCandleHandler.addCandlesToList();
 
 		ModCommands.init();

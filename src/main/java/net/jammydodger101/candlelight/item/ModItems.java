@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.jammydodger101.candlelight.Candlelight;
 import net.jammydodger101.candlelight.block.ModBlocks;
+import net.jammydodger101.candlelight.item.custom.CandleCompassItem;
 import net.jammydodger101.candlelight.item.custom.ReviverItem;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
@@ -19,7 +20,7 @@ public class ModItems {
 
     public static final Item REVIVER = registerItem("reviver", new ReviverItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item EVENT_FRAGMENT = registerItem("event_fragment", new Item(new FabricItemSettings().maxCount(16).rarity(Rarity.RARE)));
-    public static final Item CANDLE_COMPASS = registerItem("candle_compass", new CompassItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item CANDLE_COMPASS = registerItem("candle_compass", new CandleCompassItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
     private static void addItemsToIngredientTabItemGroup(FabricItemGroupEntries entries) {
 
