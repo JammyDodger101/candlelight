@@ -29,32 +29,14 @@ public class CandlelightClient implements ClientModInitializer {
             return CandleCompassItem.createSpawnPos(world);
         })));
 
-        ClientPlayNetworking.registerGlobalReceiver(Candlelight.DIRT_BROKEN, (client, handler, buf, responseSender) -> {
-            int totalDirtBlockBroken = buf.readInt();
-            playerData.dirtBlocksBroken = buf.readInt();
 
-            client.execute(() -> {
-                client.player.sendMessage(Text.literal("Total dirt blocks broken: " + totalDirtBlockBroken));
-                client.player.sendMessage(Text.literal("Player specific dirt blocks broken: " + playerData.dirtBlocksBroken));
-            });
-        });
 
         ClientPlayNetworking.registerGlobalReceiver(Candlelight.INITIAL_SYNC, ((client, handler, buf, responseSender) -> {
-            playerData.dirtBlocksBroken = buf.readInt();
             playerData.trapped = buf.readBoolean();
-            //playerData.trapped = true;
-
-
-            //PlayerCandleHandler.applyEffectsToTrappedPlayers(client.world);
 
             client.execute(() -> {
-                client.player.sendMessage(Text.literal(String.valueOf(playerData.trapped)));
-                client.player.sendMessage(Text.literal("Initial specific dirt blocks broken: " + playerData.dirtBlocksBroken));
+
                 PlayerCandleHandler.changePlayerTrappedStatus(client.player, playerData.trapped);
-
-                //.player.getWorld().getServer()
-
-
 
             });
         }));

@@ -25,7 +25,6 @@ public class StateSaverAndLoader extends PersistentState {
 
     @Override
     public NbtCompound writeNbt(NbtCompound nbt) {
-        nbt.putInt("totalDirtBlocksBroken", totalDirtBlocksBroken);
 
         NbtCompound locationsTag = new NbtCompound();
         candleLocations.forEach((index, candleLocation) -> locationsTag.putInt(candleLocation, index));
@@ -34,8 +33,6 @@ public class StateSaverAndLoader extends PersistentState {
         NbtCompound playersNbt = new NbtCompound();
         players.forEach((uuid, playerData) -> {
             NbtCompound playerNbt = new NbtCompound();
-
-            playerNbt.putInt("dirtBlocksBroken", playerData.dirtBlocksBroken);
 
             playerNbt.putBoolean("trapped", playerData.trapped);
 
@@ -48,7 +45,6 @@ public class StateSaverAndLoader extends PersistentState {
 
     public static StateSaverAndLoader createFromNBT(NbtCompound tag) {
         StateSaverAndLoader state = new StateSaverAndLoader();
-        state.totalDirtBlocksBroken = tag.getInt("totalDirtBlocksBroken");
 
         NbtCompound locationsCompound = tag.getCompound("locations");
         locationsCompound.getKeys().forEach(s -> {
@@ -61,8 +57,6 @@ public class StateSaverAndLoader extends PersistentState {
         NbtCompound playersNbt = tag.getCompound("players");
         playersNbt.getKeys().forEach(key -> {
             PlayerData playerData = new PlayerData();
-
-            playerData.dirtBlocksBroken = playersNbt.getCompound(key).getInt("dirtBlocksBroken");
 
             playerData.trapped = playersNbt.getCompound(key).getBoolean("trapped");
 

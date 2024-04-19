@@ -55,13 +55,13 @@ public class CandleCompassFunctionality {
                     }
                 }
 
-                player.sendMessage(Text.literal(candleCoordinates.get(shortestDistanceIndex).toShortString()));
-                player.sendMessage(Text.literal(playerName));
+                //player.sendMessage(Text.literal(candleCoordinates.get(shortestDistanceIndex).toShortString()));
+                //player.sendMessage(Text.literal(playerName));
 
                 return candleCoordinates.get(shortestDistanceIndex);
             } catch (IndexOutOfBoundsException e) {
-                player.sendMessage(Text.literal(e.getMessage()));
-                player.sendMessage(Text.literal(e.getLocalizedMessage()));
+                //player.sendMessage(Text.literal(e.getMessage()));
+                //player.sendMessage(Text.literal(e.getLocalizedMessage()));
                 return new BlockPos(2147483646,2147483646,2147483646);
 
             }
