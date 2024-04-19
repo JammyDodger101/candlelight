@@ -9,9 +9,8 @@
   "block.candlelight.lean_candle" : "§bCandle - LeanTheLiquid",
   "block.candlelight.deluxe_candle" : "§bCandle - RealDeluxe",
 
-  "block.candlelight.jammy_candle.tooltip" : "JammyDodger101",
-
   "block.candlelight.ruby_block" : "Block of Ruby",
+  "block.candlelight.candleless_floor_block" : "Candleless Floor Block",
 
   "item.candlelight.reviver" : "Reviver",
   "item.candlelight.event_fragment" : "Event Fragment",

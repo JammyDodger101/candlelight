@@ -18,15 +18,15 @@ import net.minecraft.block.CandleCakeBlock;
 
 public class ModBlocks {
 
-    public static final Block JAMMY_CANDLE = registerBlock("jammy_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "JammyDodger101"));
-    public static final Block POM_CANDLE = registerBlock("pom_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "PomPomDexter"));
-    public static final Block SPAM_CANDLE = registerBlock("spam_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "Spamhash"));
-    public static final Block CRAY_CANDLE = registerBlock("cray_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "CrayZink"));
-    public static final Block EM_CANDLE = registerBlock("em_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "CrayZink"));
-    public static final Block CROC_CANDLE = registerBlock("croc_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "CrockSmarter"));
-    public static final Block CAT_CANDLE = registerBlock("cat_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "a_random_cat"));
-    public static final Block LEAN_CANDLE = registerBlock("lean_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "LeanTheLiquid"));
-    public static final Block DELUXE_CANDLE = registerBlock("deluxe_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "LeanTheLiquid"));
+    public static final Block JAMMY_CANDLE = registerBlock("jammy_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE).resistance(999), "JammyDodger101"));
+    public static final Block POM_CANDLE = registerBlock("pom_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE).resistance(999), "PomPomDexter"));
+    public static final Block SPAM_CANDLE = registerBlock("spam_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE).resistance(999), "Spamhash"));
+    public static final Block CRAY_CANDLE = registerBlock("cray_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE).resistance(999), "CrayZink"));
+    public static final Block EM_CANDLE = registerBlock("em_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE).resistance(999), "CrayZink"));
+    public static final Block CROC_CANDLE = registerBlock("croc_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE).resistance(999), "CrockSmarter"));
+    public static final Block CAT_CANDLE = registerBlock("cat_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE).resistance(999), "a_random_cat"));
+    public static final Block LEAN_CANDLE = registerBlock("lean_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE).resistance(999), "LeanTheLiquid"));
+    public static final Block DELUXE_CANDLE = registerBlock("deluxe_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "RealDeluxe"));
     public static final Block JAMMY_CANDLE_CAKE = registerBlock("jammy_candle_cake", new CandleCakeBlock(JAMMY_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
     public static final Block POM_CANDLE_CAKE = registerBlock("pom_candle_cake", new CandleCakeBlock(POM_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
     public static final Block SPAM_CANDLE_CAKE = registerBlock("spam_candle_cake", new CandleCakeBlock(SPAM_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
@@ -38,6 +38,7 @@ public class ModBlocks {
     public static final Block DELUXE_CANDLE_CAKE = registerBlock("deluxe_candle_cake", new CandleCakeBlock(DELUXE_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
 
     public static final Block RUBY_BLOCK = registerBlock("ruby_block", new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
+    public static final Block CANDLELESS_FLOOR_BLOCK = registerBlock("candleless_floor_block", new Block(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
 
 
     public static Block register(String id, Block block) {
