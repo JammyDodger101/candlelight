@@ -136,7 +136,7 @@ public class CandleCompassItem
 
         //if (world.getBlockState(blockPos).isOf(ModBlocks.JAMMY_CANDLE)) {
         boolean bl;
-        world.playSound(null, blockPos, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.PLAYERS, 1.0f, 1.0f);
+        world.playSound(null, user.getBlockPos(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.PLAYERS, 1.0f, 1.0f);
 
         ItemStack itemStack = user.getStackInHand(hand);
         boolean bl2 = bl = !user.getAbilities().creativeMode && itemStack.getCount() == 1;

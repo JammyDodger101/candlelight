@@ -54,7 +54,7 @@ public class PlayerCandleHandler
         }
 
 
-        listAdder(ModBlocks.JAMMY_CANDLE, "yay", false, false);
+        listAdder(ModBlocks.JAMMY_CANDLE, "jammydodger101", false, false);
         listAdder(ModBlocks.POM_CANDLE, "pompomdexter", false, false);
         listAdder(ModBlocks.SPAM_CANDLE, "citramin", false, false);
         listAdder(ModBlocks.CRAY_CANDLE, "crayzink", false, false);
