@@ -29,7 +29,7 @@ public class CandleLocationConverter {
 
 
             return pos;
-        } catch(NumberFormatException e) {
+        } catch(NumberFormatException | NullPointerException e) {
             int bitLimit = 2147483646;
             return new BlockPos(bitLimit,bitLimit,bitLimit);
         }

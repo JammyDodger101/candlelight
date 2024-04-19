@@ -22,11 +22,11 @@ public class CandleCompassFunctionality {
             candleCoordinates.clear();
             MinecraftServer server = world.getServer();
             StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(server));
-            for (int i = 0; i < serverState.candleLocations.size(); i++) {
-                candleCoordinates.add(BlockPos.ORIGIN);
+            //candleCoordinates = PlayerCandleHandler.candleCoordinates;
+            for (int i = 0; i < PlayerCandleHandler.candleCoordinates.size(); i++) {
+                candleCoordinates.add(PlayerCandleHandler.candleCoordinates.get(i));
                 candleCoordinates.set(i,CandleLocationConverter.StringToBlockPos(serverState.candleLocations.get(i)));
             }
-
 
             //server.getOverworld().getRandomAlivePlayer().sendMessage(Text.literal("filled candles"));
         }
@@ -35,26 +35,39 @@ public class CandleCompassFunctionality {
     }
 
     public static BlockPos getNearestCandle(PlayerEntity player) {
-        calculateDistancesBetweenPlayerAndCandles(player);
+        if (!player.getWorld().isClient()) {
+            fillCandleCoordinates(player.getWorld());
+            calculateDistancesBetweenPlayerAndCandles(player);
 
-        try {
-            int shortestDistanceIndex = 0;
-            double shortestDistance = candleDistances.get(shortestDistanceIndex);
-            for (double distance : candleDistances) {
-                if (shortestDistance > distance) {
-                    shortestDistance = distance;
-                    shortestDistanceIndex = candleDistances.indexOf(distance);
+            String playerName = player.getEntityName().toLowerCase();
+
+            try {
+                int shortestDistanceIndex = 0;
+                double shortestDistance = candleDistances.get(shortestDistanceIndex);
+                for (double distance : candleDistances) {
+                    if (shortestDistance > distance) {
+
+                        //if (!playerName.equals(PlayerCandleHandler.candleOwners.get(candleDistances.indexOf(distance)))) {
+                            shortestDistance = distance;
+                            shortestDistanceIndex = candleDistances.indexOf(distance);
+                        //}
+
+                    }
                 }
+
+                player.sendMessage(Text.literal(candleCoordinates.get(shortestDistanceIndex).toShortString()));
+                player.sendMessage(Text.literal(playerName));
+
+                return candleCoordinates.get(shortestDistanceIndex);
+            } catch (IndexOutOfBoundsException e) {
+                player.sendMessage(Text.literal(e.getMessage()));
+                player.sendMessage(Text.literal(e.getLocalizedMessage()));
+                return new BlockPos(2147483646,2147483646,2147483646);
+
             }
-
-            player.sendMessage(Text.literal(candleCoordinates.get(shortestDistanceIndex).toShortString()));
-
-            return candleCoordinates.get(shortestDistanceIndex);
-        } catch (IndexOutOfBoundsException e) {
-            player.sendMessage(Text.literal("ERROR"));
-            return new BlockPos(2147483646,2147483646,2147483646);
         }
 
+        return new BlockPos(2147483646,2147483646,2147483646);
 
     }
 

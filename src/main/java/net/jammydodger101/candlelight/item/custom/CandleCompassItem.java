@@ -45,15 +45,7 @@ public class CandleCompassItem
     public static final String CANDLE_DIMENSION_KEY = "CandleDimension";
     public static final String CANDLE_TRACKED_KEY = "CandleTracked";
 
-    private static PointOfInterestType registerPOI(String name, Block block) {
-        return PointOfInterestHelper.register(new Identifier(Candlelight.MOD_ID, name), 0, 1, block);
-    }
-
-    private static RegistryKey<PointOfInterestType> poiKey(String name) {
-        return RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, new Identifier(Candlelight.MOD_ID, name));
-    }
-
-
+    public static final Integer trackingDistance = new Random().nextInt(400,600);
 
     public CandleCompassItem(Settings settings) {
         super(settings);
@@ -113,14 +105,21 @@ public class CandleCompassItem
                     || !world.getBlockState(blockPos).isIn(ModTags.Blocks.CUSTOM_CANDLES)))
                      {
                 nbtCompound.remove(CANDLE_POS_KEY);
+
+                if (blockPos.getY() < 200000) {
+                    CandleCompassFunctionality.fillCandleCoordinates(world);
+                    BlockPos nearestCandle = CandleCompassFunctionality.getNearestCandle((PlayerEntity) entity);
+                    this.writeNbt(world.getRegistryKey(), nearestCandle, stack.getOrCreateNbt());
+                }
+
             }
 
             blockPos = NbtHelper.toBlockPos(nbtCompound.getCompound(CANDLE_POS_KEY));
-            if (blockPos.getSquaredDistance(entity.getBlockPos().toCenterPos()) < 2) {
+            if (blockPos.getSquaredDistance(entity.getBlockPos().toCenterPos()) < trackingDistance) {
                 stack.decrement(1);
-                world.getServer().getWorld(world.getServer().getOverworld().getRegistryKey()).spawnParticles(
-                        ParticleTypes.TOTEM_OF_UNDYING, entity.getX(), entity.getY(), entity.getZ(), 1000, 1.0f,1.0f,1.0f,1.0f);
-                world.playSound(null, blockPos, SoundEvents.ITEM_TOTEM_USE, SoundCategory.PLAYERS, 1.0f, 1.0f);
+                //world.getServer().getWorld(world.getServer().getOverworld().getRegistryKey()).spawnParticles(
+                        //ParticleTypes.TOTEM_OF_UNDYING, entity.getX(), entity.getY(), entity.getZ(), 1000, 1.0f,1.0f,1.0f,1.0f);
+                world.playSound(null, entity.getBlockPos(), SoundEvents.ITEM_SHIELD_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
                 //world.addParticle(ParticleTypes.HEART, entity.getX(), entity.getY()+2.0, entity.getZ(),0.0f,0.0f,0.0f);
             }
         }

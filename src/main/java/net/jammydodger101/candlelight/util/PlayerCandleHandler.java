@@ -79,49 +79,6 @@ public class PlayerCandleHandler
         return candles.indexOf(candle);
     }
 
-    //ignore the shitty coding i don't know a better way to do this
-    private static Block stringToCandle(String candleName) {
-        if(Objects.equals(candleName, "JAMMY_CANDLE")) {
-            return ModBlocks.JAMMY_CANDLE;
-        } else if(Objects.equals(candleName, "POM_CANDLE")) {
-            return ModBlocks.POM_CANDLE;
-        }else if(Objects.equals(candleName, "CAT_CANDLE")) {
-            return ModBlocks.CAT_CANDLE;
-        }else if(Objects.equals(candleName, "CRAY_CANDLE")) {
-            return ModBlocks.CRAY_CANDLE;
-        }else if(Objects.equals(candleName, "CROC_CANDLE")) {
-            return ModBlocks.CROC_CANDLE;
-        }else if(Objects.equals(candleName, "EM_CANDLE")) {
-            return ModBlocks.EM_CANDLE;
-        }else if(Objects.equals(candleName, "LEAN_CANDLE")) {
-            return ModBlocks.LEAN_CANDLE;
-        }else if(Objects.equals(candleName, "SPAM_CANDLE")) {
-            return ModBlocks.SPAM_CANDLE;
-        }
-        return null;
-    }
-
-    //ignore the shitty coding i don't know a better way to do this
-    private static String candleToString(Block candle) {
-        if(Objects.equals(candle, ModBlocks.JAMMY_CANDLE)) {
-            return "jammyCandle";
-        } else if(Objects.equals(candle, ModBlocks.POM_CANDLE)) {
-            return "pomCandle";
-        }else if(Objects.equals(candle, ModBlocks.CAT_CANDLE)) {
-            return "catCandle";
-        }else if(Objects.equals(candle, ModBlocks.CRAY_CANDLE)) {
-            return "crayCandle";
-        }else if(Objects.equals(candle, ModBlocks.CROC_CANDLE)) {
-            return "crocCandle";
-        }else if(Objects.equals(candle, ModBlocks.EM_CANDLE)) {
-            return "emCandle";
-        }else if(Objects.equals(candle, ModBlocks.LEAN_CANDLE)) {
-            return "leanCandle";
-        }else if(Objects.equals(candle, ModBlocks.SPAM_CANDLE)) {
-            return "spamCandle";
-        }
-        return null;
-    }
 
     public static void setCandleCoordinates(BlockPos pos, BlockState state, Block block, World world) {
         if (!world.isClient()) {

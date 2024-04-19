@@ -33,7 +33,8 @@ public class GetCandleLocationCommand {
 
             return 1;
         }
-        player.sendMessage(Text.literal("Candle is not placed down"));
+
+        player.sendMessage(Text.literal("Candle is not placed down or player doesnt exist"));
         return -1;
     }
 }
