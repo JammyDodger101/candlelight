@@ -39,7 +39,7 @@ public class CandleCompassFunctionality {
             fillCandleCoordinates(player.getWorld());
             calculateDistancesBetweenPlayerAndCandles(player);
 
-            String playerName = player.getEntityName().toLowerCase();
+            String playerName = player.getNameForScoreboard().toLowerCase();
 
             try {
                 int shortestDistanceIndex = 0;

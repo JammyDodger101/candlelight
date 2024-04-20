@@ -20,6 +20,7 @@ import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
 import net.minecraft.block.Blocks;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
@@ -50,7 +51,7 @@ public class Candlelight implements ModInitializer {
 			data.writeBoolean(playerState.trapped);
 
 			server.execute(() -> {
-				ServerPlayNetworking.send(handler.getPlayer(), INITIAL_SYNC, data);
+				ServerPlayNetworking.send(handler.getPlayer(), (CustomPayload) data);
 
 			});
 		}));

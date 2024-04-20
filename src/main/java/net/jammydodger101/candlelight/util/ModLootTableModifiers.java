@@ -31,7 +31,7 @@ public class ModLootTableModifiers {
     public static final Identifier TRAIL_RUINS_RARE = new Identifier("minecraft", "archaeology/trail_ruins_rare");
 
     public static void modifyLootTables() {
-        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+        LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
             if(ANCIENT_CITY_ID.equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
@@ -55,17 +55,17 @@ public class ModLootTableModifiers {
 
         });
 
-        LootTableEvents.REPLACE.register((resourceManager, lootManager, id, original, source) -> {
-            if(DESERT_PYRAMID.equals(id) || DESERT_WELL.equals(id) || OCEAN_RUIN_COLD.equals(id)|| OCEAN_RUIN_WARM.equals(id)|| TRAIL_RUINS_RARE.equals(id) || TRAIL_RUINS_COMMON.equals(id)) {
-                List<LootPoolEntry> entries = new ArrayList<>(Arrays.asList(original.pools[0].entries));
-                entries.add(ItemEntry.builder(ModItems.EVENT_FRAGMENT).build());
+        //LootTableEvents.REPLACE.register((resourceManager, lootManager, id, original, source) -> {
+            //if(DESERT_PYRAMID.equals(id) || DESERT_WELL.equals(id) || OCEAN_RUIN_COLD.equals(id)|| OCEAN_RUIN_WARM.equals(id)|| TRAIL_RUINS_RARE.equals(id) || TRAIL_RUINS_COMMON.equals(id)) {
+                //List<LootPoolEntry> entries = new ArrayList<>(Arrays.asList(original.pools[0].entries));
+                //entries.add(ItemEntry.builder(ModItems.EVENT_FRAGMENT).build());
 
-                LootPool.Builder pool = LootPool.builder().with(entries);
-                return LootTable.builder().pool(pool).build();
-            }
+                //LootPool.Builder pool = LootPool.builder().with(entries);
+                //return LootTable.builder().pool(pool).build();
+            //}
 
 
-            return null;
-        });
+            //return null;
+        //});
     }
 }

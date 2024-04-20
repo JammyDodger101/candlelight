@@ -3,7 +3,6 @@ package net.jammydodger101.candlelight.item.custom;
 import net.jammydodger101.candlelight.item.ModItems;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.minecraft.client.render.DimensionEffects;
-import net.minecraft.client.report.ReporterEnvironment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -31,7 +30,7 @@ public class ReviverItem extends Item {
             if (serverWorld == null) {
                 return TypedActionResult.fail(itemStack);
             }
-            serverWorld.getServer().getPlayerManager().getPlayer(user.getEntityName());
+            serverWorld.getServer().getPlayerManager().getPlayer(user.getNameForScoreboard());
             PlayerCandleHandler.reviveEveryone(user, world, hand, serverWorld);
             //return TypedActionResult.success(itemStack);
 

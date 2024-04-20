@@ -25,7 +25,7 @@ public class ModItemGroups {
         entries.add(ModBlocks.DELUXE_CANDLE);
         entries.add(ModItems.REVIVER);
         entries.add(ModItems.EVENT_FRAGMENT);
-        entries.add(ModItems.CANDLE_COMPASS);
+        //entries.add(ModItems.CANDLE_COMPASS);
         entries.add(ModBlocks.CANDLELESS_FLOOR_BLOCK);
     }).build());
 

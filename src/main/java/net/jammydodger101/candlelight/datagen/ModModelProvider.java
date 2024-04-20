@@ -38,7 +38,7 @@ public class ModModelProvider extends FabricModelProvider {
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(ModItems.REVIVER, Models.GENERATED);
         itemModelGenerator.register(ModItems.EVENT_FRAGMENT, Models.GENERATED);
-        itemModelGenerator.registerCompass(ModItems.CANDLE_COMPASS);
+        //itemModelGenerator.registerCompass(ModItems.CANDLE_COMPASS);
 
     }
 }

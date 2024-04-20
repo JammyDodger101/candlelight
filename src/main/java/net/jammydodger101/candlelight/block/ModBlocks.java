@@ -1,6 +1,5 @@
 package net.jammydodger101.candlelight.block;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.jammydodger101.candlelight.Candlelight;
 import net.jammydodger101.candlelight.block.custom.PlayerCandleBlock;
@@ -59,7 +58,7 @@ public class ModBlocks {
         return Registry.register(Registries.BLOCK, new Identifier(Candlelight.MOD_ID, id), new CandleCakeBlock(candle, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
     }
     private static Item registerBlockItem(String name, Block block) {
-        return Registry.register(Registries.ITEM, new Identifier(Candlelight.MOD_ID, name), new BlockItem(block, new FabricItemSettings()));
+        return Registry.register(Registries.ITEM, new Identifier(Candlelight.MOD_ID, name), new BlockItem(block, new Item.Settings()));
     }
 
     public static void registerModBlocks() {
