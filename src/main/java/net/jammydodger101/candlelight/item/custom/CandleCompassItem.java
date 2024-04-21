@@ -45,7 +45,7 @@ public class CandleCompassItem
     public static final String CANDLE_DIMENSION_KEY = "CandleDimension";
     public static final String CANDLE_TRACKED_KEY = "CandleTracked";
 
-    public static final Integer trackingDistance = new Random().nextInt(400,600);
+    public static Integer trackingDistance = new Random().nextInt(400,600);
 
     public CandleCompassItem(Settings settings) {
         super(settings);
@@ -128,6 +128,8 @@ public class CandleCompassItem
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         //BlockPos blockPos = user.getBlockPos();
+
+        trackingDistance = new Random().nextInt(400,600);
 
 
         CandleCompassFunctionality.fillCandleCoordinates(world);

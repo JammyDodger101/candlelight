@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_event_fragment": {
+    "has_event_fragments": {
       "conditions": {
         "items": [
           {
             "items": [
-              "candlelight:event_fragment"
+              "candlelight:event_fragments"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_event_fragment",
+      "has_event_fragments",
       "has_the_recipe"
     ]
   ],

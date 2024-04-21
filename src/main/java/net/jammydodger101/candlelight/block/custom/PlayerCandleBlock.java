@@ -196,23 +196,17 @@ public class PlayerCandleBlock
     public static void spawnCandleParticles(World world, Vec3d vec3d, Random random) {
         float f = random.nextFloat();
         if (f < 0.3f) {
-            world.addParticle(ParticleTypes.END_ROD, vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, 0.0);
+            world.addParticle(ParticleTypes.SMOKE, vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, 0.0);
             if (f < 0.17f) {
                 world.playSound(vec3d.x + 0.5, vec3d.y + 0.5, vec3d.z + 0.5, SoundEvents.BLOCK_CANDLE_AMBIENT, SoundCategory.BLOCKS, 1.0f + random.nextFloat(), random.nextFloat() * 0.7f + 0.3f, false);
             }
         }
-        world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, 0.0);
+        world.addParticle(ParticleTypes.SMALL_FLAME, vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, 0.0);
     }
 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         candlePosition = pos;
-        if(!world.isClient()) {
-            XCoord = pos.getX();
-            YCoord = pos.getY();
-            ZCoord = pos.getZ();
-            //world.getPlayers().get(0).sendMessage(Text.literal(("Candle is placed at " + XCoord + " " + YCoord + " " + ZCoord)));
-        }
 
         PlayerCandleHandler.setCandleCoordinates(pos, state, this, world);
     }

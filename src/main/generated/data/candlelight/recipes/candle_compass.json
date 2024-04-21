@@ -6,7 +6,7 @@
       "item": "minecraft:compass"
     },
     "F": {
-      "item": "candlelight:event_fragment"
+      "item": "candlelight:event_fragments"
     }
   },
   "pattern": [

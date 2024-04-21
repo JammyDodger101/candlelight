@@ -13,7 +13,7 @@
   "block.candlelight.candleless_floor_block" : "Candleless Floor Block",
 
   "item.candlelight.reviver" : "Reviver",
-  "item.candlelight.event_fragment" : "Event Fragment",
+  "item.candlelight.event_fragments" : "Event Fragments",
   "item.candlelight.candle_compass" : "Candle Compass",
 
   "itemgroup.candlelight" : "Candlelight Group"

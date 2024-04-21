@@ -2,6 +2,7 @@ package net.jammydodger101.candlelight;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.TypedActionResult;
@@ -23,25 +24,7 @@ public class StateSaverAndLoader extends PersistentState {
 
     public HashMap<UUID, PlayerData> players = new HashMap<>();
 
-    @Override
-    public NbtCompound writeNbt(NbtCompound nbt) {
 
-        NbtCompound locationsTag = new NbtCompound();
-        candleLocations.forEach((index, candleLocation) -> locationsTag.putInt(candleLocation, index));
-        nbt.put("locations", locationsTag);
-
-        NbtCompound playersNbt = new NbtCompound();
-        players.forEach((uuid, playerData) -> {
-            NbtCompound playerNbt = new NbtCompound();
-
-            playerNbt.putBoolean("trapped", playerData.trapped);
-
-            playersNbt.put(uuid.toString(), playerNbt);
-        });
-        nbt.put("players", playersNbt);
-
-        return nbt;
-    }
 
     public static StateSaverAndLoader createFromNBT(NbtCompound tag) {
         StateSaverAndLoader state = new StateSaverAndLoader();
@@ -84,5 +67,24 @@ public class StateSaverAndLoader extends PersistentState {
         PlayerData playerState = serverState.players.computeIfAbsent(player.getUuid(), uuid -> new PlayerData());
 
         return playerState;
+    }
+
+    @Override
+    public NbtCompound writeNbt(NbtCompound nbt) {
+        NbtCompound locationsTag = new NbtCompound();
+        candleLocations.forEach((index, candleLocation) -> locationsTag.putInt(candleLocation, index));
+        nbt.put("locations", locationsTag);
+
+        NbtCompound playersNbt = new NbtCompound();
+        players.forEach((uuid, playerData) -> {
+            NbtCompound playerNbt = new NbtCompound();
+
+            playerNbt.putBoolean("trapped", playerData.trapped);
+
+            playersNbt.put(uuid.toString(), playerNbt);
+        });
+        nbt.put("players", playersNbt);
+
+        return nbt;
     }
 }
