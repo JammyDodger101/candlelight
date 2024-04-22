@@ -117,7 +117,7 @@ public class PlayerCandleHandler
 
         for (Block candle : candles
              ) {
-            if (Objects.equals(candleOwners.get(getListLocation(candle)), player.getName().getString())) {
+            if (Objects.equals(candleOwners.get(getListLocation(candle)), player.getName().getString().toLowerCase())) {
                 return candleStatus.get(candles.indexOf(candle));
             }
         }
@@ -163,8 +163,9 @@ public class PlayerCandleHandler
     public static void changePlayerTrappedStatus(PlayerEntity player, boolean newStatus) {
         //player.sendMessage(Text.literal(player.getName().getString()));
         //player.sendMessage(Text.literal(String.valueOf((newStatus))));
+
         try {
-            listPos = candleOwners.indexOf(player.getName().getString());
+            listPos = candleOwners.indexOf(player.getName().getString().toLowerCase());
 
         } catch (Exception e) {
             return;

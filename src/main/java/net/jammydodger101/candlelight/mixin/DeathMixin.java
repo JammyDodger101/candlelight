@@ -7,6 +7,7 @@ import net.jammydodger101.candlelight.world.dimension.ModDimension;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,6 +27,8 @@ public abstract class DeathMixin {
 
         //MinecraftServer server = oldPlayer.getServer();
         //StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(server);
+
+        //oldPlayer.sendMessage(Text.literal("hiii hiii hiiiii i ii"));
 
         PlayerData playerState = StateSaverAndLoader.getPlayerState(oldPlayer);
 
