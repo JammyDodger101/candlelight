@@ -93,56 +93,33 @@ public class PlayerCandleHandler
                 serverState.candleLocations.put(getListLocation(state.getBlock()), "");
             }
         }
-
     }
 
     public static BlockPos getCandleCoordinates(String playerName, ServerPlayerEntity player) {
-        for (Block candle : candles
-        ) {
-            if (Objects.equals(candleOwners.get(getListLocation(candle)).toLowerCase(), playerName.toLowerCase())) {
-                //return candleCoordinates.get(candles.indexOf(candle));
-
-                Integer index = candles.indexOf(candle);
-                StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(player.getServer()));
-
-                return CandleLocationConverter.StringToBlockPos(serverState.candleLocations.get(index));
-            }
-
+        if(candleOwners.contains(playerName.toLowerCase())) {
+            StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(player.getServer()));
+            Integer index = candleOwners.indexOf(playerName.toLowerCase());
+            return CandleLocationConverter.StringToBlockPos(serverState.candleLocations.get(index));
         }
         return null;
     }
-
 
     public static Boolean checkPlayerStatus(PlayerEntity player) {
-
-        for (Block candle : candles
-             ) {
-            if (Objects.equals(candleOwners.get(getListLocation(candle)), player.getName().getString().toLowerCase())) {
-                return candleStatus.get(candles.indexOf(candle));
-            }
+        String playerName = player.getName().getString();
+        if (candleOwners.contains(playerName.toLowerCase())) {
+            return candleStatus.get(candleOwners.indexOf(playerName.toLowerCase()));
         }
         return null;
     }
 
-
-
     public static Boolean checkPlayerStatusCommand(String playerName) {
-        for (Block candle : candles
-        ) {
-            if (Objects.equals(candleOwners.get(getListLocation(candle)).toLowerCase(), playerName.toLowerCase())) {
-                return candleStatus.get(candles.indexOf(candle));
-            }
+        if (candleOwners.contains(playerName.toLowerCase())) {
+            return candleStatus.get(candleOwners.indexOf(playerName.toLowerCase()));
         }
         return null;
     }
 
     public static Boolean checkPlayerTrappedStatusCommand(String playerName) {
-        //for (Block candle : candles
-        //) {
-            //if (Objects.equals(candleOwners.get(getListLocation(candle)).toLowerCase(), playerName.toLowerCase())) {
-                //return trappedPlayerBools.get(candles.indexOf(candle));
-            //}
-        //}
         if (candleOwners.contains(playerName.toLowerCase())) {
             return trappedPlayerBools.get(candleOwners.indexOf(playerName.toLowerCase()));
         }
@@ -161,17 +138,11 @@ public class PlayerCandleHandler
     }
 
     public static void changePlayerTrappedStatus(PlayerEntity player, boolean newStatus) {
-        //player.sendMessage(Text.literal(player.getName().getString()));
-        //player.sendMessage(Text.literal(String.valueOf((newStatus))));
-
         try {
             listPos = candleOwners.indexOf(player.getName().getString().toLowerCase());
-
         } catch (Exception e) {
             return;
         }
-
-
         if (listPos != -1) {
 
             trappedPlayerBools.set(listPos, newStatus);
