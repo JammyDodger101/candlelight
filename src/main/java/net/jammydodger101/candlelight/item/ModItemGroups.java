@@ -23,6 +23,7 @@ public class ModItemGroups {
         entries.add(ModBlocks.CAT_CANDLE);
         entries.add(ModBlocks.LEAN_CANDLE);
         entries.add(ModBlocks.DELUXE_CANDLE);
+        entries.add(ModBlocks.JK_CANDLE);
         entries.add(ModItems.REVIVER);
         entries.add(ModItems.EVENT_FRAGMENT);
         entries.add(ModItems.CANDLE_COMPASS);

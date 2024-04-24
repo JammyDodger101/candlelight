@@ -27,6 +27,7 @@ public class ModBlocks {
     public static final Block CAT_CANDLE = registerBlock("cat_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE).resistance(999), "a_random_cat"));
     public static final Block LEAN_CANDLE = registerBlock("lean_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE).resistance(999), "LeanTheLiquid"));
     public static final Block DELUXE_CANDLE = registerBlock("deluxe_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "RealDeluxe"));
+    public static final Block JK_CANDLE = registerBlock("jk_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE), "not_jk"));
     public static final Block JAMMY_CANDLE_CAKE = registerBlock("jammy_candle_cake", new CandleCakeBlock(JAMMY_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
     public static final Block POM_CANDLE_CAKE = registerBlock("pom_candle_cake", new CandleCakeBlock(POM_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
     public static final Block SPAM_CANDLE_CAKE = registerBlock("spam_candle_cake", new CandleCakeBlock(SPAM_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
@@ -36,6 +37,7 @@ public class ModBlocks {
     public static final Block CAT_CANDLE_CAKE = registerBlock("cat_candle_cake", new CandleCakeBlock(CAT_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
     public static final Block LEAN_CANDLE_CAKE = registerBlock("lean_candle_cake", new CandleCakeBlock(LEAN_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
     public static final Block DELUXE_CANDLE_CAKE = registerBlock("deluxe_candle_cake", new CandleCakeBlock(DELUXE_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
+    public static final Block JK_CANDLE_CAKE = registerBlock("jk_candle_cake", new CandleCakeBlock(JK_CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
 
     public static final Block RUBY_BLOCK = registerBlock("ruby_block", new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
     public static final Block CANDLELESS_FLOOR_BLOCK = registerBlock("candleless_floor_block", new Block(FabricBlockSettings.copyOf(Blocks.BEDROCK)));

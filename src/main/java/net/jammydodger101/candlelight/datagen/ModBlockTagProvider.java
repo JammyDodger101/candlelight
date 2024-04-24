@@ -27,7 +27,8 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.CAT_CANDLE)
                 .add(ModBlocks.LEAN_CANDLE)
                 .add(ModBlocks.DELUXE_CANDLE)
-                .add(ModBlocks.CRAY_CANDLE);
+                .add(ModBlocks.CRAY_CANDLE)
+                .add(ModBlocks.JK_CANDLE);
         getOrCreateTagBuilder(BlockTags.CANDLES)
                 .add(ModBlocks.JAMMY_CANDLE)
                 .add(ModBlocks.POM_CANDLE)
@@ -37,6 +38,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.CAT_CANDLE)
                 .add(ModBlocks.LEAN_CANDLE)
                 .add(ModBlocks.DELUXE_CANDLE)
+                .add(ModBlocks.JK_CANDLE)
                 .add(ModBlocks.CRAY_CANDLE);
         getOrCreateTagBuilder(BlockTags.CANDLE_CAKES)
                 .add(ModBlocks.JAMMY_CANDLE_CAKE)
@@ -47,6 +49,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.CAT_CANDLE_CAKE)
                 .add(ModBlocks.LEAN_CANDLE_CAKE)
                 .add(ModBlocks.DELUXE_CANDLE_CAKE)
+                .add(ModBlocks.JK_CANDLE_CAKE)
                 .add(ModBlocks.CRAY_CANDLE_CAKE);
 
         getOrCreateTagBuilder(BlockTags.PREVENT_MOB_SPAWNING_INSIDE)
@@ -58,6 +61,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.CAT_CANDLE)
                 .add(ModBlocks.LEAN_CANDLE)
                 .add(ModBlocks.DELUXE_CANDLE)
+                .add(ModBlocks.JK_CANDLE)
                 .add(ModBlocks.CRAY_CANDLE);
         getOrCreateTagBuilder(BlockTags.DRAGON_IMMUNE)
                 .add(ModBlocks.JAMMY_CANDLE)
@@ -68,6 +72,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.CAT_CANDLE)
                 .add(ModBlocks.LEAN_CANDLE)
                 .add(ModBlocks.DELUXE_CANDLE)
+                .add(ModBlocks.JK_CANDLE)
                 .add(ModBlocks.CRAY_CANDLE);
         getOrCreateTagBuilder(BlockTags.WITHER_IMMUNE)
                 .add(ModBlocks.JAMMY_CANDLE)
@@ -78,6 +83,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.CAT_CANDLE)
                 .add(ModBlocks.LEAN_CANDLE)
                 .add(ModBlocks.DELUXE_CANDLE)
+                .add(ModBlocks.JK_CANDLE)
                 .add(ModBlocks.CRAY_CANDLE);
 
     }

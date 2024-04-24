@@ -43,18 +43,19 @@ public class PlayerCandleHandler
 
 
     public static void addCandlesToList() {
-        listAdder(ModBlocks.JAMMY_CANDLE, "jammydodger101", false, false);
-        listAdder(ModBlocks.POM_CANDLE, "pompomdexter", false, false);
-        listAdder(ModBlocks.SPAM_CANDLE, "citramin", false, false);
-        listAdder(ModBlocks.CRAY_CANDLE, "crayzink", false, false);
-        listAdder(ModBlocks.EM_CANDLE, "longpotter", false, false);
-        listAdder(ModBlocks.CROC_CANDLE, "crocksmarter", false, false);
-        listAdder(ModBlocks.CAT_CANDLE, "a_random_cat", false, false);
-        listAdder(ModBlocks.LEAN_CANDLE, "leantheliquid", false, false);
-        listAdder(ModBlocks.DELUXE_CANDLE, "realdeluxe", false, false);
+        listAdder(ModBlocks.JAMMY_CANDLE, "jammydodger101", false);
+        listAdder(ModBlocks.POM_CANDLE, "pompomdexter", false);
+        listAdder(ModBlocks.SPAM_CANDLE, "citramin", false);
+        listAdder(ModBlocks.CRAY_CANDLE, "crayzink", false);
+        listAdder(ModBlocks.EM_CANDLE, "longpotter", false);
+        listAdder(ModBlocks.CROC_CANDLE, "crocksmarter", false);
+        listAdder(ModBlocks.CAT_CANDLE, "a_random_cat", false);
+        listAdder(ModBlocks.LEAN_CANDLE, "leantheliquid", false);
+        listAdder(ModBlocks.DELUXE_CANDLE, "realdeluxe", false);
+        listAdder(ModBlocks.JK_CANDLE, "not_jk", false);
     }
 
-    public static void listAdder(Block block, String playerName, Boolean candleStatusBool, Boolean playerTrapped) {
+    public static void listAdder(Block block, String playerName, Boolean candleStatusBool) {
         candles.add(block);
         candleOwners.add(playerName);
         candleStatus.add(candleStatusBool);

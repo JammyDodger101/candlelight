@@ -8,6 +8,7 @@
   "block.candlelight.cat_candle" : "§bCandle - a_random_cat",
   "block.candlelight.lean_candle" : "§bCandle - LeanTheLiquid",
   "block.candlelight.deluxe_candle" : "§bCandle - RealDeluxe",
+  "block.candlelight.jk_candle" : "§bCandle - not_JK",
 
   "block.candlelight.ruby_block" : "Block of Ruby",
   "block.candlelight.candleless_floor_block" : "Candleless Floor Block",
