@@ -21,9 +21,33 @@ public class StateSaverAndLoader extends PersistentState {
     public Integer totalDirtBlocksBroken = 0;
 
     public HashMap<Integer, String> candleLocations = new HashMap<>();
-
+    public HashMap<String, Boolean> candleStatuses = new HashMap<>();
     public HashMap<UUID, PlayerData> players = new HashMap<>();
 
+    @Override
+    public NbtCompound writeNbt(NbtCompound nbt) {
+        NbtCompound locationsTag = new NbtCompound();
+        candleLocations.forEach((index, candleLocation) -> locationsTag.putInt(candleLocation, index));
+        nbt.put("locations", locationsTag);
+
+        NbtCompound statusTag = new NbtCompound();
+        candleStatuses.forEach((playerName, status) -> {
+            statusTag.putBoolean(playerName, status);
+        });
+        nbt.put("statuses", statusTag);
+
+        NbtCompound playersNbt = new NbtCompound();
+        players.forEach((uuid, playerData) -> {
+            NbtCompound playerNbt = new NbtCompound();
+
+            playerNbt.putBoolean("trapped", playerData.trapped);
+
+            playersNbt.put(uuid.toString(), playerNbt);
+        });
+        nbt.put("players", playersNbt);
+
+        return nbt;
+    }
 
 
     public static StateSaverAndLoader createFromNBT(NbtCompound tag) {
@@ -34,6 +58,12 @@ public class StateSaverAndLoader extends PersistentState {
             String location = s;
             int index = locationsCompound.getInt(s);
             state.candleLocations.put(index,location);
+        });
+
+        NbtCompound statusCompound = tag.getCompound("statuses");
+        statusCompound.getKeys().forEach(playerName -> {
+            Boolean status = statusCompound.getBoolean(playerName);
+            state.candleStatuses.put(playerName,status);
         });
 
 
@@ -69,22 +99,5 @@ public class StateSaverAndLoader extends PersistentState {
         return playerState;
     }
 
-    @Override
-    public NbtCompound writeNbt(NbtCompound nbt) {
-        NbtCompound locationsTag = new NbtCompound();
-        candleLocations.forEach((index, candleLocation) -> locationsTag.putInt(candleLocation, index));
-        nbt.put("locations", locationsTag);
 
-        NbtCompound playersNbt = new NbtCompound();
-        players.forEach((uuid, playerData) -> {
-            NbtCompound playerNbt = new NbtCompound();
-
-            playerNbt.putBoolean("trapped", playerData.trapped);
-
-            playersNbt.put(uuid.toString(), playerNbt);
-        });
-        nbt.put("players", playersNbt);
-
-        return nbt;
-    }
 }

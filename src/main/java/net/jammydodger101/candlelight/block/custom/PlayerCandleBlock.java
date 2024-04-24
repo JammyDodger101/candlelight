@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.jammydodger101.candlelight.block.ModBlocks;
+import net.jammydodger101.candlelight.util.ModTags;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
@@ -15,6 +17,7 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -53,12 +56,7 @@ public class PlayerCandleBlock
     private static final VoxelShape ONE_CANDLE_SHAPE = Block.createCuboidShape(7.0, 0.0, 7.0, 9.0, 6.0, 9.0);
 
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-    public String PLAYER_NAME = null;
 
-    public double XCoord;
-    public double YCoord;
-    public double ZCoord;
-    public BlockPos candlePosition;
 
 
 
@@ -75,7 +73,6 @@ public class PlayerCandleBlock
     public PlayerCandleBlock(Settings settings, String name) {
         super(settings);
         this.setDefaultState((BlockState)((BlockState)((BlockState)((BlockState)this.stateManager.getDefaultState()).with(CANDLES, 1)).with(LIT, false)).with(WATERLOGGED, false));
-        PLAYER_NAME = name;
     }
 
     @Override
@@ -95,6 +92,8 @@ public class PlayerCandleBlock
         return ActionResult.PASS;
     }
 
+
+
     @Override
     public boolean tryFillWithFluid(WorldAccess world, BlockPos pos, BlockState state, FluidState fluidState) {
         if (state.get(WATERLOGGED).booleanValue() || fluidState.getFluid() != Fluids.WATER) {
@@ -103,7 +102,7 @@ public class PlayerCandleBlock
 
         BlockState blockState = (BlockState)state.with(WATERLOGGED, true);
         if (state.get(LIT).booleanValue()) {
-            PlayerCandleHandler.changeCandleStatus(state.getBlock(), !isLitCandle(state));
+            //PlayerCandleHandler.changeCandleStatus(state.getBlock(), !isLitCandle(state));
             CandleBlock.extinguish(null, blockState, world, pos);
         } else {
             world.setBlockState(pos, blockState, Block.NOTIFY_ALL);
@@ -115,14 +114,21 @@ public class PlayerCandleBlock
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
 
-
-        PlayerCandleHandler.changeCandleStatus(state.getBlock(), state.get(LIT));
-        world.getPlayers().get(0).sendMessage(Text.literal(String.valueOf(state.get(LIT))));
         if (!state.get(LIT).booleanValue()) {
             return;
         }
 
         this.getParticleOffsets(state).forEach(offset -> PlayerCandleBlock.spawnCandleParticles(world, offset.add(pos.getX(), pos.getY(), pos.getZ()), random));
+    }
+
+    @Override
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        PlayerCandleHandler.changeCandleStatus(state.getBlock(), state.get(LIT), world);
+
+        if (world.getBlockState(pos).isIn(ModTags.Blocks.CUSTOM_CANDLES)) {
+            world.scheduleBlockTick(pos, state.getBlock(), 1);
+        }
+
     }
 
 
@@ -139,9 +145,8 @@ public class PlayerCandleBlock
 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        candlePosition = pos;
-
         PlayerCandleHandler.setCandleCoordinates(pos, state, this, world);
+        world.scheduleBlockTick(pos, state.getBlock(), 1);
     }
 
 }

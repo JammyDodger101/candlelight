@@ -39,21 +39,10 @@ public class PlayerCandleHandler
     public static List<Boolean> candleStatus = new ArrayList<>();
     public static List<Boolean> trappedPlayerBools = new ArrayList<>();
     public static List<BlockPos> candleCoordinates = new ArrayList<>();
-
-
-
     public static int listPos = 0;
 
 
     public static void addCandlesToList() {
-        for (int i = 0; i < 20; i++) {
-            //trappedPlayerEntities.add(null);
-
-            candleCoordinates.add(null);
-
-        }
-
-
         listAdder(ModBlocks.JAMMY_CANDLE, "jammydodger101", false, false);
         listAdder(ModBlocks.POM_CANDLE, "pompomdexter", false, false);
         listAdder(ModBlocks.SPAM_CANDLE, "citramin", false, false);
@@ -63,7 +52,6 @@ public class PlayerCandleHandler
         listAdder(ModBlocks.CAT_CANDLE, "a_random_cat", false, false);
         listAdder(ModBlocks.LEAN_CANDLE, "leantheliquid", false, false);
         listAdder(ModBlocks.DELUXE_CANDLE, "realdeluxe", false, false);
-
     }
 
     public static void listAdder(Block block, String playerName, Boolean candleStatusBool, Boolean playerTrapped) {
@@ -71,7 +59,7 @@ public class PlayerCandleHandler
         candleOwners.add(playerName);
         candleStatus.add(candleStatusBool);
         trappedPlayerBools.add(null);
-        //candleCoordinates.add(coordinates);
+        candleCoordinates.add(null);
         //, List<Double> coordinates
     }
 
@@ -115,6 +103,7 @@ public class PlayerCandleHandler
     public static Boolean checkPlayerStatusCommand(String playerName) {
         if (candleOwners.contains(playerName.toLowerCase())) {
             return candleStatus.get(candleOwners.indexOf(playerName.toLowerCase()));
+            //return serverState.candleStatuses.get(playerName);
         }
         return null;
     }
@@ -127,14 +116,26 @@ public class PlayerCandleHandler
         return null;
     }
 
-    public static void changeCandleStatus(Block candleBlock, boolean newStatus) {
+    public static void changeCandleStatus(Block candleBlock, boolean newStatus, World world) {
         try {
             listPos = candles.indexOf(candleBlock);
         } catch (Exception e) {
             return;
         }
         //CandleData.setStatus()
-        candleStatus.set(listPos, newStatus);
+
+        if (!world.isClient()) {
+            if (world.getServer() != null) {
+                StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(world.getServer()));
+                serverState.candleStatuses.put(candleOwners.get(candles.indexOf(candleBlock)), newStatus);
+                //world.getPlayers().get(0).sendMessage(Text.literal("candle status change to " + newStatus));
+            }
+            //world.getPlayers().get(0).sendMessage(Text.literal("memeemep " + newStatus));
+
+            candleStatus.set(listPos, newStatus);
+        }
+
+
     }
 
     public static void changePlayerTrappedStatus(PlayerEntity player, boolean newStatus) {
@@ -150,9 +151,6 @@ public class PlayerCandleHandler
     }
 
     public static void applyEffectsToTrappedPlayers(World world) {
-
-        //CandleCompassFunctionality.fillCandleCoordinates(world);
-
         int listPos = 0;
 
         for (Boolean trapped :
@@ -180,7 +178,6 @@ public class PlayerCandleHandler
     }
 
     public static void reviveEveryone(PlayerEntity user, World world, Hand hand, ServerWorld serverWorld) {
-
         BlockPos worldSpawn = serverWorld.getSpawnPos();
 
         ItemStack itemStack = user.getStackInHand(hand);
@@ -230,7 +227,6 @@ public class PlayerCandleHandler
     }
 
     public static void reviveCommand(ServerWorld serverWorld) {
-
         BlockPos worldSpawn = serverWorld.getSpawnPos();
 
         int listPos = 0;
