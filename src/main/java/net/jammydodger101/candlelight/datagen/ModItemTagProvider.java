@@ -26,6 +26,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         getOrCreateTagBuilder(ItemTags.TOOLS)
-                .add(ModItems.REVIVER);
+                .add(ModItems.REVIVER)
+                .add(ModItems.CANDLE_COMPASS);
     }
 }

@@ -1,4 +1,4 @@
-// 1.20.1	2024-04-24T20:33:50.3753169	Candlelight Mod/Model Definitions
+// 1.20.1	2024-04-25T18:34:07.6993859	Candlelight Mod/Model Definitions
 3dc47140ceeea6d9941350923429378cdfc8a85e assets\candlelight\models\item\candle_compass_22.json
 75c2342089bf6d4bbd31dd9fb29eb9a11d6ccaf3 assets\candlelight\models\block\cat_candle_four_candles.json
 992874d9317a3934619959c458bde7073d013b26 assets\candlelight\blockstates\jk_candle.json
@@ -33,8 +33,8 @@ febfde8089e1204d6e4fa36dce2e0826dc8cf2a0 assets\candlelight\models\block\cray_ca
 1869e3fd2d2e6ed13dbf3e8bbd0b36b8e80c1a65 assets\candlelight\blockstates\deluxe_candle.json
 9c00addd45b8c47e91cdd8e21b2890ffe5142428 assets\candlelight\models\block\pom_candle_cake_lit.json
 435c932f16c22e966d3d9b95185afc445457f715 assets\candlelight\models\block\cat_candle_one_candle_lit.json
-1b68ca94cdf785cb1569e438b290f13aaa1bf96e assets\candlelight\models\item\croc_candle.json
 33ac411965e9853bf4e80e5fbe27cd853917d1a4 assets\candlelight\models\block\jk_candle_two_candles_lit.json
+1b68ca94cdf785cb1569e438b290f13aaa1bf96e assets\candlelight\models\item\croc_candle.json
 316e6908ea8dd06e95941ec002c05388474fa1bd assets\candlelight\models\block\croc_candle_cake_lit.json
 1e7bff2e8d988b38f51f1f677488496faf140517 assets\candlelight\models\block\pom_candle_one_candle_lit.json
 dc0179793f90ed7d0192e6617e0639832868c1cb assets\candlelight\models\block\jk_candle_three_candles.json
@@ -55,8 +55,8 @@ d325d278f74af05516565f0a12574e8f4bf0ffe8 assets\candlelight\models\block\deluxe_
 42022c13101a9afb73b2ed7ec9bdb1f41e112b4c assets\candlelight\models\block\cray_candle_cake.json
 0a369a7f22064fd662cba1e3f8b5617c749e4c91 assets\candlelight\models\item\candle_compass_11.json
 76156729487f3435a1252d86fddaee2617fb8b00 assets\candlelight\blockstates\cat_candle_cake.json
-0849976dfccafc8d6abe1b98d4b23b601c97e4b5 assets\candlelight\models\item\deluxe_candle.json
 4718e0f12601ee37b062bb9443b0d9d6214dbf5e assets\candlelight\models\block\deluxe_candle_cake_lit.json
+0849976dfccafc8d6abe1b98d4b23b601c97e4b5 assets\candlelight\models\item\deluxe_candle.json
 1ba639a66ed0ac83b1ea98175f42745fbfdd1dc6 assets\candlelight\models\item\candle_compass_10.json
 bfc74ac05b1d61c2b9a28162c8862c52a3c842a5 assets\candlelight\models\block\cat_candle_two_candles_lit.json
 0bbab532102636785a680c5580091ab5b4a743ce assets\candlelight\models\block\croc_candle_one_candle_lit.json
@@ -129,6 +129,7 @@ be3f2e3f3b4e4f8921dc988ea8557ff825fe7b8e assets\candlelight\models\item\cray_can
 3c9e2caefdc3f7a7dfceacb6164d5541c31d8574 assets\candlelight\models\block\jk_candle_cake.json
 ab8f3bac62fcd495a8c2644d55d80e34ad7b2f74 assets\candlelight\models\block\jammy_candle_one_candle_lit.json
 b160e1831ced0e1eb2e84f1ab7cd12d228d0ace4 assets\candlelight\models\item\candle_compass_27.json
+3daf8c316078dbb2781e832b764e0a16ecc88029 assets\candlelight\models\item\lifesteal_heart.json
 010021d8598b172c10e7eca599b241814f9aa5d6 assets\candlelight\models\item\pom_candle_cake.json
 e7bcd255417576de37b954860629c0c9de25f2a6 assets\candlelight\models\item\jk_candle_cake.json
 51b923cb29ebce83d40bc69dd6735b854a3492ef assets\candlelight\models\item\cat_candle_cake.json

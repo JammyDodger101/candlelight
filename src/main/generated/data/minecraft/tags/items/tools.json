@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "candlelight:reviver"
+    "candlelight:reviver",
+    "candlelight:candle_compass"
   ]
 }

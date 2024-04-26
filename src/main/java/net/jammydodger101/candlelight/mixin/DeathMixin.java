@@ -4,6 +4,7 @@ import net.jammydodger101.candlelight.PlayerData;
 import net.jammydodger101.candlelight.StateSaverAndLoader;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -24,11 +25,6 @@ public abstract class DeathMixin {
 
         BlockPos worldSpawn = oldPlayer.getWorld().getSpawnPos();
         //if their candle status isn't null
-
-        //MinecraftServer server = oldPlayer.getServer();
-        //StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(server);
-
-        //oldPlayer.sendMessage(Text.literal("hiii hiii hiiiii i ii"));
 
         PlayerData playerState = StateSaverAndLoader.getPlayerState(oldPlayer);
 
@@ -52,6 +48,14 @@ public abstract class DeathMixin {
 
 
         }
+
+    }
+
+    @Inject(method = "respawnPlayer", at = @At("RETURN"))
+    private void carryHeartsFromPreviousPlayer(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfoReturnable<ServerPlayerEntity> cir) {
+        ServerPlayerEntity serverPlayerEntity = cir.getReturnValue();
+        serverPlayerEntity.getAttributes().getCustomInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(oldPlayer.getMaxHealth());
+        serverPlayerEntity.setHealth(oldPlayer.getMaxHealth());
 
     }
 }

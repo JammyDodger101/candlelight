@@ -16,6 +16,7 @@
   "item.candlelight.reviver" : "Reviver",
   "item.candlelight.event_fragments" : "Event Fragments",
   "item.candlelight.candle_compass" : "Candle Compass",
+  "item.candlelight.lifesteal_heart" : "Heart",
 
   "itemgroup.candlelight" : "Candlelight Group"
 }
