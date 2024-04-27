@@ -25,7 +25,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .pattern("CGC")
                 .input('C', Blocks.CRYING_OBSIDIAN)
                 .input('G', Blocks.GOLD_BLOCK)
-                .input('D', Blocks.DIAMOND_BLOCK)
+                .input('D', Items.DIAMOND)
                 .input('T', Items.TOTEM_OF_UNDYING)
                 .criterion(hasItem(Items.TOTEM_OF_UNDYING), conditionsFromItem(Items.TOTEM_OF_UNDYING))
                 .offerTo(exporter, new Identifier(getRecipeName(ModItems.REVIVER)));
@@ -41,11 +41,11 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.LIFESTEAL_HEART, 1)
                 .pattern("SFS")
-                .pattern("FNF")
+                .pattern("FRF")
                 .pattern("SFS")
                 .input('F', ModItems.EVENT_FRAGMENT)
                 .input('S', Items.NETHERITE_SCRAP)
-                .input('N', Items.NETHER_STAR)
+                .input('R', Blocks.RESPAWN_ANCHOR)
                 .criterion(hasItem(ModItems.EVENT_FRAGMENT), conditionsFromItem(ModItems.EVENT_FRAGMENT))
                 .offerTo(exporter, new Identifier(getRecipeName(ModItems.LIFESTEAL_HEART)));
     }
