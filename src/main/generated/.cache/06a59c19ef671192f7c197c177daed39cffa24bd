@@ -1,4 +1,4 @@
-// 1.20.1	2024-04-25T18:34:07.6993859	Candlelight Mod/Model Definitions
+// 1.20.1	2024-04-27T08:20:51.464946	Candlelight Mod/Model Definitions
 3dc47140ceeea6d9941350923429378cdfc8a85e assets\candlelight\models\item\candle_compass_22.json
 75c2342089bf6d4bbd31dd9fb29eb9a11d6ccaf3 assets\candlelight\models\block\cat_candle_four_candles.json
 992874d9317a3934619959c458bde7073d013b26 assets\candlelight\blockstates\jk_candle.json
@@ -18,8 +18,6 @@ c380237dd8bd1e6d7c77d59ec2300ff94ee6d108 assets\candlelight\models\block\em_cand
 9c5b3e23260a333e8c30ffe16d06f19b4dbdd9fa assets\candlelight\models\item\candle_compass_21.json
 e4ddb47dbd1a0eb2cc6dac86b5786208450a5d72 assets\candlelight\models\block\em_candle_cake_lit.json
 338f0d53a82708834a6eaa3fc234a32bdeb54f40 assets\candlelight\blockstates\spam_candle_cake.json
-8d11b4058d598274620cc6ae2e0a91652b27cef1 assets\candlelight\models\block\ruby_block.json
-83ed5f30f99c6c181ffd6811f44e0731bb55b756 assets\candlelight\models\item\ruby_block.json
 689b641e3179d43df824d0eb302ad50b1064af06 assets\candlelight\blockstates\lean_candle_cake.json
 b16ea9bbb4cbe0318e1183ce5a484b752afbf06e assets\candlelight\models\item\candle_compass_05.json
 855ba3c1946ba6a78174013f7a3d5f8803d15ecd assets\candlelight\models\item\lean_candle.json
@@ -125,7 +123,6 @@ ffe1e029451df72198923ab156ef80bfff8f39e8 assets\candlelight\models\item\spam_can
 3d2eb921eb3d88d50a5b9f520802ababa3ff1448 assets\candlelight\blockstates\cat_candle.json
 f816aeed3b00e5d3d4adb8826be9bb16834357a5 assets\candlelight\models\block\pom_candle_one_candle.json
 be3f2e3f3b4e4f8921dc988ea8557ff825fe7b8e assets\candlelight\models\item\cray_candle.json
-992300a15e8a44a916d9731c1a5323c948ac1f14 assets\candlelight\blockstates\ruby_block.json
 3c9e2caefdc3f7a7dfceacb6164d5541c31d8574 assets\candlelight\models\block\jk_candle_cake.json
 ab8f3bac62fcd495a8c2644d55d80e34ad7b2f74 assets\candlelight\models\block\jammy_candle_one_candle_lit.json
 b160e1831ced0e1eb2e84f1ab7cd12d228d0ace4 assets\candlelight\models\item\candle_compass_27.json

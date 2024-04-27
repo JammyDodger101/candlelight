@@ -40,11 +40,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .offerTo(exporter, new Identifier(getRecipeName(ModItems.CANDLE_COMPASS)));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.LIFESTEAL_HEART, 1)
-                .pattern("FFF")
-                .pattern("FCF")
-                .pattern("FFF")
+                .pattern("SFS")
+                .pattern("FNF")
+                .pattern("SFS")
                 .input('F', ModItems.EVENT_FRAGMENT)
-                .input('C', Items.DIAMOND)
+                .input('S', Items.NETHERITE_SCRAP)
+                .input('N', Items.NETHER_STAR)
                 .criterion(hasItem(ModItems.EVENT_FRAGMENT), conditionsFromItem(ModItems.EVENT_FRAGMENT))
                 .offerTo(exporter, new Identifier(getRecipeName(ModItems.LIFESTEAL_HEART)));
     }

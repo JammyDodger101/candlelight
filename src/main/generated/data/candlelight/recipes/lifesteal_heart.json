@@ -2,17 +2,20 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "C": {
-      "item": "minecraft:diamond"
-    },
     "F": {
       "item": "candlelight:event_fragments"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    },
+    "S": {
+      "item": "minecraft:netherite_scrap"
     }
   },
   "pattern": [
-    "FFF",
-    "FCF",
-    "FFF"
+    "SFS",
+    "FNF",
+    "SFS"
   ],
   "result": {
     "item": "candlelight:lifesteal_heart"
