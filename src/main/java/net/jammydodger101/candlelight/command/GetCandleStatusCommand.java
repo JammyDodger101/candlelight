@@ -1,6 +1,7 @@
 package net.jammydodger101.candlelight.command;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
@@ -14,7 +15,7 @@ public class GetCandleStatusCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("candleStatus")
                 .requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(2))
-                .then(CommandManager.argument("playerName", EntityArgumentType.players())
+                .then(CommandManager.argument("playerName", StringArgumentType.string())
                         .executes(GetCandleStatusCommand::run)));
 
     }
@@ -23,7 +24,7 @@ public class GetCandleStatusCommand {
 
         ServerPlayerEntity player = context.getSource().getPlayer();
         assert player != null;
-        String id = EntityArgumentType.getPlayer(context, "playerName").getEntityName().toLowerCase();
+        String id = StringArgumentType.getString(context, "playerName");
 
         Boolean candleStatus = PlayerCandleHandler.checkPlayerStatusCommand(id);
         if (candleStatus != null) {
