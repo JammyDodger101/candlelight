@@ -1,14 +1,9 @@
 package net.jammydodger101.candlelight.item.custom;
 
 import com.mojang.logging.LogUtils;
-import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
-import net.jammydodger101.candlelight.Candlelight;
-import net.jammydodger101.candlelight.block.ModBlocks;
 import net.jammydodger101.candlelight.item.ModItems;
 import net.jammydodger101.candlelight.util.CandleCompassFunctionality;
 import net.jammydodger101.candlelight.util.ModTags;
-import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -16,20 +11,14 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.world.World;
-import net.minecraft.world.poi.PointOfInterestType;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
@@ -117,10 +106,7 @@ public class CandleCompassItem
             blockPos = NbtHelper.toBlockPos(nbtCompound.getCompound(CANDLE_POS_KEY));
             if (blockPos.getSquaredDistance(entity.getBlockPos().toCenterPos()) < trackingDistance) {
                 stack.decrement(1);
-                //world.getServer().getWorld(world.getServer().getOverworld().getRegistryKey()).spawnParticles(
-                        //ParticleTypes.TOTEM_OF_UNDYING, entity.getX(), entity.getY(), entity.getZ(), 1000, 1.0f,1.0f,1.0f,1.0f);
                 world.playSound(null, entity.getBlockPos(), SoundEvents.ITEM_SHIELD_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
-                //world.addParticle(ParticleTypes.HEART, entity.getX(), entity.getY()+2.0, entity.getZ(),0.0f,0.0f,0.0f);
             }
         }
     }

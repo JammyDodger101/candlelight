@@ -6,6 +6,7 @@
     "BreakCandleMixin",
     "DeathMixin",
     "ExampleMixin",
+    "LifestealKillMixin",
     "PickupCandleMixin",
     "PlayerEffectApplierMixin"
   ],

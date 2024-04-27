@@ -2,24 +2,15 @@ package net.jammydodger101.candlelight;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.PersistentStateManager;
 import net.minecraft.world.World;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.TypeVariable;
 import java.util.*;
-import java.util.function.Supplier;
 
 
 public class StateSaverAndLoader extends PersistentState {
-
-    public Integer totalDirtBlocksBroken = 0;
-
     public HashMap<Integer, String> candleLocations = new HashMap<>();
     public HashMap<String, Boolean> candleStatuses = new HashMap<>();
     public HashMap<UUID, PlayerData> players = new HashMap<>();
@@ -83,7 +74,6 @@ public class StateSaverAndLoader extends PersistentState {
     public static StateSaverAndLoader getServerState(MinecraftServer server) {
         PersistentStateManager persistentStateManager = Objects.requireNonNull(server.getWorld(World.OVERWORLD)).getPersistentStateManager();
 
-        //getOrCreate(Function<NbtCompound, T> readFunction, Supplier<T> supplier, String id)
         StateSaverAndLoader state = persistentStateManager.getOrCreate(StateSaverAndLoader::createFromNBT, StateSaverAndLoader::new,  Candlelight.MOD_ID);
 
         state.markDirty();

@@ -1,6 +1,5 @@
 package net.jammydodger101.candlelight.item.custom;
 
-import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -16,7 +15,6 @@ public class LifestealHeartItem extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        //user.setHealth(user.getHealth()+2f);
         ItemStack itemStack = user.getStackInHand(hand);
         if (user.getMaxHealth() < 40f) {
             user.getAttributes().getCustomInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(user.getMaxHealth()+2f);

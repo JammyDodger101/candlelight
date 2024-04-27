@@ -2,9 +2,7 @@ package net.jammydodger101.candlelight;
 
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.event.EventFactory;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
-import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -13,15 +11,10 @@ import net.jammydodger101.candlelight.command.ModCommands;
 import net.jammydodger101.candlelight.event.AttackEntityHandler;
 import net.jammydodger101.candlelight.item.ModItemGroups;
 import net.jammydodger101.candlelight.item.ModItems;
-import net.jammydodger101.candlelight.util.CandleCompassFunctionality;
-import net.jammydodger101.candlelight.util.CandleLocationConverter;
 import net.jammydodger101.candlelight.util.ModLootTableModifiers;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
-import net.minecraft.block.Blocks;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

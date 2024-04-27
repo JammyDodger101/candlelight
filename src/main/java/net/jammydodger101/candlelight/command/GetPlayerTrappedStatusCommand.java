@@ -1,7 +1,6 @@
 package net.jammydodger101.candlelight.command;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
@@ -11,13 +10,10 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
-import java.util.Locale;
-
 public class GetPlayerTrappedStatusCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("trapped")
                 .requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(2))
-                //.then(CommandManager.argument("playerName", StringArgumentType.string())
                         .then(CommandManager.argument("playerName", EntityArgumentType.players())
                         .executes(GetPlayerTrappedStatusCommand::run)));
 
@@ -26,8 +22,8 @@ public class GetPlayerTrappedStatusCommand {
     private static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
 
         ServerPlayerEntity player = context.getSource().getPlayer();
+        assert player != null;
         String id = EntityArgumentType.getPlayer(context, "playerName").getEntityName().toLowerCase();
-
 
         Boolean trappedStatus = PlayerCandleHandler.checkPlayerTrappedStatusCommand(id);
         if (trappedStatus != null) {

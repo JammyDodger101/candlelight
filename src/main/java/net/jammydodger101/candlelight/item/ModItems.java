@@ -1,10 +1,7 @@
 package net.jammydodger101.candlelight.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.jammydodger101.candlelight.Candlelight;
-import net.jammydodger101.candlelight.block.ModBlocks;
 import net.jammydodger101.candlelight.item.custom.CandleCompassItem;
 import net.jammydodger101.candlelight.item.custom.EventFragmentItem;
 import net.jammydodger101.candlelight.item.custom.LifestealHeartItem;
@@ -16,9 +13,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 
 public class ModItems {
-
-    //public static final Item JAMMY_CANDLE = registerItem("jammy_candle",
-            //new Item(new FabricItemSettings().maxCount(1)));
 
     public static final Item REVIVER = registerItem("reviver", new ReviverItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item EVENT_FRAGMENT = registerItem("event_fragments", new EventFragmentItem(new FabricItemSettings().maxCount(16).rarity(Rarity.RARE)));

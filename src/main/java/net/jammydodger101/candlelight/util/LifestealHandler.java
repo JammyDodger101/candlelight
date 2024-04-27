@@ -20,7 +20,7 @@ public class LifestealHandler {
                 user.getAttributes().getCustomInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(user.getMaxHealth() - amount);
             }
         } else {
-            user.sendMessage(Text.literal("ummmm,..,..... dead! blehhhh X333"));
+            user.sendMessage(Text.literal("banned"));
         }
     }
 }

@@ -29,6 +29,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.DELUXE_CANDLE)
                 .add(ModBlocks.CRAY_CANDLE)
                 .add(ModBlocks.JK_CANDLE);
+
         getOrCreateTagBuilder(BlockTags.CANDLES)
                 .add(ModBlocks.JAMMY_CANDLE)
                 .add(ModBlocks.POM_CANDLE)
@@ -40,6 +41,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.DELUXE_CANDLE)
                 .add(ModBlocks.JK_CANDLE)
                 .add(ModBlocks.CRAY_CANDLE);
+
         getOrCreateTagBuilder(BlockTags.CANDLE_CAKES)
                 .add(ModBlocks.JAMMY_CANDLE_CAKE)
                 .add(ModBlocks.POM_CANDLE_CAKE)
@@ -63,6 +65,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.DELUXE_CANDLE)
                 .add(ModBlocks.JK_CANDLE)
                 .add(ModBlocks.CRAY_CANDLE);
+
         getOrCreateTagBuilder(BlockTags.DRAGON_IMMUNE)
                 .add(ModBlocks.JAMMY_CANDLE)
                 .add(ModBlocks.POM_CANDLE)
@@ -74,6 +77,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.DELUXE_CANDLE)
                 .add(ModBlocks.JK_CANDLE)
                 .add(ModBlocks.CRAY_CANDLE);
+
         getOrCreateTagBuilder(BlockTags.WITHER_IMMUNE)
                 .add(ModBlocks.JAMMY_CANDLE)
                 .add(ModBlocks.POM_CANDLE)

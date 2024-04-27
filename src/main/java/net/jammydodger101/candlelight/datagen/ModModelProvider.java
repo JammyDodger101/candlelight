@@ -4,11 +4,9 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.jammydodger101.candlelight.block.ModBlocks;
 import net.jammydodger101.candlelight.item.ModItems;
-import net.minecraft.block.Blocks;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
-import net.minecraft.registry.Registry;
 
 public class ModModelProvider extends FabricModelProvider {
     public ModModelProvider(FabricDataOutput output) {
@@ -28,11 +26,7 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerCandle(ModBlocks.DELUXE_CANDLE, ModBlocks.DELUXE_CANDLE_CAKE);
         blockStateModelGenerator.registerCandle(ModBlocks.JK_CANDLE, ModBlocks.JK_CANDLE_CAKE);
 
-        BlockStateModelGenerator.BlockTexturePool rubyPool = blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.RUBY_BLOCK);
-
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.CANDLELESS_FLOOR_BLOCK);
-
-
     }
 
     @Override

@@ -1,7 +1,6 @@
 package net.jammydodger101.candlelight.command;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;

@@ -6,25 +6,15 @@ import net.jammydodger101.candlelight.StateSaverAndLoader;
 import net.jammydodger101.candlelight.block.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,7 +25,6 @@ public class PlayerCandleHandler
 {
     public static List<Block> candles = new ArrayList<>();
     public static List<String> candleOwners = new ArrayList<>();
-    //public static List<PlayerEntity> trappedPlayerEntities = new ArrayList<>();
     public static List<Boolean> candleStatus = new ArrayList<>();
     public static List<Boolean> trappedPlayerBools = new ArrayList<>();
     public static List<BlockPos> candleCoordinates = new ArrayList<>();
@@ -61,22 +50,18 @@ public class PlayerCandleHandler
         candleStatus.add(candleStatusBool);
         trappedPlayerBools.add(null);
         candleCoordinates.add(null);
-        //, List<Double> coordinates
     }
 
     public static int getListLocation(Block candle) {
         return candles.indexOf(candle);
     }
 
-
     public static void setCandleCoordinates(BlockPos pos, BlockState state, Block block, World world) {
         if (!world.isClient()) {
             StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(world.getServer());
             if (state.getBlock() == block) {
-
                 serverState.candleLocations.put(getListLocation(state.getBlock()), pos.toShortString());
                 candleCoordinates.set(getListLocation(block),pos);
-
             } else if (block == null) {
                 candleCoordinates.set(getListLocation(state.getBlock()),null);
                 serverState.candleLocations.put(getListLocation(state.getBlock()), "");
@@ -104,7 +89,6 @@ public class PlayerCandleHandler
     public static Boolean checkPlayerStatusCommand(String playerName) {
         if (candleOwners.contains(playerName.toLowerCase())) {
             return candleStatus.get(candleOwners.indexOf(playerName.toLowerCase()));
-            //return serverState.candleStatuses.get(playerName);
         }
         return null;
     }
@@ -123,20 +107,13 @@ public class PlayerCandleHandler
         } catch (Exception e) {
             return;
         }
-        //CandleData.setStatus()
-
         if (!world.isClient()) {
             if (world.getServer() != null) {
                 StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(world.getServer()));
                 serverState.candleStatuses.put(candleOwners.get(candles.indexOf(candleBlock)), newStatus);
-                //world.getPlayers().get(0).sendMessage(Text.literal("candle status change to " + newStatus));
             }
-            //world.getPlayers().get(0).sendMessage(Text.literal("memeemep " + newStatus));
-
             candleStatus.set(listPos, newStatus);
         }
-
-
     }
 
     public static void changePlayerTrappedStatus(PlayerEntity player, boolean newStatus) {
@@ -146,7 +123,6 @@ public class PlayerCandleHandler
             return;
         }
         if (listPos != -1) {
-
             trappedPlayerBools.set(listPos, newStatus);
         }
     }
@@ -178,10 +154,8 @@ public class PlayerCandleHandler
         }
     }
 
-    public static void reviveEveryone(PlayerEntity user, World world, Hand hand, ServerWorld serverWorld) {
+    public static void reviveEveryone(ServerWorld serverWorld) {
         BlockPos worldSpawn = serverWorld.getSpawnPos();
-
-        ItemStack itemStack = user.getStackInHand(hand);
 
         int listPos = 0;
 
@@ -213,17 +187,13 @@ public class PlayerCandleHandler
 
                                     serverPlayer.removeStatusEffect(StatusEffects.BLINDNESS);
                                 }
-
-
                             }
                         }
                     }
 
                 }
                 listPos++;
-
             }
-
         }
     }
 
@@ -260,19 +230,12 @@ public class PlayerCandleHandler
 
                                     serverPlayer.removeStatusEffect(StatusEffects.BLINDNESS);
                                 }
-
-
                             }
                         }
                     }
-
                 }
                 listPos++;
-
             }
-
         }
     }
-
-
 }
