@@ -5,8 +5,11 @@ import net.jammydodger101.candlelight.StateSaverAndLoader;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.server.BannedPlayerEntry;
+import net.minecraft.server.BannedPlayerList;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,7 +34,7 @@ public abstract class DeathMixin {
                 playerState.trapped = false;
                 PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
             } else {
-                oldPlayer.setSpawnPoint(ModDimension.CANDLELESS_KEY, new BlockPos(0, 5, 0), 0f, true, false);
+                oldPlayer.setSpawnPoint(ModDimension.CANDLELESS_KEY, new BlockPos(0, 2, 0), 0f, true, false);
                 playerState.trapped = true;
                 PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, true);
             }
@@ -41,6 +44,7 @@ public abstract class DeathMixin {
 
     @Inject(method = "respawnPlayer", at = @At("RETURN"))
     private void carryHeartsFromPreviousPlayerInstance(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfoReturnable<ServerPlayerEntity> cir) {
+
         ServerPlayerEntity serverPlayerEntity = cir.getReturnValue();
         serverPlayerEntity.getAttributes().getCustomInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(oldPlayer.getMaxHealth());
         serverPlayerEntity.setHealth(oldPlayer.getMaxHealth());
