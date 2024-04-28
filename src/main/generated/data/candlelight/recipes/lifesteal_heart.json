@@ -5,8 +5,8 @@
     "F": {
       "item": "candlelight:event_fragments"
     },
-    "N": {
-      "item": "minecraft:nether_star"
+    "R": {
+      "item": "minecraft:respawn_anchor"
     },
     "S": {
       "item": "minecraft:netherite_scrap"
@@ -14,7 +14,7 @@
   },
   "pattern": [
     "SFS",
-    "FNF",
+    "FRF",
     "SFS"
   ],
   "result": {

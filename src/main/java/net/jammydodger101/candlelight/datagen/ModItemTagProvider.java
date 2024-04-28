@@ -20,5 +20,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ItemTags.TOOLS)
                 .add(ModItems.REVIVER)
                 .add(ModItems.CANDLE_COMPASS);
+        getOrCreateTagBuilder(ItemTags.SWORDS)
+                .add(ModItems.CROCKSMARTER_BLADE);
     }
 }

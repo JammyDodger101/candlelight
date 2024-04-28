@@ -1,4 +1,4 @@
-// 1.20.1	2024-04-27T08:20:51.464946	Candlelight Mod/Model Definitions
+// 1.20.1	2024-04-28T09:22:43.8624529	Candlelight Mod/Model Definitions
 3dc47140ceeea6d9941350923429378cdfc8a85e assets\candlelight\models\item\candle_compass_22.json
 75c2342089bf6d4bbd31dd9fb29eb9a11d6ccaf3 assets\candlelight\models\block\cat_candle_four_candles.json
 992874d9317a3934619959c458bde7073d013b26 assets\candlelight\blockstates\jk_candle.json
@@ -52,6 +52,7 @@ d325d278f74af05516565f0a12574e8f4bf0ffe8 assets\candlelight\models\block\deluxe_
 4b05828ed17945490b1229de40c932133ffe6eb2 assets\candlelight\models\block\candleless_floor_block.json
 42022c13101a9afb73b2ed7ec9bdb1f41e112b4c assets\candlelight\models\block\cray_candle_cake.json
 0a369a7f22064fd662cba1e3f8b5617c749e4c91 assets\candlelight\models\item\candle_compass_11.json
+bc3dbf795acef19ddeaecd409d1fae9dedafc89d assets\candlelight\models\item\crocksmarter_blade.json
 76156729487f3435a1252d86fddaee2617fb8b00 assets\candlelight\blockstates\cat_candle_cake.json
 4718e0f12601ee37b062bb9443b0d9d6214dbf5e assets\candlelight\models\block\deluxe_candle_cake_lit.json
 0849976dfccafc8d6abe1b98d4b23b601c97e4b5 assets\candlelight\models\item\deluxe_candle.json

@@ -26,6 +26,7 @@ public class ModItemGroups {
         entries.add(ModItems.EVENT_FRAGMENT);
         entries.add(ModItems.CANDLE_COMPASS);
         entries.add(ModItems.LIFESTEAL_HEART);
+        entries.add(ModItems.CROCKSMARTER_BLADE);
         entries.add(ModBlocks.CANDLELESS_FLOOR_BLOCK);
     }).build());
 

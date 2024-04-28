@@ -2,6 +2,7 @@ package net.jammydodger101.candlelight.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.jammydodger101.candlelight.block.ModBlocks;
 import net.jammydodger101.candlelight.item.ModItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
@@ -48,5 +49,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('R', Blocks.RESPAWN_ANCHOR)
                 .criterion(hasItem(ModItems.EVENT_FRAGMENT), conditionsFromItem(ModItems.EVENT_FRAGMENT))
                 .offerTo(exporter, new Identifier(getRecipeName(ModItems.LIFESTEAL_HEART)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.CROCKSMARTER_BLADE, 1)
+                .pattern(" C ")
+                .pattern(" C ")
+                .pattern(" S ")
+                .input('C', ModBlocks.CANDLELESS_FLOOR_BLOCK)
+                .input('S', Items.STICK)
+                .criterion(hasItem(ModBlocks.CANDLELESS_FLOOR_BLOCK), conditionsFromItem(ModBlocks.CANDLELESS_FLOOR_BLOCK))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.CROCKSMARTER_BLADE)));
     }
 }

@@ -19,6 +19,8 @@ public class ModItems {
     public static final Item CANDLE_COMPASS = registerItem("candle_compass", new CandleCompassItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item LIFESTEAL_HEART = registerItem("lifesteal_heart", new LifestealHeartItem(new FabricItemSettings().rarity(Rarity.EPIC)));
 
+    public static final Item CROCKSMARTER_BLADE = registerItem("crocksmarter_blade", new SwordItem(ToolMaterials.WOOD, 2, -2f, new Item.Settings().fireproof().rarity(Rarity.EPIC)));
+
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(Candlelight.MOD_ID, name), item);
