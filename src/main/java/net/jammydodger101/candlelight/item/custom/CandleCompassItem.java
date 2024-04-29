@@ -122,6 +122,10 @@ public class CandleCompassItem
 
         BlockPos blockPos = CandleCompassFunctionality.getNearestCandle(user);
 
+        if (blockPos == null) {
+            return TypedActionResult.fail(user.getStackInHand(hand));
+        }
+
         //if (world.getBlockState(blockPos).isOf(ModBlocks.JAMMY_CANDLE)) {
         boolean bl;
         world.playSound(null, user.getBlockPos(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.PLAYERS, 1.0f, 1.0f);

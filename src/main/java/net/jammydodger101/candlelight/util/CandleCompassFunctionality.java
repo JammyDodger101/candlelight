@@ -23,8 +23,6 @@ public class CandleCompassFunctionality {
                 candleCoordinates.set(i,CandleLocationConverter.StringToBlockPos(serverState.candleLocations.get(i)));
             }
         }
-
-
     }
 
     public static BlockPos getNearestCandle(PlayerEntity player) {
@@ -39,11 +37,8 @@ public class CandleCompassFunctionality {
                 double shortestDistance = candleDistances.get(shortestDistanceIndex);
                 for (double distance : candleDistances) {
                     if (shortestDistance > distance) {
-
-                        //if (!playerName.equals(PlayerCandleHandler.candleOwners.get(candleDistances.indexOf(distance)))) {
-                            shortestDistance = distance;
-                            shortestDistanceIndex = candleDistances.indexOf(distance);
-                        //}
+                        shortestDistance = distance;
+                        shortestDistanceIndex = candleDistances.indexOf(distance);
                     }
                 }
                 return candleCoordinates.get(shortestDistanceIndex);

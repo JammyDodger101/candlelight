@@ -11,6 +11,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -141,14 +142,18 @@ public class PlayerCandleHandler
 
                     if (serverPlayer != null) {
                         if (world.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
-                            if (!serverPlayer.hasStatusEffect(StatusEffects.BLINDNESS)) {
-
-                                serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 999999999 , 2, false, false, false));
+                            if (!serverPlayer.hasStatusEffect(StatusEffects.DARKNESS)) {
+                                //serverPlayer.sendMessage(Text.literal(trapped.toString()));
+                                serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 999999999 , 1, false, false, false));
+                                serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 999999999 , 0, false, false, false));
+                                serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 999999999 , 1, false, false, false));
+                                serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999 , 3, false, false, false));
                             }
                         }
                     }
 
                 }
+
             }
             listPos++;
         }
@@ -183,9 +188,12 @@ public class PlayerCandleHandler
                                 trappedPlayerBools.set(listPos, false);
                                 playerState.trapped = false;
 
-                                if (serverPlayer.hasStatusEffect(StatusEffects.BLINDNESS)) {
+                                if (serverPlayer.hasStatusEffect(StatusEffects.DARKNESS)) {
 
-                                    serverPlayer.removeStatusEffect(StatusEffects.BLINDNESS);
+                                    serverPlayer.removeStatusEffect(StatusEffects.DARKNESS);
+                                    serverPlayer.removeStatusEffect(StatusEffects.NIGHT_VISION);
+                                    serverPlayer.removeStatusEffect(StatusEffects.RESISTANCE);
+                                    serverPlayer.removeStatusEffect(StatusEffects.SLOWNESS);
                                 }
                             }
                         }
@@ -226,9 +234,12 @@ public class PlayerCandleHandler
                                 trappedPlayerBools.set(listPos, false);
                                 playerState.trapped = false;
 
-                                if (serverPlayer.hasStatusEffect(StatusEffects.BLINDNESS)) {
+                                if (serverPlayer.hasStatusEffect(StatusEffects.DARKNESS)) {
 
-                                    serverPlayer.removeStatusEffect(StatusEffects.BLINDNESS);
+                                    serverPlayer.removeStatusEffect(StatusEffects.DARKNESS);
+                                    serverPlayer.removeStatusEffect(StatusEffects.NIGHT_VISION);
+                                    serverPlayer.removeStatusEffect(StatusEffects.RESISTANCE);
+                                    serverPlayer.removeStatusEffect(StatusEffects.SLOWNESS);
                                 }
                             }
                         }

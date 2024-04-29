@@ -34,7 +34,7 @@ public abstract class DeathMixin {
                 playerState.trapped = false;
                 PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
             } else {
-                oldPlayer.setSpawnPoint(ModDimension.CANDLELESS_KEY, new BlockPos(0, 2, 0), 0f, true, false);
+                oldPlayer.setSpawnPoint(ModDimension.CANDLELESS_KEY, new BlockPos(0, 100, 0), 0f, true, false);
                 playerState.trapped = true;
                 PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, true);
             }
