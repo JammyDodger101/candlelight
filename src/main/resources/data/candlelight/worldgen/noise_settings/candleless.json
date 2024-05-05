@@ -1,5 +1,5 @@
 {
-  "sea_level": 0,
+  "sea_level": 58,
   "disable_mob_generation": true,
   "aquifers_enabled": false,
   "ore_veins_enabled": false,
@@ -11,8 +11,8 @@
     "Name": "candlelight:candleless_floor_block"
   },
   "noise": {
-    "min_y": -64,
-    "height": 320,
+    "min_y": 0,
+    "height": 128,
     "size_horizontal": 2,
     "size_vertical": 1
   },
@@ -24,29 +24,108 @@
     "temperature": 0,
     "vegetation": 0,
     "continents": 0,
-    "erosion": 0,
+    "erosion": {
+      "type": "minecraft:cache_2d",
+      "argument": {
+        "type": "minecraft:end_islands"
+      }
+    },
     "depth": 0,
     "ridges": 0,
     "initial_density_without_jaggedness": {
-      "type": "minecraft:noise",
-      "noise": "minecraft:continentalness_large",
-      "xz_scale": 0,
-      "y_scale": 0
+      "type": "minecraft:add",
+      "argument1": -0.234375,
+      "argument2": {
+        "type": "minecraft:mul",
+        "argument1": {
+          "type": "minecraft:y_clamped_gradient",
+          "from_y": 4,
+          "to_y": 32,
+          "from_value": 0,
+          "to_value": 1
+        },
+        "argument2": {
+          "type": "minecraft:add",
+          "argument1": 0.234375,
+          "argument2": {
+            "type": "minecraft:add",
+            "argument1": -23.4375,
+            "argument2": {
+              "type": "minecraft:mul",
+              "argument1": {
+                "type": "minecraft:y_clamped_gradient",
+                "from_y": 56,
+                "to_y": 312,
+                "from_value": 1,
+                "to_value": 0
+              },
+              "argument2": {
+                "type": "minecraft:add",
+                "argument1": 23.4375,
+                "argument2": {
+                  "type": "minecraft:add",
+                  "argument1": -0.703125,
+                  "argument2": {
+                    "type": "minecraft:cache_2d",
+                    "argument": {
+                      "type": "minecraft:end_islands"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "final_density": {
-      "type": "minecraft:add",
-      "argument1": {
-        "type": "minecraft:y_clamped_gradient",
-        "from_y": -64,
-        "to_y": 320,
-        "from_value": 1,
-        "to_value": -1
-      },
-      "argument2": {
-        "type": "minecraft:noise",
-        "noise": "minecraft:gravel",
-        "xz_scale": 0.05,
-        "y_scale": 1
+      "type": "minecraft:squeeze",
+      "argument": {
+        "type": "minecraft:mul",
+        "argument1": 0.63,
+        "argument2": {
+          "type": "minecraft:interpolated",
+          "argument": {
+            "type": "minecraft:blend_density",
+            "argument": {
+              "type": "minecraft:add",
+              "argument1": "minecraft:overworld_large_biomes/depth",
+              "argument2": {
+                "type": "minecraft:min",
+                "argument1": {
+                  "type": "minecraft:y_clamped_gradient",
+                  "from_y": 4,
+                  "to_y": 32,
+                  "from_value": 0,
+                  "to_value": 1
+                },
+                "argument2": {
+                  "type": "minecraft:add",
+                  "argument1": 0.234375,
+                  "argument2": {
+                    "type": "minecraft:add",
+                    "argument1": -23.4375,
+                    "argument2": {
+                      "type": "minecraft:mul",
+                      "argument1": {
+                        "type": "minecraft:y_clamped_gradient",
+                        "from_y": 56,
+                        "to_y": 312,
+                        "from_value": 1,
+                        "to_value": 0
+                      },
+                      "argument2": {
+                        "type": "minecraft:add",
+                        "argument1": 23.4375,
+                        "argument2": "minecraft:end/sloped_cheese"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "vein_toggle": 0,
