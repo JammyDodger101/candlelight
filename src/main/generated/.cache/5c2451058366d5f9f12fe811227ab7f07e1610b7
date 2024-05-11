@@ -1,7 +1,7 @@
-// 1.20.1	2023-12-19T18:44:05.9795945	Candlelight Mod/Tags for minecraft:block
-f3951aad05e743c373ec99236c6da11657571ed1 data\minecraft\tags\blocks\dragon_immune.json
-f3951aad05e743c373ec99236c6da11657571ed1 data\minecraft\tags\blocks\prevent_mob_spawning_inside.json
-f3951aad05e743c373ec99236c6da11657571ed1 data\minecraft\tags\blocks\candles.json
-f3951aad05e743c373ec99236c6da11657571ed1 data\minecraft\tags\blocks\wither_immune.json
-607128438abd4dd8992a5a3e3a58e5355943cdff data\minecraft\tags\blocks\candle_cakes.json
-f3951aad05e743c373ec99236c6da11657571ed1 data\candlelight\tags\blocks\custom_candles.json
+// 1.20.1	2024-04-28T09:22:43.8684047	Candlelight Mod/Tags for minecraft:block
+c9aaceb26f72ef6194a6728fa6f8b8d5b35c3416 data\minecraft\tags\blocks\dragon_immune.json
+c9aaceb26f72ef6194a6728fa6f8b8d5b35c3416 data\minecraft\tags\blocks\prevent_mob_spawning_inside.json
+c9aaceb26f72ef6194a6728fa6f8b8d5b35c3416 data\minecraft\tags\blocks\candles.json
+c9aaceb26f72ef6194a6728fa6f8b8d5b35c3416 data\minecraft\tags\blocks\wither_immune.json
+b8d4d99471114b9dde6c4534b2576d095cc96897 data\minecraft\tags\blocks\candle_cakes.json
+204e0ef9e9fb0b2b23b8e0d14a73df332b68d101 data\candlelight\tags\blocks\custom_candles.json

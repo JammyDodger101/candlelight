@@ -2,6 +2,7 @@ package net.jammydodger101.candlelight.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.jammydodger101.candlelight.block.ModBlocks;
 import net.jammydodger101.candlelight.item.ModItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
@@ -25,10 +26,37 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .pattern("CGC")
                 .input('C', Blocks.CRYING_OBSIDIAN)
                 .input('G', Blocks.GOLD_BLOCK)
-                .input('D', Blocks.DIAMOND_BLOCK)
+                .input('D', Items.DIAMOND)
                 .input('T', Items.TOTEM_OF_UNDYING)
                 .criterion(hasItem(Items.TOTEM_OF_UNDYING), conditionsFromItem(Items.TOTEM_OF_UNDYING))
                 .offerTo(exporter, new Identifier(getRecipeName(ModItems.REVIVER)));
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.CANDLE_COMPASS, 1)
+                .pattern("FFF")
+                .pattern("FCF")
+                .pattern("FFF")
+                .input('F', ModItems.EVENT_FRAGMENT)
+                .input('C', Items.COMPASS)
+                .criterion(hasItem(ModItems.EVENT_FRAGMENT), conditionsFromItem(ModItems.EVENT_FRAGMENT))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.CANDLE_COMPASS)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.LIFESTEAL_HEART, 1)
+                .pattern("SFS")
+                .pattern("FRF")
+                .pattern("SFS")
+                .input('F', ModItems.EVENT_FRAGMENT)
+                .input('S', Items.NETHERITE_SCRAP)
+                .input('R', Blocks.RESPAWN_ANCHOR)
+                .criterion(hasItem(ModItems.EVENT_FRAGMENT), conditionsFromItem(ModItems.EVENT_FRAGMENT))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.LIFESTEAL_HEART)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.CROCKSMARTER_BLADE, 1)
+                .pattern(" C ")
+                .pattern(" C ")
+                .pattern(" S ")
+                .input('C', ModBlocks.CANDLELESS_FLOOR_BLOCK)
+                .input('S', Items.STICK)
+                .criterion(hasItem(ModBlocks.CANDLELESS_FLOOR_BLOCK), conditionsFromItem(ModBlocks.CANDLELESS_FLOOR_BLOCK))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.CROCKSMARTER_BLADE)));
     }
 }

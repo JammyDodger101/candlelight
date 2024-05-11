@@ -1,3 +1,9 @@
-// 1.20.1	2023-12-19T18:44:05.972156	Candlelight Mod/Recipes
+// 1.20.1	2024-04-28T09:22:43.8664205	Candlelight Mod/Recipes
+ad33a38180cdd2ff3ef532b2215f8d66fe555eac data\candlelight\recipes\lifesteal_heart.json
+059e69442a00d655651c5fb4b1e5d5778185131d data\candlelight\recipes\candle_compass.json
 8b8308d929018bed8646dde352f921d3400c4c3d data\candlelight\advancements\recipes\tools\reviver.json
-f74cab622b82c9fe364634e8e44018a4770eb140 data\candlelight\recipes\reviver.json
+699eaca82993c1e3ab7848f7cadddc0231bcb107 data\candlelight\advancements\recipes\misc\candle_compass.json
+74dcf8554d22186d8582a7e2d15a4f80848bb90c data\candlelight\advancements\recipes\misc\lifesteal_heart.json
+62663f36485ded9f5487768b8121ab7da62e5a76 data\candlelight\advancements\recipes\misc\crocksmarter_blade.json
+9eb1db36e1b590fda9cb7d839a012955bdb2293e data\candlelight\recipes\reviver.json
+6e76a279612fb9842d706e1960a881d979d86d9a data\candlelight\recipes\crocksmarter_blade.json

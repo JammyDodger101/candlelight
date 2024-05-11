@@ -18,8 +18,6 @@ public abstract class PickupCandleMixin{
 
     @Shadow public abstract Text getName();
 
-    @Shadow public abstract ItemStack getStack();
-
     @Inject(method = "onPlayerCollision", at = @At("TAIL"))
     private void applySlowness(PlayerEntity player, CallbackInfo ci) {
         if (this.getName() != null && this.getName() == ModBlocks.JAMMY_CANDLE.getName()) {

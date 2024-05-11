@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:the_end",
+  "type": "candlelight:candleless",
   "generator": {
-    "type": "minecraft:flat",
-    "settings": {
-      "biome": "minecraft:the_void",
-      "lakes": false,
-      "features": false,
-      "layers": [
-        {
-          "block": "minecraft:bedrock",
-          "height": 1
-        }
-      ]
+    "type": "minecraft:noise",
+    "settings": "candlelight:candleless",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "minecraft:the_void"
     }
   }
 }
+

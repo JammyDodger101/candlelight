@@ -1,19 +1,23 @@
 {
   "block.candlelight.jammy_candle" : "§bCandle - Jammydodger101",
   "block.candlelight.pom_candle" : "§bCandle - PomPomDexter",
-  "block.candlelight.spam_candle" : "§bCandle - Spamhash",
+  "block.candlelight.spam_candle" : "§bCandle - Citramin",
   "block.candlelight.cray_candle" : "§bCandle - CrayZink",
   "block.candlelight.em_candle" : "§bCandle - Longpotter",
   "block.candlelight.croc_candle" : "§bCandle - CrockSmarter",
   "block.candlelight.cat_candle" : "§bCandle - a_random_cat",
   "block.candlelight.lean_candle" : "§bCandle - LeanTheLiquid",
   "block.candlelight.deluxe_candle" : "§bCandle - RealDeluxe",
-
-  "block.candlelight.jammy_candle.tooltip" : "JammyDodger101",
+  "block.candlelight.jk_candle" : "§bCandle - not_JK",
 
   "block.candlelight.ruby_block" : "Block of Ruby",
+  "block.candlelight.candleless_floor_block" : "Candleless Floor Block",
 
   "item.candlelight.reviver" : "Reviver",
+  "item.candlelight.event_fragments" : "Event Fragments",
+  "item.candlelight.candle_compass" : "Candle Compass",
+  "item.candlelight.lifesteal_heart" : "Heart",
+  "item.candlelight.crocksmarter_blade" : "Crocksmarter Blade",
 
   "itemgroup.candlelight" : "Candlelight Group"
 }

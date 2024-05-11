@@ -6,7 +6,10 @@ public final class ModCommands {
     public static void init() {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             GetCandleStatusCommand.register(dispatcher);
+            GetPlayerTrappedStatusCommand.register(dispatcher);
             RevivePlayersCommand.register(dispatcher);
+            GetCandleLocationCommand.register(dispatcher);
+            WithdrawHeartCommand.register(dispatcher);
         });
     }
 }

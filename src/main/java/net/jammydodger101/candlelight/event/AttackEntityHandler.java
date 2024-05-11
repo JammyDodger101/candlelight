@@ -1,6 +1,7 @@
 package net.jammydodger101.candlelight.event;
 
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.jammydodger101.candlelight.item.ModItems;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.SheepEntity;
@@ -18,8 +19,11 @@ public class AttackEntityHandler implements AttackEntityCallback {
     public ActionResult interact(PlayerEntity player, World world, Hand hand,
                                  Entity entity, @Nullable EntityHitResult hitResult) {
 
-        if (entity instanceof SheepEntity && !world.isClient() && !player.isSpectator()) {
+        if (player.getStackInHand(hand).getItem() == ModItems.CROCKSMARTER_BLADE) {
             //new PlayerCandleHandler().checkCandleStatus(player);
+            if (entity instanceof ServerPlayerEntity) {
+                ((ServerPlayerEntity) entity).networkHandler.disconnect(Text.literal("crocksmarter's power"));
+            }
         }
 
         return ActionResult.PASS;
