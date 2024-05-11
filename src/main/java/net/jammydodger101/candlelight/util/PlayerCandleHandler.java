@@ -183,6 +183,7 @@ public class PlayerCandleHandler
 
                                 serverPlayer.stopRiding();
                                 serverPlayer.teleport(serverWorld.getServer().getOverworld(), worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ() , Set.of(), 0f, 0f);
+                                serverPlayer.setSpawnPoint(World.OVERWORLD,worldSpawn,0f,true,false);
                                 serverPlayer.fallDistance = 0.0f;
 
                                 trappedPlayerBools.set(listPos, false);
@@ -229,6 +230,7 @@ public class PlayerCandleHandler
 
                                 serverPlayer.stopRiding();
                                 serverPlayer.teleport(serverWorld.getServer().getOverworld(), worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ() , Set.of(), 0f, 0f);
+                                serverPlayer.setSpawnPoint(World.OVERWORLD,worldSpawn,0f,true,false);
                                 serverPlayer.fallDistance = 0.0f;
 
                                 trappedPlayerBools.set(listPos, false);
