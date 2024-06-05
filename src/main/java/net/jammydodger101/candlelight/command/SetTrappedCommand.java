@@ -1,36 +1,46 @@
 package net.jammydodger101.candlelight.command;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.jammydodger101.candlelight.StateSaverAndLoader;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
 
-public class GetCandleLocationCommand {
+import java.util.Objects;
+
+public class SetTrappedCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(CommandManager.literal("candle-location")
+        dispatcher.register(CommandManager.literal("set_trapped")
                 .requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(2))
                 .then(CommandManager.argument("playerName", StringArgumentType.string())
-                        .executes(GetCandleLocationCommand::run)));
+                .then(CommandManager.argument("trapped", BoolArgumentType.bool())
+                        .executes(SetTrappedCommand::run))));
 
     }
 
     private static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+
         ServerPlayerEntity player = context.getSource().getPlayer();
+        assert player != null;
+        StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(player.getServer()));
         String id = StringArgumentType.getString(context, "playerName");
+        Boolean trapped = BoolArgumentType.getBool(context, "trapped");
 
-        BlockPos pos = PlayerCandleHandler.getCandleCoordinates(id, player);
+        if (PlayerCandleHandler.candleOwners.contains(id.toLowerCase())) {
+            serverState.playersTrapped.put(id, trapped);
+            PlayerCandleHandler.trappedPlayerBools.set(PlayerCandleHandler.candleOwners.indexOf(id.toLowerCase()), trapped);
 
-        if (pos != null) {
-            player.sendMessage(Text.literal("Candle is at "+ pos));
             return 1;
         }
-        player.sendMessage(Text.literal("Candle is not placed down or player doesnt exist"));
-        return -1;
+        else {
+            return -1;
+        }
+
     }
 }

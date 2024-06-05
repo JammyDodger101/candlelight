@@ -19,7 +19,7 @@ public abstract class PlayerEffectApplierMixin {
     @Inject(method = "playerTick", at = @At("TAIL"))
     private void applyEffects(CallbackInfo ci) {
         PlayerCandleHandler.applyEffectsToTrappedPlayers(getServerWorld());
-
+        //PlayerCandleHandler.updatePlayerTrapped(getServerWorld());
     }
 
 }

@@ -94,6 +94,15 @@ public class PlayerCandleHandler
         return null;
     }
 
+    //public static void updatePlayerTrapped(World world) {
+    //    StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(world.getServer()));
+
+        //cheeky little code slide-in
+   //     for (int i = 0; i < trappedPlayerBools.size(); i++) {
+   //         trappedPlayerBools.set(i,serverState.playersTrapped.get(candleOwners.get(i)));
+    //    }
+    //}
+
     public static Boolean checkPlayerTrappedStatusCommand(String playerName) {
         if (candleOwners.contains(playerName.toLowerCase())) {
             return trappedPlayerBools.get(candleOwners.indexOf(playerName.toLowerCase()));
@@ -114,9 +123,9 @@ public class PlayerCandleHandler
                 serverState.candleStatuses.put(candleOwners.get(candles.indexOf(candleBlock)), newStatus);
 
                 //cheeky little code slide-in
-                //for (int i = 0; i < trappedPlayerBools.size(); i++) {
-                //    trappedPlayerBools.set(i,serverState.playersTrapped.get(candleOwners.get(i)));
-                //}
+                for (int i = 0; i < trappedPlayerBools.size(); i++) {
+                    trappedPlayerBools.set(i,serverState.playersTrapped.get(candleOwners.get(i)));
+                }
             }
             candleStatus.set(listPos, newStatus);
         }
@@ -135,13 +144,6 @@ public class PlayerCandleHandler
 
     public static void applyEffectsToTrappedPlayers(World world) {
         int listPos = 0;
-
-        StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(world.getServer()));
-
-        //cheeky little code slide-in
-        for (int i = 0; i < trappedPlayerBools.size(); i++) {
-            trappedPlayerBools.set(i,serverState.playersTrapped.get(candleOwners.get(i)));
-        }
 
         for (Boolean trapped :
                 trappedPlayerBools) {
@@ -175,13 +177,6 @@ public class PlayerCandleHandler
 
     public static void reviveEveryone(ServerWorld serverWorld) {
         BlockPos worldSpawn = serverWorld.getSpawnPos();
-
-        StateSaverAndLoader serverState2 = StateSaverAndLoader.getServerState(Objects.requireNonNull(serverWorld.getServer()));
-
-        //cheeky little code slide-in
-        for (int i = 0; i < trappedPlayerBools.size(); i++) {
-            trappedPlayerBools.set(i,serverState2.playersTrapped.get(candleOwners.get(i)));
-        }
 
         int listPos = 0;
 
@@ -230,13 +225,6 @@ public class PlayerCandleHandler
 
     public static void reviveCommand(ServerWorld serverWorld) {
         BlockPos worldSpawn = serverWorld.getSpawnPos();
-
-        StateSaverAndLoader serverState2 = StateSaverAndLoader.getServerState(Objects.requireNonNull(serverWorld.getServer()));
-
-        //cheeky little code slide-in
-        for (int i = 0; i < trappedPlayerBools.size(); i++) {
-            trappedPlayerBools.set(i,serverState2.playersTrapped.get(candleOwners.get(i)));
-        }
 
         int listPos = 0;
 

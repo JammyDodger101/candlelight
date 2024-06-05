@@ -13,7 +13,7 @@ import net.minecraft.text.Text;
 
 public class GetCandleStatusCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(CommandManager.literal("candleStatus")
+        dispatcher.register(CommandManager.literal("candle-status")
                 .requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(2))
                 .then(CommandManager.argument("playerName", StringArgumentType.string())
                         .executes(GetCandleStatusCommand::run)));

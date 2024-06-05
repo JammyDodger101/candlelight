@@ -10,6 +10,7 @@ public final class ModCommands {
             RevivePlayersCommand.register(dispatcher);
             GetCandleLocationCommand.register(dispatcher);
             WithdrawHeartCommand.register(dispatcher);
+            SetTrappedCommand.register(dispatcher);
         });
     }
 }
