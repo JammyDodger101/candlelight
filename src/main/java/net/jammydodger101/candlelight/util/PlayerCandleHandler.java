@@ -122,10 +122,6 @@ public class PlayerCandleHandler
                 StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(world.getServer()));
                 serverState.candleStatuses.put(candleOwners.get(candles.indexOf(candleBlock)), newStatus);
 
-                //cheeky little code slide-in
-                for (int i = 0; i < trappedPlayerBools.size(); i++) {
-                    trappedPlayerBools.set(i,serverState.playersTrapped.get(candleOwners.get(i)));
-                }
             }
             candleStatus.set(listPos, newStatus);
         }
