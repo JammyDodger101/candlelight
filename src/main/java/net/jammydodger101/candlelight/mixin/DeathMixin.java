@@ -17,6 +17,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Objects;
+
 @Mixin(PlayerManager.class)
 public abstract class DeathMixin {
 
@@ -24,7 +26,7 @@ public abstract class DeathMixin {
     private void afterRespawn(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfoReturnable<ServerPlayerEntity> cir) {
         if (oldPlayer.getHealth() <= 0) {
             BlockPos worldSpawn = oldPlayer.getWorld().getSpawnPos();
-            PlayerData playerState = StateSaverAndLoader.getPlayerState(oldPlayer);
+            StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(oldPlayer.getServer()));
             //if their candle status isn't null
             if(PlayerCandleHandler.checkPlayerStatus(oldPlayer) != null) {
                 //if their candle is lit
@@ -32,11 +34,11 @@ public abstract class DeathMixin {
                     if (oldPlayer.getSpawnPointDimension() == ModDimension.CANDLELESS_KEY) {
                         oldPlayer.setSpawnPoint(World.OVERWORLD, worldSpawn, 0f, true, false);
                     }
-                    playerState.trapped = false;
+                    serverState.playersTrapped.put(oldPlayer.getDisplayName().getString(), false);
                     PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
                 } else {
                     oldPlayer.setSpawnPoint(ModDimension.CANDLELESS_KEY, new BlockPos(0, 100, 0), 0f, true, false);
-                    playerState.trapped = true;
+                    serverState.playersTrapped.put(oldPlayer.getDisplayName().getString(), true);
                     PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, true);
                 }
             }

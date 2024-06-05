@@ -13,6 +13,7 @@ import java.util.*;
 public class StateSaverAndLoader extends PersistentState {
     public HashMap<Integer, String> candleLocations = new HashMap<>();
     public HashMap<String, Boolean> candleStatuses = new HashMap<>();
+    public HashMap<String, Boolean> playersTrapped = new HashMap<>();
     public HashMap<UUID, PlayerData> players = new HashMap<>();
 
     @Override
@@ -27,15 +28,11 @@ public class StateSaverAndLoader extends PersistentState {
         });
         nbt.put("statuses", statusTag);
 
-        NbtCompound playersNbt = new NbtCompound();
-        players.forEach((uuid, playerData) -> {
-            NbtCompound playerNbt = new NbtCompound();
-
-            playerNbt.putBoolean("trapped", playerData.trapped);
-
-            playersNbt.put(uuid.toString(), playerNbt);
+        NbtCompound trappedTag = new NbtCompound();
+        playersTrapped.forEach((playerName, trapped) -> {
+            trappedTag.putBoolean(playerName, trapped);
         });
-        nbt.put("players", playersNbt);
+        nbt.put("trapped", trappedTag);
 
         return nbt;
     }
@@ -57,15 +54,10 @@ public class StateSaverAndLoader extends PersistentState {
             state.candleStatuses.put(playerName,status);
         });
 
-
-        NbtCompound playersNbt = tag.getCompound("players");
-        playersNbt.getKeys().forEach(key -> {
-            PlayerData playerData = new PlayerData();
-
-            playerData.trapped = playersNbt.getCompound(key).getBoolean("trapped");
-
-            UUID uuid = UUID.fromString(key);
-            state.players.put(uuid, playerData);
+        NbtCompound trappedCompound = tag.getCompound("trapped");
+        trappedCompound.getKeys().forEach(playerName -> {
+            Boolean status = trappedCompound.getBoolean(playerName);
+            state.playersTrapped.put(playerName,status);
         });
 
         return state;
