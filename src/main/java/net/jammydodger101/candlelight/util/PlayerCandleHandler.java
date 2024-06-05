@@ -147,7 +147,9 @@ public class PlayerCandleHandler
                                 serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 999999999 , 1, false, false, false));
                                 serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 999999999 , 0, false, false, false));
                                 serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 999999999 , 1, false, false, false));
-                                serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999 , 3, false, false, false));
+                                serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999 , 254, false, false, false));
+                                //serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 999999999 , 1, false, false, false));
+
                             }
                         }
                     }
@@ -183,7 +185,7 @@ public class PlayerCandleHandler
 
                                 serverPlayer.stopRiding();
                                 serverPlayer.teleport(serverWorld.getServer().getOverworld(), worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ() , Set.of(), 0f, 0f);
-                                serverPlayer.setSpawnPoint(World.OVERWORLD,worldSpawn,0f,true,false);
+
                                 serverPlayer.fallDistance = 0.0f;
 
                                 trappedPlayerBools.set(listPos, false);
@@ -195,6 +197,7 @@ public class PlayerCandleHandler
                                     serverPlayer.removeStatusEffect(StatusEffects.NIGHT_VISION);
                                     serverPlayer.removeStatusEffect(StatusEffects.RESISTANCE);
                                     serverPlayer.removeStatusEffect(StatusEffects.SLOWNESS);
+                                    serverPlayer.removeStatusEffect(StatusEffects.SLOW_FALLING);
                                 }
                             }
                         }
@@ -242,6 +245,7 @@ public class PlayerCandleHandler
                                     serverPlayer.removeStatusEffect(StatusEffects.NIGHT_VISION);
                                     serverPlayer.removeStatusEffect(StatusEffects.RESISTANCE);
                                     serverPlayer.removeStatusEffect(StatusEffects.SLOWNESS);
+                                    serverPlayer.removeStatusEffect(StatusEffects.SLOW_FALLING);
                                 }
                             }
                         }

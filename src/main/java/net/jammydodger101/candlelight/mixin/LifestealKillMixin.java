@@ -28,8 +28,6 @@ public abstract class LifestealKillMixin extends PlayerEntity {
         Entity attacker = damageSource.getAttacker();
         ServerPlayerEntity deadEntity = (ServerPlayerEntity)(Object)this;
         if (attacker instanceof ServerPlayerEntity) {
-            LifestealHandler.increaseHealth((LivingEntity) attacker, 2);
-            LifestealHandler.decreaseHealth(deadEntity, 2);
             if (deadEntity.getMaxHealth() == 2) {
                 BannedPlayerList bannedPlayerList = deadEntity.getServerWorld().getServer().getPlayerManager().getUserBanList();
                 BannedPlayerEntry bannedPlayerEntry = new BannedPlayerEntry(deadEntity.getGameProfile(),
@@ -40,6 +38,8 @@ public abstract class LifestealKillMixin extends PlayerEntity {
                 bannedPlayerList.add(bannedPlayerEntry);
                 deadEntity.networkHandler.disconnect(Text.translatable("multiplayer.disconnect.banned"));
             }
+            LifestealHandler.increaseHealth((LivingEntity) attacker, 2);
+            LifestealHandler.decreaseHealth(deadEntity, 2);
         }
     }
 }

@@ -35,9 +35,9 @@ public class ModLootTableModifiers {
             if(ANCIENT_CITY_ID.equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(0.05f))
+                        .conditionally(RandomChanceLootCondition.builder(0.15f))
                         .with(ItemEntry.builder(ModItems.EVENT_FRAGMENT))
-                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f,1.0f)).build());
+                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f,2.0f)).build());
 
                 tableBuilder.pool(poolBuilder.build());
             }
@@ -45,9 +45,9 @@ public class ModLootTableModifiers {
             if(ANCIENT_CITY_ICE_ID.equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(0.1f))
+                        .conditionally(RandomChanceLootCondition.builder(0.2f))
                         .with(ItemEntry.builder(ModItems.EVENT_FRAGMENT))
-                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f,2.0f)).build());
+                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f,4.0f)).build());
 
                 tableBuilder.pool(poolBuilder.build());
             }
