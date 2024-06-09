@@ -28,6 +28,7 @@ public class ModItemGroups {
         entries.add(ModBlocks.TONY_CANDLE);
         entries.add(ModBlocks.PRAI_CANDLE);
         entries.add(ModBlocks.GARY_CANDLE);
+        entries.add(ModBlocks.MAY_CANDLE);
         entries.add(ModItems.REVIVER);
         entries.add(ModItems.EVENT_FRAGMENT);
         entries.add(ModItems.CANDLE_COMPASS);

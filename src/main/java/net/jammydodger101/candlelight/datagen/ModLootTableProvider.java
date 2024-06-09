@@ -28,6 +28,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.PRAI_CANDLE);
         addDrop(ModBlocks.GARY_CANDLE);
         addDrop(ModBlocks.DELUXE_CANDLE);
+        addDrop(ModBlocks.MAY_CANDLE);
         addDrop(ModBlocks.JAMMY_CANDLE_CAKE, candleCakeDrops(ModBlocks.JAMMY_CANDLE));
         addDrop(ModBlocks.POM_CANDLE_CAKE, candleCakeDrops(ModBlocks.POM_CANDLE));
         addDrop(ModBlocks.SPAM_CANDLE_CAKE, candleCakeDrops(ModBlocks.SPAM_CANDLE));
@@ -44,6 +45,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.TONY_CANDLE_CAKE, candleCakeDrops(ModBlocks.TONY_CANDLE));
         addDrop(ModBlocks.PRAI_CANDLE_CAKE, candleCakeDrops(ModBlocks.PRAI_CANDLE));
         addDrop(ModBlocks.GARY_CANDLE_CAKE, candleCakeDrops(ModBlocks.GARY_CANDLE));
+        addDrop(ModBlocks.MAY_CANDLE_CAKE, candleCakeDrops(ModBlocks.MAY_CANDLE));
         addDrop(ModBlocks.RUBY_BLOCK);
     }
 }

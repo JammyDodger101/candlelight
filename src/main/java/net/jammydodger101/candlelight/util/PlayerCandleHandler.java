@@ -50,6 +50,7 @@ public class PlayerCandleHandler
         listAdder(ModBlocks.TONY_CANDLE, "livelaughthrive", false);
         listAdder(ModBlocks.PRAI_CANDLE, "prairieranger", false);
         listAdder(ModBlocks.GARY_CANDLE, "beefjerkyzxz", false);
+        listAdder(ModBlocks.MAY_CANDLE, "maytack", false);
     }
 
     public static void listAdder(Block block, String playerName, Boolean candleStatusBool) {

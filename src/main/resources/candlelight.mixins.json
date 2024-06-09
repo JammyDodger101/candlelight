@@ -7,7 +7,6 @@
     "DeathMixin",
     "ExampleMixin",
     "LifestealKillMixin",
-    "PickupCandleMixin",
     "PlayerEffectApplierMixin"
   ],
   "injectors": {

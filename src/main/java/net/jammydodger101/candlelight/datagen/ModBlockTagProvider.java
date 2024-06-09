@@ -34,6 +34,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.TONY_CANDLE)
                 .add(ModBlocks.PRAI_CANDLE)
                 .add(ModBlocks.GARY_CANDLE)
+                .add(ModBlocks.MAY_CANDLE)
                 .add(ModBlocks.JK_CANDLE);
 
         getOrCreateTagBuilder(BlockTags.CANDLES)
@@ -52,6 +53,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.TONY_CANDLE)
                 .add(ModBlocks.PRAI_CANDLE)
                 .add(ModBlocks.GARY_CANDLE)
+                .add(ModBlocks.MAY_CANDLE)
                 .add(ModBlocks.CRAY_CANDLE);
 
         getOrCreateTagBuilder(BlockTags.CANDLE_CAKES)
@@ -70,6 +72,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.TONY_CANDLE_CAKE)
                 .add(ModBlocks.PRAI_CANDLE_CAKE)
                 .add(ModBlocks.GARY_CANDLE_CAKE)
+                .add(ModBlocks.MAY_CANDLE_CAKE)
                 .add(ModBlocks.CRAY_CANDLE_CAKE);
 
         getOrCreateTagBuilder(BlockTags.PREVENT_MOB_SPAWNING_INSIDE)
@@ -88,6 +91,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.TONY_CANDLE)
                 .add(ModBlocks.PRAI_CANDLE)
                 .add(ModBlocks.GARY_CANDLE)
+                .add(ModBlocks.MAY_CANDLE)
                 .add(ModBlocks.CRAY_CANDLE);
 
         getOrCreateTagBuilder(BlockTags.DRAGON_IMMUNE)
@@ -106,6 +110,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.TONY_CANDLE)
                 .add(ModBlocks.PRAI_CANDLE)
                 .add(ModBlocks.GARY_CANDLE)
+                .add(ModBlocks.MAY_CANDLE)
                 .add(ModBlocks.CRAY_CANDLE);
 
         getOrCreateTagBuilder(BlockTags.WITHER_IMMUNE)
@@ -124,6 +129,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.TONY_CANDLE)
                 .add(ModBlocks.PRAI_CANDLE)
                 .add(ModBlocks.GARY_CANDLE)
+                .add(ModBlocks.MAY_CANDLE)
                 .add(ModBlocks.CRAY_CANDLE);
 
     }
