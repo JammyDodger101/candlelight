@@ -35,7 +35,7 @@ public class PlayerCandleBlock
 
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
-    public PlayerCandleBlock(Settings settings, String name) {
+    public PlayerCandleBlock(Settings settings) {
         super(settings);
         this.setDefaultState((BlockState)((BlockState)((BlockState)((BlockState)this.stateManager.getDefaultState()).with(CANDLES, 1)).with(LIT, false)).with(WATERLOGGED, false));
     }

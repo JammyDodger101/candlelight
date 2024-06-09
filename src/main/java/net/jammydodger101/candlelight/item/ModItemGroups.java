@@ -22,6 +22,12 @@ public class ModItemGroups {
         entries.add(ModBlocks.LEAN_CANDLE);
         //entries.add(ModBlocks.DELUXE_CANDLE);
         entries.add(ModBlocks.JK_CANDLE);
+        entries.add(ModBlocks.MUST_CANDLE);
+        entries.add(ModBlocks.SOAP_CANDLE);
+        entries.add(ModBlocks.GEO_CANDLE);
+        entries.add(ModBlocks.TONY_CANDLE);
+        entries.add(ModBlocks.PRAI_CANDLE);
+        entries.add(ModBlocks.GARY_CANDLE);
         entries.add(ModItems.REVIVER);
         entries.add(ModItems.EVENT_FRAGMENT);
         entries.add(ModItems.CANDLE_COMPASS);

@@ -10,6 +10,12 @@
     "candlelight:lean_candle",
     "candlelight:deluxe_candle",
     "candlelight:cray_candle",
+    "candlelight:must_candle",
+    "candlelight:soap_candle",
+    "candlelight:geo_candle",
+    "candlelight:tony_candle",
+    "candlelight:prai_candle",
+    "candlelight:gary_candle",
     "candlelight:jk_candle"
   ]
 }

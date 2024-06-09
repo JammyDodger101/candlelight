@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "candlelight:block/geo_candle_cake"
+    },
+    "lit=true": {
+      "model": "candlelight:block/geo_candle_cake_lit"
+    }
+  }
+}

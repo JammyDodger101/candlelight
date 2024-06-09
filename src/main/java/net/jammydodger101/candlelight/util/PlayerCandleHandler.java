@@ -43,6 +43,13 @@ public class PlayerCandleHandler
         listAdder(ModBlocks.LEAN_CANDLE, "leantheliquid", false);
         listAdder(ModBlocks.DELUXE_CANDLE, "realdeluxe", false); //yikes
         listAdder(ModBlocks.JK_CANDLE, "not_jk", false);
+        //season three!!!
+        listAdder(ModBlocks.MUST_CANDLE, "callmemustard_", false);
+        listAdder(ModBlocks.SOAP_CANDLE, "ashpffwho", false);
+        listAdder(ModBlocks.GEO_CANDLE, "georgehminer", false);
+        listAdder(ModBlocks.TONY_CANDLE, "livelaughthrive", false);
+        listAdder(ModBlocks.PRAI_CANDLE, "prairieranger", false);
+        listAdder(ModBlocks.GARY_CANDLE, "beefjerkyzxz", false);
     }
 
     public static void listAdder(Block block, String playerName, Boolean candleStatusBool) {
