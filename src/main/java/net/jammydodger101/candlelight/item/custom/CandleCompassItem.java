@@ -1,9 +1,13 @@
 package net.jammydodger101.candlelight.item.custom;
 
 import com.mojang.logging.LogUtils;
+import net.jammydodger101.candlelight.item.ModItemComponents;
 import net.jammydodger101.candlelight.item.ModItems;
 import net.jammydodger101.candlelight.util.CandleCompassFunctionality;
 import net.jammydodger101.candlelight.util.ModTags;
+import net.minecraft.component.Component;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -22,12 +26,12 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 
 public class CandleCompassItem
-        extends Item
-        implements Vanishable {
+        extends Item {
 
     private static final Logger LOGGER = LogUtils.getLogger();
     public static final String CANDLE_POS_KEY = "CandlePos";
@@ -41,7 +45,7 @@ public class CandleCompassItem
     }
 
     public static boolean hasCandle(ItemStack stack) {
-        NbtCompound nbtCompound = stack.getNbt();
+        NbtCompound nbtCompound = stack.get(ModItemComponents.CANDLE_COMPASS_DATA);
         return nbtCompound != null && (nbtCompound.contains(CANDLE_DIMENSION_KEY) || nbtCompound.contains(CANDLE_POS_KEY));
     }
 
@@ -55,8 +59,8 @@ public class CandleCompassItem
         boolean bl = nbt.contains(CANDLE_POS_KEY);
         boolean bl2 = nbt.contains(CANDLE_DIMENSION_KEY);
         if (bl && bl2 && (optional = CandleCompassItem.getCandleDimension(nbt)).isPresent()) {
-            BlockPos blockPos = NbtHelper.toBlockPos(nbt.getCompound(CANDLE_POS_KEY));
-            return GlobalPos.create(optional.get(), blockPos);
+            Optional<BlockPos> blockPos = NbtHelper.toBlockPos(nbt.getCompound(CANDLE_POS_KEY), CANDLE_POS_KEY);
+            return GlobalPos.create(optional.get(), blockPos.orElseThrow());
         }
         return null;
     }
@@ -78,10 +82,9 @@ public class CandleCompassItem
         }
 
         if (CandleCompassItem.hasCandle(stack)) {
-
-
             BlockPos blockPos;
-            NbtCompound nbtCompound = stack.getOrCreateNbt();
+            NbtCompound nbtCompound = stack.get(ModItemComponents.CANDLE_COMPASS_DATA);
+            assert nbtCompound != null;
             if (nbtCompound.contains(CANDLE_TRACKED_KEY) && !nbtCompound.getBoolean(CANDLE_TRACKED_KEY)) {
                 return;
             }
@@ -90,7 +93,7 @@ public class CandleCompassItem
             //code to make it spin if theres no candle anymore?? i think??
             if (optional.isPresent() && optional.get() == world.getRegistryKey()
                     && nbtCompound.contains(CANDLE_POS_KEY)
-                    && (!world.isInBuildLimit(blockPos = NbtHelper.toBlockPos(nbtCompound.getCompound(CANDLE_POS_KEY)))
+                    && (!world.isInBuildLimit(blockPos = NbtHelper.toBlockPos(nbtCompound.getCompound(CANDLE_POS_KEY), CANDLE_POS_KEY).orElseThrow())
                     || !world.getBlockState(blockPos).isIn(ModTags.Blocks.CUSTOM_CANDLES)))
                      {
                 nbtCompound.remove(CANDLE_POS_KEY);
@@ -98,12 +101,12 @@ public class CandleCompassItem
                 if (blockPos.getY() < 200000) {
                     CandleCompassFunctionality.fillCandleCoordinates(world);
                     BlockPos nearestCandle = CandleCompassFunctionality.getNearestCandle((PlayerEntity) entity);
-                    this.writeNbt(world.getRegistryKey(), nearestCandle, stack.getOrCreateNbt());
+                    this.writeNbt(world.getRegistryKey(), nearestCandle, Objects.requireNonNull(stack.get(ModItemComponents.CANDLE_COMPASS_DATA)));
                 }
 
             }
 
-            blockPos = NbtHelper.toBlockPos(nbtCompound.getCompound(CANDLE_POS_KEY));
+            blockPos = NbtHelper.toBlockPos(nbtCompound.getCompound(CANDLE_POS_KEY), CANDLE_POS_KEY).orElseThrow();
             if (blockPos.getSquaredDistance(entity.getBlockPos().toCenterPos()) < trackingDistance) {
                 stack.decrement(1);
                 world.playSound(null, entity.getBlockPos(), SoundEvents.ITEM_SHIELD_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
@@ -116,7 +119,6 @@ public class CandleCompassItem
         //BlockPos blockPos = user.getBlockPos();
 
         trackingDistance = new Random().nextInt(400,600);
-
 
         CandleCompassFunctionality.fillCandleCoordinates(world);
 
@@ -133,11 +135,11 @@ public class CandleCompassItem
         ItemStack itemStack = user.getStackInHand(hand);
         boolean bl2 = bl = !user.getAbilities().creativeMode && itemStack.getCount() == 1;
         if (bl) {
-            this.writeNbt(world.getRegistryKey(), blockPos, itemStack.getOrCreateNbt());
+            this.writeNbt(world.getRegistryKey(), blockPos, Objects.requireNonNull(itemStack.get(ModItemComponents.CANDLE_COMPASS_DATA)));
         } else {
             ItemStack itemStack2 = new ItemStack(ModItems.CANDLE_COMPASS, 1);
-            NbtCompound nbtCompound = itemStack.hasNbt() ? itemStack.getNbt().copy() : new NbtCompound();
-            itemStack2.setNbt(nbtCompound);
+            NbtCompound nbtCompound = itemStack.getComponents().contains(ModItemComponents.CANDLE_COMPASS_DATA) ? Objects.requireNonNull(itemStack.get(ModItemComponents.CANDLE_COMPASS_DATA)).copy() : new NbtCompound();
+            itemStack2.set(ModItemComponents.CANDLE_COMPASS_DATA, nbtCompound);
             if (!user.getAbilities().creativeMode) {
                 itemStack.decrement(1);
             }

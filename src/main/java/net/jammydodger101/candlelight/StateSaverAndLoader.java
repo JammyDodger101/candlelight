@@ -1,7 +1,9 @@
 package net.jammydodger101.candlelight;
 
+import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.PersistentStateManager;
@@ -17,7 +19,7 @@ public class StateSaverAndLoader extends PersistentState {
     public HashMap<UUID, PlayerData> players = new HashMap<>();
 
     @Override
-    public NbtCompound writeNbt(NbtCompound nbt) {
+    public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         NbtCompound locationsTag = new NbtCompound();
         candleLocations.forEach((index, candleLocation) -> locationsTag.putInt(candleLocation, index));
         nbt.put("locations", locationsTag);
@@ -66,7 +68,9 @@ public class StateSaverAndLoader extends PersistentState {
     public static StateSaverAndLoader getServerState(MinecraftServer server) {
         PersistentStateManager persistentStateManager = Objects.requireNonNull(server.getWorld(World.OVERWORLD)).getPersistentStateManager();
 
-        StateSaverAndLoader state = persistentStateManager.getOrCreate(StateSaverAndLoader::createFromNBT, StateSaverAndLoader::new,  Candlelight.MOD_ID);
+        StateSaverAndLoader state = persistentStateManager.getOrCreate(new Type<StateSaverAndLoader>
+                        (StateSaverAndLoader::new, (nbtCompound, wrapperLookup) -> new StateSaverAndLoader(), DataFixTypes.WORLD_GEN_SETTINGS),
+                Candlelight.MOD_ID);
 
         state.markDirty();
 

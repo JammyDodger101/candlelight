@@ -9,12 +9,14 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jammydodger101.candlelight.block.ModBlocks;
 import net.jammydodger101.candlelight.command.ModCommands;
 import net.jammydodger101.candlelight.event.AttackEntityHandler;
+import net.jammydodger101.candlelight.item.ModItemComponents;
 import net.jammydodger101.candlelight.item.ModItemGroups;
 import net.jammydodger101.candlelight.item.ModItems;
 import net.jammydodger101.candlelight.util.ModLootTableModifiers;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +28,12 @@ public class Candlelight implements ModInitializer {
 	public static final String MOD_ID = "candlelight";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	public static final Identifier INITIAL_SYNC = new Identifier(MOD_ID, "initial_sync");
+	public static final CustomPayload INITIAL_SYNC = new CustomPayload() {
+		@Override
+		public Id<? extends CustomPayload> getId() {
+			return null;
+		}
+	};
 
 	//private Integer totalDirtBlocksBroken = 0;
 
@@ -43,7 +50,7 @@ public class Candlelight implements ModInitializer {
 			data.writeBoolean(playerState.trapped);
 
 			server.execute(() -> {
-				ServerPlayNetworking.send(handler.getPlayer(), INITIAL_SYNC, data);
+				ServerPlayNetworking.send(handler.getPlayer(), INITIAL_SYNC);
 
 			});
 		}));
@@ -65,7 +72,7 @@ public class Candlelight implements ModInitializer {
 
 		ModCommands.init();
 
-
+		ModItemComponents.registerItemComponents();
 
 	}
 }

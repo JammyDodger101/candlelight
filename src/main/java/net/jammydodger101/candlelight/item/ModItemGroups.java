@@ -11,7 +11,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class ModItemGroups {
-    public static final ItemGroup CANDLELIGHT_GROUP = Registry.register(Registries.ITEM_GROUP, new Identifier(Candlelight.MOD_ID, "candlelight"), FabricItemGroup.builder().displayName(Text.translatable("itemgroup.candlelight")).icon(() -> new ItemStack(ModBlocks.JAMMY_CANDLE)).entries((displayContext, entries) -> {
+    public static final ItemGroup CANDLELIGHT_GROUP = Registry.register(Registries.ITEM_GROUP, Identifier.of(Candlelight.MOD_ID, "candlelight"), FabricItemGroup.builder().displayName(Text.translatable("itemgroup.candlelight")).icon(() -> new ItemStack(ModBlocks.JAMMY_CANDLE)).entries((displayContext, entries) -> {
         entries.add(ModBlocks.GEO_CANDLE);
         entries.add(ModBlocks.SOAP_CANDLE);
         entries.add(ModBlocks.MAY_CANDLE);

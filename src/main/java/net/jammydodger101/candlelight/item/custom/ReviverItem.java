@@ -26,7 +26,7 @@ public class ReviverItem extends Item {
             if (serverWorld == null) {
                 return TypedActionResult.fail(itemStack);
             }
-            serverWorld.getServer().getPlayerManager().getPlayer(user.getEntityName());
+            serverWorld.getServer().getPlayerManager().getPlayer(user.getNameForScoreboard());
             PlayerCandleHandler.reviveEveryone(serverWorld);
             user.incrementStat(Stats.USED.getOrCreateStat(this));
             if (!user.isSpectator()) {

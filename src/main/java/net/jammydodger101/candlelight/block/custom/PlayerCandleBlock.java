@@ -1,5 +1,6 @@
 package net.jammydodger101.candlelight.block.custom;
 
+import com.mojang.serialization.MapCodec;
 import net.jammydodger101.candlelight.util.ModTags;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.minecraft.block.*;
@@ -27,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class PlayerCandleBlock
 
-        extends CandleBlock
+        extends AbstractCandleBlock
 
         implements Waterloggable {
     public static final IntProperty CANDLES = Properties.CANDLES;
@@ -35,21 +36,28 @@ public class PlayerCandleBlock
 
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
+    @Override
+    protected MapCodec<? extends AbstractCandleBlock> getCodec() {
+        return null;
+    }
+
     public PlayerCandleBlock(Settings settings) {
         super(settings);
         this.setDefaultState((BlockState)((BlockState)((BlockState)((BlockState)this.stateManager.getDefaultState()).with(CANDLES, 1)).with(LIT, false)).with(WATERLOGGED, false));
     }
 
     @Override
+    protected Iterable<Vec3d> getParticleOffsets(BlockState state) {
+        return null;
+    }
+
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 
         if (player.getAbilities().allowModifyWorld && player.getStackInHand(hand).isEmpty() && state.get(LIT)) {
-
-
             CandleBlock.extinguish(player, state, world, pos);
-            return ActionResult.success(world.isClient);
+
         }
-        return ActionResult.PASS;
+        return super.onUse(state, world, pos, player, hit);
     }
 
 

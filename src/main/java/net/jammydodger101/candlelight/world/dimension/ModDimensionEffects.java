@@ -17,7 +17,7 @@ public class ModDimensionEffects extends DimensionEffects{
     private static final Object2ObjectMap<Identifier, DimensionEffects> BY_IDENTIFIER = Util.make(new Object2ObjectArrayMap(), map -> {
         DimensionEffects.Overworld overworld = new DimensionEffects.Overworld();
         map.defaultReturnValue(overworld);
-        map.put(new Identifier("candleless"), new Candleless());
+        map.put(Identifier.of("candleless"), new Candleless());
 
     });
 

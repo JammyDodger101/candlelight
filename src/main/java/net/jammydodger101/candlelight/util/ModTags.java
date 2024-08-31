@@ -14,13 +14,13 @@ public class ModTags {
                 createTag("custom_candles");
 
         private static TagKey<Block> createTag(String name) {
-            return TagKey.of(RegistryKeys.BLOCK, new Identifier(Candlelight.MOD_ID, name));
+            return TagKey.of(RegistryKeys.BLOCK, Identifier.of(Candlelight.MOD_ID, name));
         }
     }
 
     public static class Items {
         private static TagKey<Item> createTag(String name) {
-            return TagKey.of(RegistryKeys.ITEM, new Identifier(Candlelight.MOD_ID, name));
+            return TagKey.of(RegistryKeys.ITEM, Identifier.of(Candlelight.MOD_ID, name));
         }
     }
 }

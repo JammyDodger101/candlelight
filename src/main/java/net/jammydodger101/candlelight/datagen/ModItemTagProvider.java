@@ -17,10 +17,11 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        getOrCreateTagBuilder(ItemTags.TOOLS)
-                .add(ModItems.REVIVER)
+        getOrCreateTagBuilder(ItemTags.COMPASSES)
                 .add(ModItems.CANDLE_COMPASS);
         getOrCreateTagBuilder(ItemTags.SWORDS)
                 .add(ModItems.CROCKSMARTER_BLADE);
+        getOrCreateTagBuilder(ItemTags.VANISHING_ENCHANTABLE)
+                .add(ModItems.REVIVER);
     }
 }

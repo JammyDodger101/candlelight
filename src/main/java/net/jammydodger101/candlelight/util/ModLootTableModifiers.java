@@ -1,15 +1,19 @@
 package net.jammydodger101.candlelight.util;
 
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableSource;
 import net.jammydodger101.candlelight.item.ModItems;
+import net.minecraft.block.Blocks;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
+import net.minecraft.loot.LootTables;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -18,21 +22,23 @@ import java.util.List;
 
 public class ModLootTableModifiers {
 
-    public static final Identifier ANCIENT_CITY_ID =
-            new Identifier("minecraft", "chests/ancient_city");
-    public static final Identifier ANCIENT_CITY_ICE_ID =
-            new Identifier("minecraft", "chests/ancient_city_ice_box");
+    public static final RegistryKey<LootTable> ANCIENT_CITY_ID =
+            LootTables.ANCIENT_CITY_CHEST;
+    public static final RegistryKey<LootTable> ANCIENT_CITY_ICE_ID =
+            LootTables.ANCIENT_CITY_ICE_BOX_CHEST;
 
-    public static final Identifier DESERT_PYRAMID = new Identifier("minecraft", "archaeology/desert_pyramid");
-    public static final Identifier DESERT_WELL = new Identifier("minecraft", "archaeology/desert_well");
-    public static final Identifier OCEAN_RUIN_COLD = new Identifier("minecraft", "archaeology/ocean_ruin_cold");
-    public static final Identifier OCEAN_RUIN_WARM = new Identifier("minecraft", "archaeology/ocean_ruin_warm");
-    public static final Identifier TRAIL_RUINS_COMMON = new Identifier("minecraft", "archaeology/trail_ruins_common");
-    public static final Identifier TRAIL_RUINS_RARE = new Identifier("minecraft", "archaeology/trail_ruins_rare");
+    public static final RegistryKey<LootTable> DESERT_PYRAMID = LootTables.DESERT_PYRAMID_ARCHAEOLOGY;
+    public static final RegistryKey<LootTable> DESERT_WELL = LootTables.DESERT_WELL_ARCHAEOLOGY;
+    public static final RegistryKey<LootTable> OCEAN_RUIN_COLD = LootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY;
+    public static final RegistryKey<LootTable> OCEAN_RUIN_WARM = LootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY;
+    public static final RegistryKey<LootTable> TRAIL_RUINS_COMMON = LootTables.TRAIL_RUINS_COMMON_ARCHAEOLOGY;
+    public static final RegistryKey<LootTable> TRAIL_RUINS_RARE = LootTables.TRAIL_RUINS_RARE_ARCHAEOLOGY;
+
+
 
     public static void modifyLootTables() {
-        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-            if(ANCIENT_CITY_ID.equals(id)) {
+        LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
+            if(ANCIENT_CITY_ID.equals(key)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
                         .conditionally(RandomChanceLootCondition.builder(0.15f))
@@ -42,7 +48,7 @@ public class ModLootTableModifiers {
                 tableBuilder.pool(poolBuilder.build());
             }
 
-            if(ANCIENT_CITY_ICE_ID.equals(id)) {
+            if(ANCIENT_CITY_ICE_ID.equals(key)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
                         .conditionally(RandomChanceLootCondition.builder(0.2f))
@@ -53,19 +59,6 @@ public class ModLootTableModifiers {
             }
 
 
-        });
-
-        LootTableEvents.REPLACE.register((resourceManager, lootManager, id, original, source) -> {
-            if(DESERT_PYRAMID.equals(id) || DESERT_WELL.equals(id) || OCEAN_RUIN_COLD.equals(id)|| OCEAN_RUIN_WARM.equals(id)|| TRAIL_RUINS_RARE.equals(id) || TRAIL_RUINS_COMMON.equals(id)) {
-                List<LootPoolEntry> entries = new ArrayList<>(Arrays.asList(original.pools[0].entries));
-                entries.add(ItemEntry.builder(ModItems.EVENT_FRAGMENT).build());
-
-                LootPool.Builder pool = LootPool.builder().with(entries);
-                return LootTable.builder().pool(pool).build();
-            }
-
-
-            return null;
         });
     }
 }

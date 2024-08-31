@@ -4,6 +4,7 @@ import net.jammydodger101.candlelight.PlayerData;
 import net.jammydodger101.candlelight.StateSaverAndLoader;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.BannedPlayerEntry;
 import net.minecraft.server.BannedPlayerList;
@@ -23,7 +24,7 @@ import java.util.Objects;
 public abstract class DeathMixin {
 
     @Inject(method = "respawnPlayer", at = @At("HEAD"))
-    private void afterRespawn(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfoReturnable<ServerPlayerEntity> cir) {
+    private void afterRespawn(ServerPlayerEntity oldPlayer, boolean alive, Entity.RemovalReason removalReason, CallbackInfoReturnable<ServerPlayerEntity> cir) {
         if (oldPlayer.getHealth() <= 0) {
             BlockPos worldSpawn = oldPlayer.getWorld().getSpawnPos();
             StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(oldPlayer.getServer()));
@@ -34,11 +35,11 @@ public abstract class DeathMixin {
                     if (oldPlayer.getSpawnPointDimension() == ModDimension.CANDLELESS_KEY) {
                         oldPlayer.setSpawnPoint(World.OVERWORLD, worldSpawn, 0f, true, false);
                     }
-                    serverState.playersTrapped.put(oldPlayer.getDisplayName().getString(), false);
+                    serverState.playersTrapped.put(Objects.requireNonNull(oldPlayer.getDisplayName()).getString(), false);
                     PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
                 } else {
                     oldPlayer.setSpawnPoint(ModDimension.CANDLELESS_KEY, new BlockPos(0, 100, 0), 0f, true, false);
-                    serverState.playersTrapped.put(oldPlayer.getDisplayName().getString(), true);
+                    serverState.playersTrapped.put(Objects.requireNonNull(oldPlayer.getDisplayName()).getString(), true);
                     PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, true);
                 }
             }
@@ -46,7 +47,7 @@ public abstract class DeathMixin {
     }
 
     @Inject(method = "respawnPlayer", at = @At("RETURN"))
-    private void carryHeartsFromPreviousPlayerInstance(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfoReturnable<ServerPlayerEntity> cir) {
+    private void carryHeartsFromPreviousPlayerInstance(ServerPlayerEntity oldPlayer, boolean alive, Entity.RemovalReason removalReason, CallbackInfoReturnable<ServerPlayerEntity> cir) {
 
         ServerPlayerEntity serverPlayerEntity = cir.getReturnValue();
         serverPlayerEntity.getAttributes().getCustomInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(oldPlayer.getMaxHealth());
