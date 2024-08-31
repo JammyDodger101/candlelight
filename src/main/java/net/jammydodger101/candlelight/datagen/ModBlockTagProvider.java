@@ -56,25 +56,6 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.MAY_CANDLE)
                 .add(ModBlocks.CRAY_CANDLE);
 
-        getOrCreateTagBuilder(BlockTags.CANDLE_CAKES)
-                .add(ModBlocks.JAMMY_CANDLE_CAKE)
-                .add(ModBlocks.POM_CANDLE_CAKE)
-                .add(ModBlocks.SPAM_CANDLE_CAKE)
-                .add(ModBlocks.EM_CANDLE_CAKE)
-                .add(ModBlocks.CROC_CANDLE_CAKE)
-                .add(ModBlocks.CAT_CANDLE_CAKE)
-                .add(ModBlocks.LEAN_CANDLE_CAKE)
-                .add(ModBlocks.DELUXE_CANDLE_CAKE)
-                .add(ModBlocks.JK_CANDLE_CAKE)
-                .add(ModBlocks.MUST_CANDLE_CAKE)
-                .add(ModBlocks.SOAP_CANDLE_CAKE)
-                .add(ModBlocks.GEO_CANDLE_CAKE)
-                .add(ModBlocks.TONY_CANDLE_CAKE)
-                .add(ModBlocks.PRAI_CANDLE_CAKE)
-                .add(ModBlocks.GARY_CANDLE_CAKE)
-                .add(ModBlocks.MAY_CANDLE_CAKE)
-                .add(ModBlocks.CRAY_CANDLE_CAKE);
-
         getOrCreateTagBuilder(BlockTags.PREVENT_MOB_SPAWNING_INSIDE)
                 .add(ModBlocks.JAMMY_CANDLE)
                 .add(ModBlocks.POM_CANDLE)
