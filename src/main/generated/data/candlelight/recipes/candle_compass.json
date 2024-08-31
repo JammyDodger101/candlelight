@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "C": {
       "item": "minecraft:compass"
@@ -15,7 +14,8 @@
     "FFF"
   ],
   "result": {
-    "item": "candlelight:candle_compass"
+    "item": "candlelight:candle_compass",
+    "count" : 1
   },
   "show_notification": true
 }

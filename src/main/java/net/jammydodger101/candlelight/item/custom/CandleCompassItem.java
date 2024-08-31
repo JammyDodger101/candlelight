@@ -60,7 +60,7 @@ public class CandleCompassItem
         boolean bl2 = nbt.contains(CANDLE_DIMENSION_KEY);
         if (bl && bl2 && (optional = CandleCompassItem.getCandleDimension(nbt)).isPresent()) {
             Optional<BlockPos> blockPos = NbtHelper.toBlockPos(nbt.getCompound(CANDLE_POS_KEY), CANDLE_POS_KEY);
-            return GlobalPos.create(optional.get(), blockPos.orElseThrow());
+            return GlobalPos.create(optional.get(), blockPos.orElse(BlockPos.ORIGIN));
         }
         return null;
     }
@@ -93,7 +93,7 @@ public class CandleCompassItem
             //code to make it spin if theres no candle anymore?? i think??
             if (optional.isPresent() && optional.get() == world.getRegistryKey()
                     && nbtCompound.contains(CANDLE_POS_KEY)
-                    && (!world.isInBuildLimit(blockPos = NbtHelper.toBlockPos(nbtCompound.getCompound(CANDLE_POS_KEY), CANDLE_POS_KEY).orElseThrow())
+                    && (!world.isInBuildLimit(blockPos = NbtHelper.toBlockPos(nbtCompound.getCompound(CANDLE_POS_KEY), CANDLE_POS_KEY).orElse(BlockPos.ORIGIN))
                     || !world.getBlockState(blockPos).isIn(ModTags.Blocks.CUSTOM_CANDLES)))
                      {
                 nbtCompound.remove(CANDLE_POS_KEY);
@@ -106,7 +106,7 @@ public class CandleCompassItem
 
             }
 
-            blockPos = NbtHelper.toBlockPos(nbtCompound.getCompound(CANDLE_POS_KEY), CANDLE_POS_KEY).orElseThrow();
+            blockPos = NbtHelper.toBlockPos(nbtCompound.getCompound(CANDLE_POS_KEY), CANDLE_POS_KEY).orElse(BlockPos.ORIGIN);
             if (blockPos.getSquaredDistance(entity.getBlockPos().toCenterPos()) < trackingDistance) {
                 stack.decrement(1);
                 world.playSound(null, entity.getBlockPos(), SoundEvents.ITEM_SHIELD_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);

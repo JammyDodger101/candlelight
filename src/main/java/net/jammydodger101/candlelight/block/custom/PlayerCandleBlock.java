@@ -1,6 +1,10 @@
 package net.jammydodger101.candlelight.block.custom;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.MapCodec;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.jammydodger101.candlelight.util.ModTags;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.minecraft.block.*;
@@ -21,6 +25,8 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemActionResult;
+import net.minecraft.util.Util;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -31,6 +37,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class PlayerCandleBlock
 
         extends AbstractCandleBlock
@@ -38,9 +46,16 @@ public class PlayerCandleBlock
         implements Waterloggable {
     public static IntProperty CANDLES;
     public static BooleanProperty LIT;
-
     public static BooleanProperty WATERLOGGED;
     public static VoxelShape SHAPE;
+    private static final Int2ObjectMap<List<Vec3d>> CANDLES_TO_PARTICLE_OFFSETS;
+
+
+
+    public PlayerCandleBlock(AbstractBlock.Settings settings) {
+        super(settings);
+        this.setDefaultState((BlockState)((BlockState)((BlockState)((BlockState)this.getStateManager().getDefaultState()).with(CANDLES, 1)).with(LIT, false)).with(WATERLOGGED, false));
+    }
 
     @Override
     protected MapCodec<? extends AbstractCandleBlock> getCodec() {
@@ -57,24 +72,19 @@ public class PlayerCandleBlock
         builder.add(new Property[]{CANDLES, LIT, WATERLOGGED});
     }
 
-    public PlayerCandleBlock(AbstractBlock.Settings settings) {
-        super(settings);
-        this.setDefaultState((BlockState)((BlockState)((BlockState)((BlockState)this.getStateManager().getDefaultState()).with(CANDLES, 1)).with(LIT, false)).with(WATERLOGGED, false));
+    @Override
+    protected Iterable<Vec3d> getParticleOffsets(BlockState state) {
+        return (Iterable)CANDLES_TO_PARTICLE_OFFSETS.get(1);
     }
 
     @Override
-    protected Iterable<Vec3d> getParticleOffsets(BlockState state) {
-        return null;
-    }
-
-
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-
-        if (player.getAbilities().allowModifyWorld && player.getStackInHand(hand).isEmpty() && state.get(LIT)) {
-            CandleBlock.extinguish(player, state, world, pos);
-
+    protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (stack.isEmpty() && player.getAbilities().allowModifyWorld && (Boolean)state.get(LIT)) {
+            extinguish(player, state, world, pos);
+            return ItemActionResult.success(world.isClient);
+        } else {
+            return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
         }
-        return super.onUse(state, world, pos, player, hit);
     }
 
     @Override
@@ -84,19 +94,19 @@ public class PlayerCandleBlock
 
     @Override
     public boolean tryFillWithFluid(WorldAccess world, BlockPos pos, BlockState state, FluidState fluidState) {
-        if (state.get(WATERLOGGED) || fluidState.getFluid() != Fluids.WATER) {
+        if (!(Boolean)state.get(WATERLOGGED) && fluidState.getFluid() == Fluids.WATER) {
+            BlockState blockState = (BlockState)state.with(WATERLOGGED, true);
+            if ((Boolean)state.get(LIT)) {
+                extinguish((PlayerEntity)null, blockState, world, pos);
+            } else {
+                world.setBlockState(pos, blockState, 3);
+            }
+
+            world.scheduleFluidTick(pos, fluidState.getFluid(), fluidState.getFluid().getTickRate(world));
+            return true;
+        } else {
             return false;
         }
-
-        BlockState blockState = (BlockState)state.with(WATERLOGGED, true);
-        if (state.get(LIT)) {
-            //PlayerCandleHandler.changeCandleStatus(state.getBlock(), !isLitCandle(state));
-            CandleBlock.extinguish(null, blockState, world, pos);
-        } else {
-            world.setBlockState(pos, blockState, Block.NOTIFY_ALL);
-        }
-        world.scheduleFluidTick(pos, fluidState.getFluid(), fluidState.getFluid().getTickRate(world));
-        return true;
     }
 
     @Override
@@ -141,7 +151,15 @@ public class PlayerCandleBlock
         LIT = AbstractCandleBlock.LIT;
         WATERLOGGED = Properties.WATERLOGGED;
         SHAPE = Block.createCuboidShape(7.0, 0.0, 7.0, 9.0, 6.0, 9.0);
-
+        CANDLES_TO_PARTICLE_OFFSETS = Util.make(() -> {
+            Int2ObjectMap<List<Vec3d>> int2ObjectMap = new Int2ObjectOpenHashMap<>();
+            int2ObjectMap.defaultReturnValue(ImmutableList.of());
+            int2ObjectMap.put(1, ImmutableList.of(new Vec3d(0.5, 0.5, 0.5)));
+            int2ObjectMap.put(2, ImmutableList.of(new Vec3d(0.375, 0.44, 0.5), new Vec3d(0.625, 0.5, 0.44)));
+            int2ObjectMap.put(3, ImmutableList.of(new Vec3d(0.5, 0.313, 0.625), new Vec3d(0.375, 0.44, 0.5), new Vec3d(0.56, 0.5, 0.44)));
+            int2ObjectMap.put(4, ImmutableList.of(new Vec3d(0.44, 0.313, 0.56), new Vec3d(0.625, 0.44, 0.56), new Vec3d(0.375, 0.44, 0.375), new Vec3d(0.56, 0.5, 0.375)));
+            return Int2ObjectMaps.unmodifiable(int2ObjectMap);
+        });
     }
 
 }
