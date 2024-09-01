@@ -1,6 +1,7 @@
-// 1.21	2024-09-01T15:04:30.1873261	Candlelight Mod/Tags for minecraft:block
+// 1.21	2024-09-01T15:20:00.5982651	Candlelight Mod/Tags for minecraft:block
 1c35568567bec1596d6895a642a71b2aab665f45 data\minecraft\tags\block\dragon_immune.json
 1c35568567bec1596d6895a642a71b2aab665f45 data\minecraft\tags\block\candles.json
+6bfae73e2b451784be9e935c620bd88358a0a6e8 data\minecraft\tags\block\candle_cakes.json
 1c35568567bec1596d6895a642a71b2aab665f45 data\minecraft\tags\block\wither_immune.json
 8d636048e03efd1266dbf4ddcaf2bfd4a804759a data\candlelight\tags\block\custom_candles.json
 1c35568567bec1596d6895a642a71b2aab665f45 data\minecraft\tags\block\prevent_mob_spawning_inside.json

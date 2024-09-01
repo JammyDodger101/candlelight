@@ -2,7 +2,6 @@ package net.jammydodger101.candlelight.mixin;
 
 import com.mojang.authlib.GameProfile;
 import net.jammydodger101.candlelight.util.LifestealHandler;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;

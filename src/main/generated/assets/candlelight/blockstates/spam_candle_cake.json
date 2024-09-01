@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "candlelight:block/spam_candle_cake"
+    },
+    "lit=true": {
+      "model": "candlelight:block/spam_candle_cake_lit"
+    }
+  }
+}

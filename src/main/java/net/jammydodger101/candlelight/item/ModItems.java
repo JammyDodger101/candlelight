@@ -16,9 +16,8 @@ public class ModItems {
     public static final Item REVIVER = registerItem("reviver", new ReviverItem(new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item EVENT_FRAGMENT = registerItem("event_fragments", new EventFragmentItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE)));
     public static final Item CANDLE_COMPASS = registerItem("candle_compass", new CandleCompassItem(new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
-    public static final Item LIFESTEAL_HEART = registerItem("lifesteal_heart", new LifestealHeartItem(new Item.Settings().rarity(Rarity.EPIC)));
-
     public static final Item CROCKSMARTER_BLADE = registerItem("crocksmarter_blade", new SwordItem(ToolMaterials.DIAMOND, new Item.Settings().rarity(Rarity.EPIC)));
+    public static final Item LIFESTEAL_HEART = registerItem("lifesteal_heart", new LifestealHeartItem(new Item.Settings().rarity(Rarity.EPIC)));
 
 
     private static Item registerItem(String name, Item item) {

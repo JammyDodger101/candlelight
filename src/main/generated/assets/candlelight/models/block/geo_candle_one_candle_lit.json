@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_candle",
+  "textures": {
+    "all": "candlelight:block/geo_candle_lit",
+    "particle": "candlelight:block/geo_candle_lit"
+  }
+}
