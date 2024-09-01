@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.jammydodger101.candlelight.Candlelight;
 import net.jammydodger101.candlelight.util.ModTags;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.minecraft.block.*;
@@ -12,8 +13,10 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -82,9 +85,21 @@ public class PlayerCandleBlock
         if (stack.isEmpty() && player.getAbilities().allowModifyWorld && (Boolean)state.get(LIT)) {
             extinguish(player, state, world, pos);
             return ItemActionResult.success(world.isClient);
-        } else {
-            return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
+        } else if (player.getAbilities().allowModifyWorld && !state.get(LIT)) {
+            if (stack.isOf(Items.FLINT_AND_STEEL)) {
+                world.setBlockState(pos, (BlockState)state.with(LIT, true), 11);
+
+                world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                return ItemActionResult.success(world.isClient);
+            } else if (stack.isOf(Items.FIRE_CHARGE)) {
+                world.setBlockState(pos, (BlockState)state.with(LIT, true), 11);
+
+                world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                return ItemActionResult.success(world.isClient);
+            }
         }
+        return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+
     }
 
     @Override
@@ -122,10 +137,7 @@ public class PlayerCandleBlock
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         PlayerCandleHandler.changeCandleStatus(state.getBlock(), state.get(LIT), world);
-
-        if (world.getBlockState(pos).isIn(ModTags.Blocks.CUSTOM_CANDLES)) {
-            world.scheduleBlockTick(pos, state.getBlock(), 1);
-        }
+        world.scheduleBlockTick(pos, state.getBlock(), 1);
 
     }
 
