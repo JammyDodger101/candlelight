@@ -60,9 +60,5 @@ public class Candlelight implements ModInitializer {
 
 		JsonCandlelightDataHandler.fillLists(MEMBER_NUMBER);
 		JsonCandlelightDataHandler.readInFileContent();
-		JsonCandlelightDataHandler.createDataAndWrite("maytack", true, BlockPos.ORIGIN);
-		JsonCandlelightDataHandler.createDataAndWrite("jammydodger101", true, new BlockPos(100,2,28138791));
-
-
 	}
 }

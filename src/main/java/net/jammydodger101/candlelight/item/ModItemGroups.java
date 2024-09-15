@@ -20,10 +20,10 @@ public class ModItemGroups {
         entries.add(ModBlocks.CROC_CANDLE);
         entries.add(ModBlocks.JK_CANDLE);
         entries.add(ModBlocks.JAMMY_CANDLE);
-        entries.add(ModBlocks.TONY_CANDLE);
+        //entries.add(ModBlocks.TONY_CANDLE);
         entries.add(ModBlocks.CAT_CANDLE);
-        entries.add(ModBlocks.PRAI_CANDLE);
-        entries.add(ModBlocks.GARY_CANDLE);
+        //entries.add(ModBlocks.PRAI_CANDLE);
+        //entries.add(ModBlocks.GARY_CANDLE);
         entries.add(ModBlocks.CRAY_CANDLE);
         entries.add(ModBlocks.POM_CANDLE);
         entries.add(ModBlocks.EM_CANDLE);

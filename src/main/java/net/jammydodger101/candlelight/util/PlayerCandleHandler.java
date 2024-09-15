@@ -9,6 +9,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -59,17 +60,24 @@ public class PlayerCandleHandler
 
     public static void setCandleCoordinates(BlockPos pos, BlockState state, Block block, World world) {
         if (!world.isClient()) {
+            int index;
             if (state.getBlock() == block) {
-                candleCoordinates.set(getListLocation(block),pos);
+                index = getListLocation(block);
+                JsonCandlelightDataHandler.createDataAndWrite(candleOwners.get(index), null, pos);
+
+                candleCoordinates.set(index,pos);
             } else if (block == null) {
-                candleCoordinates.set(getListLocation(state.getBlock()),null);
+                index = getListLocation(state.getBlock());
+                JsonCandlelightDataHandler.createDataAndWrite(candleOwners.get(index), null, new BlockPos(1000,1000,1000));
+
+                candleCoordinates.set(index,null);
+
             }
         }
     }
 
     public static BlockPos getCandleCoordinates(String playerName, ServerPlayerEntity player) {
         if(candleOwners.contains(playerName.toLowerCase())) {
-            //StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(player.getServer()));
             int index = candleOwners.indexOf(playerName.toLowerCase());
             return candleCoordinates.get(index);
         }
@@ -127,6 +135,7 @@ public class PlayerCandleHandler
         }
         if (listPos != -1) {
             trappedPlayerBools.set(listPos, newStatus);
+            JsonCandlelightDataHandler.createDataAndWrite(player.getName().getString().toLowerCase(), newStatus, null);
         }
     }
 
@@ -145,7 +154,7 @@ public class PlayerCandleHandler
                     if (serverPlayer != null) {
                         if (world.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
                             if (!serverPlayer.hasStatusEffect(StatusEffects.DARKNESS)) {
-                                //serverPlayer.sendMessage(Text.literal(trapped.toString()));
+                                serverPlayer.sendMessage(Text.literal(trapped.toString()));
                                 serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 999999999 , 1, false, false, false));
                                 serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 999999999 , 0, false, false, false));
                                 serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 999999999 , 1, false, false, false));
@@ -190,6 +199,7 @@ public class PlayerCandleHandler
                                 serverPlayer.fallDistance = 0.0f;
 
                                 trappedPlayerBools.set(listPos, false);
+                                JsonCandlelightDataHandler.createDataAndWrite(playerName, false, null);
                                 if (serverPlayer.hasStatusEffect(StatusEffects.DARKNESS)) {
 
                                     serverPlayer.removeStatusEffect(StatusEffects.DARKNESS);
@@ -235,6 +245,7 @@ public class PlayerCandleHandler
                                 serverPlayer.fallDistance = 0.0f;
 
                                 trappedPlayerBools.set(listPos, false);
+                                JsonCandlelightDataHandler.createDataAndWrite(playerName, false, null);
 
                                 if (serverPlayer.hasStatusEffect(StatusEffects.DARKNESS)) {
 

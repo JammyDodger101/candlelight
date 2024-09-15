@@ -14,7 +14,7 @@ public class CandlelightData {
         this.name = playerName;
         this.index = index;
         this.location = location;
-        this.trapped = trapped;
+        this.trapped = Boolean.TRUE.equals(trapped);
     }
 
     public String getName() {

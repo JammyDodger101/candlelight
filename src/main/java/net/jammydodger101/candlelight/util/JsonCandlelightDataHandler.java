@@ -8,6 +8,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class JsonCandlelightDataHandler {
     // store candlelight data in a json file (similar to how player data is stored idk maybe idk)
@@ -19,7 +20,7 @@ public class JsonCandlelightDataHandler {
     // array of trappeds
 
     public static String LOCATION_FILE = "mods/locations.txt";
-    public static String SEPERATOR = "&";
+    public static String SEPARATOR = "&";
     public static List<String> readDataList = new ArrayList<>();
     public static List<String> writtenDataList = new ArrayList<>();
     public static List<CandlelightData> candlelightDataList = new ArrayList<>();
@@ -58,8 +59,47 @@ public class JsonCandlelightDataHandler {
         }
     }
 
+    public static void resetReadLists(int count) {
+        if (!readDataList.isEmpty() && !candlelightDataList.isEmpty() && !dataArrayList.isEmpty()) {
+            readDataList.clear();
+            candlelightDataList.clear();
+            dataArrayList.clear();
+            Candlelight.LOGGER.info("clearing read data");
+        }
+        for (int i = 0; i < count; i++) {
+            readDataList.add(null);
+            candlelightDataList.add(null);
+            dataArrayList.add(null);
+        }
+
+    }
+
     public static void createDataAndWrite(String playerName, @Nullable Boolean trapped, @Nullable BlockPos location) {
         int index = nameToIndex(playerName);
+        readInFileContent();
+
+        if (trapped == null) {
+            for (String[] value : dataArrayList) {
+                if (value != null) {
+                    if (Objects.equals(value[0], playerName)) {
+                        trapped = Boolean.valueOf(value[2]);
+                    }
+                }
+            }
+        }
+
+        if (location == null) {
+            for (String[] value : dataArrayList) {
+                if (value != null) {
+                    if (Objects.equals(value[0], playerName)) {
+                        location = CandleLocationConverter.StringToBlockPos(value[3]);
+                    }
+                }
+            }
+        } else if (location.getY() > 500) {
+            location = null;
+        }
+
         CandlelightData data = new CandlelightData(playerName, index, trapped, location);
 
         writtenDataList.set(index, dataToString(data));
@@ -86,7 +126,7 @@ public class JsonCandlelightDataHandler {
         }
 
         //returnString = "\""+name+"\": {\"index\": "+index+", \"trapped\": "+trapped+", \"location\": \""+location+"\"}";
-        returnString = name+SEPERATOR+index+SEPERATOR+trapped+SEPERATOR+location;
+        returnString = name+ SEPARATOR +index+ SEPARATOR +trapped+ SEPARATOR +location;
 
         Candlelight.LOGGER.info("return string equals " + returnString);
         return returnString;
@@ -110,6 +150,7 @@ public class JsonCandlelightDataHandler {
             //gson.toJson(data, data.getClass(), writer);
             //readInFileContent();
             writer.write(listToString());
+            updateHandler();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -127,6 +168,10 @@ public class JsonCandlelightDataHandler {
             }
             String everything = sb.toString();
             Candlelight.LOGGER.info("everything    " + everything);
+
+            resetReadLists(Candlelight.MEMBER_NUMBER);
+
+
             fillDataList(everything);
             updateHandler();
 
@@ -137,7 +182,8 @@ public class JsonCandlelightDataHandler {
 
     private static void fillDataList(String fileString) {
         String[] tempList = fileString.split("\\|");
-        readDataList = List.of(tempList);
+        readDataList.addAll(Arrays.asList(tempList));
+        //readDataList = Arrays.stream(tempList).toList();
         Candlelight.LOGGER.info(String.valueOf(readDataList) + "data list here");
         int count = 0;
         for (String data : tempList) {
@@ -168,5 +214,7 @@ public class JsonCandlelightDataHandler {
         }
         PlayerCandleHandler.trappedPlayerBools = trappedBoolList;
         PlayerCandleHandler.candleCoordinates = candleLocationList;
+        Candlelight.LOGGER.info(candleLocationList.toString());
+        Candlelight.LOGGER.info(trappedBoolList.toString());
     }
 }

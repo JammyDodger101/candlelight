@@ -25,7 +25,7 @@ public class GetPlayerTrappedStatusCommand {
         assert player != null;
         String id = StringArgumentType.getString(context, "playerName");
 
-        Boolean trappedStatus = PlayerCandleHandler.trappedPlayerBools.get(PlayerCandleHandler.candleOwners.indexOf(id));
+        Boolean trappedStatus = PlayerCandleHandler.checkPlayerTrappedStatusCommand(id);
         if (trappedStatus != null) {
             if (trappedStatus == Boolean.TRUE) {
                 player.sendMessage(Text.literal("Player should be trapped in candleless"));
