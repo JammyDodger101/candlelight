@@ -5,12 +5,10 @@ import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.jammydodger101.candlelight.StateSaverAndLoader;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 
 import java.util.Objects;
 
@@ -28,12 +26,10 @@ public class SetTrappedCommand {
 
         ServerPlayerEntity player = context.getSource().getPlayer();
         assert player != null;
-        StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(player.getServer()));
         String id = StringArgumentType.getString(context, "playerName");
         Boolean trapped = BoolArgumentType.getBool(context, "trapped");
 
         if (PlayerCandleHandler.candleOwners.contains(id.toLowerCase())) {
-            serverState.playersTrapped.put(id, trapped);
             PlayerCandleHandler.trappedPlayerBools.set(PlayerCandleHandler.candleOwners.indexOf(id.toLowerCase()), trapped);
 
             return 1;

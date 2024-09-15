@@ -4,15 +4,11 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.jammydodger101.candlelight.StateSaverAndLoader;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
-import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-
-import java.util.Objects;
 
 public class GetPlayerTrappedStatusCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
@@ -27,10 +23,9 @@ public class GetPlayerTrappedStatusCommand {
 
         ServerPlayerEntity player = context.getSource().getPlayer();
         assert player != null;
-        StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(player.getServer()));
         String id = StringArgumentType.getString(context, "playerName");
 
-        Boolean trappedStatus = serverState.playersTrapped.get(id);
+        Boolean trappedStatus = PlayerCandleHandler.trappedPlayerBools.get(PlayerCandleHandler.candleOwners.indexOf(id));
         if (trappedStatus != null) {
             if (trappedStatus == Boolean.TRUE) {
                 player.sendMessage(Text.literal("Player should be trapped in candleless"));

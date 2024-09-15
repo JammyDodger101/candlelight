@@ -1,16 +1,11 @@
 package net.jammydodger101.candlelight.mixin;
 
-import net.jammydodger101.candlelight.PlayerData;
-import net.jammydodger101.candlelight.StateSaverAndLoader;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.server.BannedPlayerEntry;
-import net.minecraft.server.BannedPlayerList;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,7 +22,6 @@ public abstract class DeathMixin {
     private void afterRespawn(ServerPlayerEntity oldPlayer, boolean alive, Entity.RemovalReason removalReason, CallbackInfoReturnable<ServerPlayerEntity> cir) {
         if (oldPlayer.getHealth() <= 0) {
             BlockPos worldSpawn = oldPlayer.getWorld().getSpawnPos();
-            StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(oldPlayer.getServer()));
             //if their candle status isn't null
             if(PlayerCandleHandler.checkPlayerStatus(oldPlayer) != null) {
                 //if their candle is lit
@@ -35,11 +29,9 @@ public abstract class DeathMixin {
                     if (oldPlayer.getSpawnPointDimension() == ModDimension.CANDLELESS_KEY) {
                         oldPlayer.setSpawnPoint(World.OVERWORLD, worldSpawn, 0f, true, false);
                     }
-                    serverState.playersTrapped.put(Objects.requireNonNull(oldPlayer.getDisplayName()).getString(), false);
                     PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
                 } else {
                     oldPlayer.setSpawnPoint(ModDimension.CANDLELESS_KEY, new BlockPos(0, 100, 0), 0f, true, false);
-                    serverState.playersTrapped.put(Objects.requireNonNull(oldPlayer.getDisplayName()).getString(), true);
                     PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, true);
                 }
             }

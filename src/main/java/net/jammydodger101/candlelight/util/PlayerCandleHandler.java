@@ -1,8 +1,6 @@
 package net.jammydodger101.candlelight.util;
 
 import net.jammydodger101.candlelight.Candlelight;
-import net.jammydodger101.candlelight.PlayerData;
-import net.jammydodger101.candlelight.StateSaverAndLoader;
 import net.jammydodger101.candlelight.block.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -11,8 +9,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -41,15 +37,11 @@ public class PlayerCandleHandler
         listAdder(ModBlocks.CROC_CANDLE, "crocksmarter", false);
         listAdder(ModBlocks.CAT_CANDLE, "a_random_cat", false);
         listAdder(ModBlocks.LEAN_CANDLE, "leantheliquid", false);
-        listAdder(ModBlocks.DELUXE_CANDLE, "realdeluxe", false); //yikes
         listAdder(ModBlocks.JK_CANDLE, "not_jk", false);
         //season three!!!
         listAdder(ModBlocks.MUST_CANDLE, "callmemustard_", false);
         listAdder(ModBlocks.SOAP_CANDLE, "ashpffwho", false);
         listAdder(ModBlocks.GEO_CANDLE, "georgehminer", false);
-        listAdder(ModBlocks.TONY_CANDLE, "livelaughthrive", false);
-        listAdder(ModBlocks.PRAI_CANDLE, "prairieranger", false);
-        listAdder(ModBlocks.GARY_CANDLE, "beefjerkyzxz", false);
         listAdder(ModBlocks.MAY_CANDLE, "maytack", false);
     }
 
@@ -67,22 +59,19 @@ public class PlayerCandleHandler
 
     public static void setCandleCoordinates(BlockPos pos, BlockState state, Block block, World world) {
         if (!world.isClient()) {
-            StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(world.getServer());
             if (state.getBlock() == block) {
-                serverState.candleLocations.put(getListLocation(state.getBlock()), pos.toShortString());
                 candleCoordinates.set(getListLocation(block),pos);
             } else if (block == null) {
                 candleCoordinates.set(getListLocation(state.getBlock()),null);
-                serverState.candleLocations.put(getListLocation(state.getBlock()), "");
             }
         }
     }
 
     public static BlockPos getCandleCoordinates(String playerName, ServerPlayerEntity player) {
         if(candleOwners.contains(playerName.toLowerCase())) {
-            StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(player.getServer()));
-            Integer index = candleOwners.indexOf(playerName.toLowerCase());
-            return CandleLocationConverter.StringToBlockPos(serverState.candleLocations.get(index));
+            //StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(player.getServer()));
+            int index = candleOwners.indexOf(playerName.toLowerCase());
+            return candleCoordinates.get(index);
         }
         return null;
     }
@@ -126,11 +115,6 @@ public class PlayerCandleHandler
             return;
         }
         if (!world.isClient()) {
-            if (world.getServer() != null) {
-                StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(world.getServer()));
-                serverState.candleStatuses.put(candleOwners.get(candles.indexOf(candleBlock)), newStatus);
-
-            }
             candleStatus.set(listPos, newStatus);
         }
     }
@@ -198,7 +182,6 @@ public class PlayerCandleHandler
                         ServerPlayerEntity serverPlayer = serverWorld.getServer().getPlayerManager().getPlayer(playerName);
 
                         if (serverPlayer != null) {
-                            StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(serverPlayer.getServer()));
                             if (serverWorld.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
 
                                 serverPlayer.stopRiding();
@@ -207,8 +190,6 @@ public class PlayerCandleHandler
                                 serverPlayer.fallDistance = 0.0f;
 
                                 trappedPlayerBools.set(listPos, false);
-                                serverState.playersTrapped.put(serverPlayer.getDisplayName().getString(), false);
-
                                 if (serverPlayer.hasStatusEffect(StatusEffects.DARKNESS)) {
 
                                     serverPlayer.removeStatusEffect(StatusEffects.DARKNESS);
@@ -246,8 +227,6 @@ public class PlayerCandleHandler
                         ServerPlayerEntity serverPlayer = serverWorld.getServer().getPlayerManager().getPlayer(playerName);
 
                         if (serverPlayer != null) {
-                            StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(serverPlayer.getServer()));
-
                             if (serverWorld.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
 
                                 serverPlayer.stopRiding();
@@ -256,7 +235,6 @@ public class PlayerCandleHandler
                                 serverPlayer.fallDistance = 0.0f;
 
                                 trappedPlayerBools.set(listPos, false);
-                                serverState.playersTrapped.put(serverPlayer.getDisplayName().getString(), false);
 
                                 if (serverPlayer.hasStatusEffect(StatusEffects.DARKNESS)) {
 

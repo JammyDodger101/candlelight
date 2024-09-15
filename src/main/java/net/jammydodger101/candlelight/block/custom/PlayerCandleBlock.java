@@ -32,6 +32,7 @@ import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.Util;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
@@ -66,8 +67,15 @@ public class PlayerCandleBlock
     }
 
     @Override
-    public @Nullable BlockState getPlacementState(ItemPlacementContext ctx) {
-        return super.getPlacementState(ctx);
+    public BlockState getPlacementState(ItemPlacementContext ctx) {
+        BlockState blockState = ctx.getWorld().getBlockState(ctx.getBlockPos());
+        if (blockState.isOf(this)) {
+            return (BlockState)blockState.cycle(CANDLES);
+        } else {
+            FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
+            boolean bl = fluidState.getFluid() == Fluids.WATER;
+            return (BlockState)super.getPlacementState(ctx).with(WATERLOGGED, bl);
+        }
     }
 
     @Override
@@ -85,7 +93,7 @@ public class PlayerCandleBlock
         if (stack.isEmpty() && player.getAbilities().allowModifyWorld && (Boolean)state.get(LIT)) {
             extinguish(player, state, world, pos);
             return ItemActionResult.success(world.isClient);
-        } else if (player.getAbilities().allowModifyWorld && !state.get(LIT)) {
+        } else if (player.getAbilities().allowModifyWorld && !state.get(LIT) && !state.get(WATERLOGGED)) {
             if (stack.isOf(Items.FLINT_AND_STEEL)) {
                 world.setBlockState(pos, (BlockState)state.with(LIT, true), 11);
 
@@ -122,6 +130,18 @@ public class PlayerCandleBlock
         } else {
             return false;
         }
+    }
+
+    protected FluidState getFluidState(BlockState state) {
+        return (Boolean)state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+    }
+
+    protected BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        if ((Boolean)state.get(WATERLOGGED)) {
+            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+        }
+
+        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
     @Override

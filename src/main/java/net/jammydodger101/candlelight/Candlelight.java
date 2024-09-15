@@ -12,14 +12,18 @@ import net.jammydodger101.candlelight.event.AttackEntityHandler;
 import net.jammydodger101.candlelight.item.ModItemComponents;
 import net.jammydodger101.candlelight.item.ModItemGroups;
 import net.jammydodger101.candlelight.item.ModItems;
+import net.jammydodger101.candlelight.util.JsonCandlelightDataHandler;
 import net.jammydodger101.candlelight.util.ModLootTableModifiers;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.UnknownCustomPayload;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Collection;
 
 public class Candlelight implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
@@ -28,7 +32,7 @@ public class Candlelight implements ModInitializer {
 	public static final String MOD_ID = "candlelight";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	public static UnknownCustomPayload INITIAL_SYNC = null;
+	public static final Integer MEMBER_NUMBER = 20;
 
 	//private Integer totalDirtBlocksBroken = 0;
 
@@ -37,20 +41,6 @@ public class Candlelight implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-
-		ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
-			PlayerData playerState = StateSaverAndLoader.getPlayerState(handler.getPlayer());
-			PacketByteBuf data = PacketByteBufs.create();
-
-			data.writeBoolean(playerState.trapped);
-
-			INITIAL_SYNC = new UnknownCustomPayload(Identifier.of(MOD_ID, "initial_sync"));
-
-			server.execute(() -> {
-				//ServerPlayNetworking.send(handler.getPlayer(), INITIAL_SYNC);
-
-			});
-		}));
 
 		ModBlocks.registerModBlocks();
 		ModItems.registerModItems();
@@ -67,6 +57,12 @@ public class Candlelight implements ModInitializer {
 		ModCommands.init();
 
 		ModItemComponents.registerItemComponents();
+
+		JsonCandlelightDataHandler.fillLists(MEMBER_NUMBER);
+		JsonCandlelightDataHandler.readInFileContent();
+		JsonCandlelightDataHandler.createDataAndWrite("maytack", true, BlockPos.ORIGIN);
+		JsonCandlelightDataHandler.createDataAndWrite("jammydodger101", true, new BlockPos(100,2,28138791));
+
 
 	}
 }
