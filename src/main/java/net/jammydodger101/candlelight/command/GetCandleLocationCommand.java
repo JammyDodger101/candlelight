@@ -10,6 +10,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.GlobalPos;
 
 public class GetCandleLocationCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
@@ -24,7 +25,7 @@ public class GetCandleLocationCommand {
         ServerPlayerEntity player = context.getSource().getPlayer();
         String id = StringArgumentType.getString(context, "playerName");
 
-        BlockPos pos = PlayerCandleHandler.getCandleCoordinates(id, player);
+        GlobalPos pos = PlayerCandleHandler.getCandleCoordinates(id, player);
 
         if (pos != null) {
             player.sendMessage(Text.literal("Candle is at "+ pos));

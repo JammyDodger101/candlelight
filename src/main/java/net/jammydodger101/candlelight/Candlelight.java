@@ -3,27 +3,17 @@ package net.jammydodger101.candlelight;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.jammydodger101.candlelight.block.ModBlocks;
 import net.jammydodger101.candlelight.command.ModCommands;
+import net.jammydodger101.candlelight.component.ModDataComponentTypes;
 import net.jammydodger101.candlelight.event.AttackEntityHandler;
-import net.jammydodger101.candlelight.item.ModItemComponents;
 import net.jammydodger101.candlelight.item.ModItemGroups;
 import net.jammydodger101.candlelight.item.ModItems;
-import net.jammydodger101.candlelight.util.JsonCandlelightDataHandler;
 import net.jammydodger101.candlelight.util.ModLootTableModifiers;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.packet.UnknownCustomPayload;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Collection;
 
 public class Candlelight implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
@@ -56,9 +46,6 @@ public class Candlelight implements ModInitializer {
 
 		ModCommands.init();
 
-		ModItemComponents.registerItemComponents();
-
-		JsonCandlelightDataHandler.fillLists(MEMBER_NUMBER);
-		JsonCandlelightDataHandler.readInFileContent();
+		ModDataComponentTypes.registerDataComponentTypes();
 	}
 }

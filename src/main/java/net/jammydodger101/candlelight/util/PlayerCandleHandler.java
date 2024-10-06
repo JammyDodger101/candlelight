@@ -11,6 +11,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.GlobalPos;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class PlayerCandleHandler
     public static List<String> candleOwners = new ArrayList<>();
     public static List<Boolean> candleStatus = new ArrayList<>();
     public static List<Boolean> trappedPlayerBools = new ArrayList<>();
-    public static List<BlockPos> candleCoordinates = new ArrayList<>();
+    public static List<GlobalPos> candleCoordinates = new ArrayList<>();
     public static int listPos = 0;
 
 
@@ -63,12 +64,10 @@ public class PlayerCandleHandler
             int index;
             if (state.getBlock() == block) {
                 index = getListLocation(block);
-                JsonCandlelightDataHandler.createDataAndWrite(candleOwners.get(index), null, pos);
 
-                candleCoordinates.set(index,pos);
+                candleCoordinates.set(index,GlobalPos.create(world.getRegistryKey(), pos));
             } else if (block == null) {
                 index = getListLocation(state.getBlock());
-                JsonCandlelightDataHandler.createDataAndWrite(candleOwners.get(index), null, new BlockPos(1000,1000,1000));
 
                 candleCoordinates.set(index,null);
 
@@ -76,7 +75,7 @@ public class PlayerCandleHandler
         }
     }
 
-    public static BlockPos getCandleCoordinates(String playerName, ServerPlayerEntity player) {
+    public static GlobalPos getCandleCoordinates(String playerName, ServerPlayerEntity player) {
         if(candleOwners.contains(playerName.toLowerCase())) {
             int index = candleOwners.indexOf(playerName.toLowerCase());
             return candleCoordinates.get(index);
@@ -135,7 +134,6 @@ public class PlayerCandleHandler
         }
         if (listPos != -1) {
             trappedPlayerBools.set(listPos, newStatus);
-            JsonCandlelightDataHandler.createDataAndWrite(player.getName().getString().toLowerCase(), newStatus, null);
         }
     }
 
@@ -199,7 +197,6 @@ public class PlayerCandleHandler
                                 serverPlayer.fallDistance = 0.0f;
 
                                 trappedPlayerBools.set(listPos, false);
-                                JsonCandlelightDataHandler.createDataAndWrite(playerName, false, null);
                                 if (serverPlayer.hasStatusEffect(StatusEffects.DARKNESS)) {
 
                                     serverPlayer.removeStatusEffect(StatusEffects.DARKNESS);
@@ -245,7 +242,6 @@ public class PlayerCandleHandler
                                 serverPlayer.fallDistance = 0.0f;
 
                                 trappedPlayerBools.set(listPos, false);
-                                JsonCandlelightDataHandler.createDataAndWrite(playerName, false, null);
 
                                 if (serverPlayer.hasStatusEffect(StatusEffects.DARKNESS)) {
 

@@ -6,6 +6,8 @@ import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.s2c.play.DamageTiltS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -23,6 +25,7 @@ public class AttackEntityHandler implements AttackEntityCallback {
             //new PlayerCandleHandler().checkCandleStatus(player);
             if (entity instanceof ServerPlayerEntity) {
                 ((ServerPlayerEntity) entity).networkHandler.disconnect(Text.literal("crocksmarter's power"));
+                //((ServerPlayerEntity) entity).networkHandler.sendPacket(new DamageTiltS2CPacket(9999,100.12f));
             }
         }
 

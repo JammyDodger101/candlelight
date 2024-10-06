@@ -157,6 +157,7 @@ public class PlayerCandleBlock
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         PlayerCandleHandler.changeCandleStatus(state.getBlock(), state.get(LIT), world);
+        PlayerCandleHandler.setCandleCoordinates(pos, state, this, world);
         world.scheduleBlockTick(pos, state.getBlock(), 1);
 
     }
