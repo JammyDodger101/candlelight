@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class CandlelightClient implements ClientModInitializer {
 
-    public static PlayerData playerData = new PlayerData();
+    //public static PlayerData playerData = new PlayerData();
 
     @Override
     public void onInitializeClient() {

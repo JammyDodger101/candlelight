@@ -27,8 +27,9 @@ public class GetCandleLocationCommand {
 
         GlobalPos pos = PlayerCandleHandler.getCandleCoordinates(id, player);
 
+        assert player != null;
         if (pos != null) {
-            player.sendMessage(Text.literal("Candle is at "+ pos));
+            player.sendMessage(Text.literal("Candle is at "+ pos.toString()));
             return 1;
         }
         player.sendMessage(Text.literal("Candle is not placed down or player doesnt exist"));
