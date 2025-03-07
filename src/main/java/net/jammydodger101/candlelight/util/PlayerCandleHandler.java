@@ -144,15 +144,16 @@ public class PlayerCandleHandler
                 trappedPlayerBools) {
 
             if(trapped!=null) {
-                if (trapped) {
-                    String playerName = candleOwners.get(listPos);
+                String playerName = candleOwners.get(listPos);
 
-                    ServerPlayerEntity serverPlayer = world.getServer().getPlayerManager().getPlayer(playerName);
+                ServerPlayerEntity serverPlayer = world.getServer().getPlayerManager().getPlayer(playerName);
+
+                if (trapped || serverPlayer.getCommandTags().contains("trapped")) {
 
                     if (serverPlayer != null) {
                         if (world.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
                             if (!serverPlayer.hasStatusEffect(StatusEffects.DARKNESS)) {
-                                serverPlayer.sendMessage(Text.literal(trapped.toString()));
+                                // serverPlayer.sendMessage(Text.literal(trapped.toString()));
                                 serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 999999999 , 1, false, false, false));
                                 serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 999999999 , 0, false, false, false));
                                 serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 999999999 , 1, false, false, false));
@@ -183,16 +184,19 @@ public class PlayerCandleHandler
                     trappedPlayerBools) {
 
                 if (trapped != null) {
-                    if (trapped) {
-                        String playerName = candleOwners.get(listPos);
+                    String playerName = candleOwners.get(listPos);
 
-                        ServerPlayerEntity serverPlayer = serverWorld.getServer().getPlayerManager().getPlayer(playerName);
+                    ServerPlayerEntity serverPlayer = serverWorld.getServer().getPlayerManager().getPlayer(playerName);
 
-                        if (serverPlayer != null) {
+                    if (serverPlayer != null) {
+                        if (trapped) {
+                            serverPlayer.sendMessage(Text.literal(String.valueOf(serverPlayer.getCommandTags())));
+
+                            serverPlayer.removeCommandTag("trapped");
                             if (serverWorld.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
 
                                 serverPlayer.stopRiding();
-                                serverPlayer.teleport(serverWorld.getServer().getOverworld(), worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ() , Set.of(), 0f, 0f);
+                                serverPlayer.teleport(serverWorld.getServer().getOverworld(), worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ(), Set.of(), 0f, 0f);
 
                                 serverPlayer.fallDistance = 0.0f;
 
@@ -208,55 +212,14 @@ public class PlayerCandleHandler
                             }
                         }
                     }
-
                 }
+
                 listPos++;
             }
         }
     }
 
     public static void reviveCommand(ServerWorld serverWorld) {
-        BlockPos worldSpawn = serverWorld.getSpawnPos();
-
-        int listPos = 0;
-
-        if (trappedPlayerBools.contains(true)) {
-
-            Candlelight.LOGGER.info("Reviving Players");
-
-            for (Boolean trapped :
-                    trappedPlayerBools) {
-
-                if (trapped != null) {
-                    if (trapped) {
-                        String playerName = candleOwners.get(listPos);
-
-                        ServerPlayerEntity serverPlayer = serverWorld.getServer().getPlayerManager().getPlayer(playerName);
-
-                        if (serverPlayer != null) {
-                            if (serverWorld.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
-
-                                serverPlayer.stopRiding();
-                                serverPlayer.teleport(serverWorld.getServer().getOverworld(), worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ() , Set.of(), 0f, 0f);
-                                serverPlayer.setSpawnPoint(World.OVERWORLD,worldSpawn,0f,true,false);
-                                serverPlayer.fallDistance = 0.0f;
-
-                                trappedPlayerBools.set(listPos, false);
-
-                                if (serverPlayer.hasStatusEffect(StatusEffects.DARKNESS)) {
-
-                                    serverPlayer.removeStatusEffect(StatusEffects.DARKNESS);
-                                    serverPlayer.removeStatusEffect(StatusEffects.NIGHT_VISION);
-                                    serverPlayer.removeStatusEffect(StatusEffects.RESISTANCE);
-                                    serverPlayer.removeStatusEffect(StatusEffects.SLOWNESS);
-                                    serverPlayer.removeStatusEffect(StatusEffects.SLOW_FALLING);
-                                }
-                            }
-                        }
-                    }
-                }
-                listPos++;
-            }
-        }
+        reviveEveryone(serverWorld);
     }
 }

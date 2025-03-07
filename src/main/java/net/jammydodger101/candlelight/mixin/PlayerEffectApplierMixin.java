@@ -20,6 +20,8 @@ public abstract class PlayerEffectApplierMixin {
     private void applyEffects(CallbackInfo ci) {
         PlayerCandleHandler.applyEffectsToTrappedPlayers(getServerWorld());
         //PlayerCandleHandler.updatePlayerTrapped(getServerWorld());
+        ServerPlayerEntity player = (ServerPlayerEntity)(Object)this;
+        PlayerCandleHandler.changePlayerTrappedStatus(player, player.getCommandTags().contains("trapped"));
     }
 
 }

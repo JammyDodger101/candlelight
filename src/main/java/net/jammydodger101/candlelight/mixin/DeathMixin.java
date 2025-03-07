@@ -30,9 +30,11 @@ public abstract class DeathMixin {
                         oldPlayer.setSpawnPoint(World.OVERWORLD, worldSpawn, 0f, true, false);
                     }
                     PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
+                    oldPlayer.removeCommandTag("trapped");
                 } else {
                     oldPlayer.setSpawnPoint(ModDimension.CANDLELESS_KEY, new BlockPos(0, 100, 0), 0f, true, false);
                     PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, true);
+                    oldPlayer.addCommandTag("trapped");
                 }
             }
         }
