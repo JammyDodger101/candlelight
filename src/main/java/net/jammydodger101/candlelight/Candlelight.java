@@ -36,7 +36,7 @@ public class Candlelight implements ModInitializer {
 		ModItems.registerModItems();
 		ModItemGroups.registerItemGroups();
 
-		ModLootTableModifiers.modifyLootTables();
+		// ModLootTableModifiers.modifyLootTables();
 
 		AttackEntityCallback.EVENT.register(new AttackEntityHandler());
 

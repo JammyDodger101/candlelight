@@ -21,17 +21,10 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerCandle(ModBlocks.CRAY_CANDLE, ModBlocks.CRAY_CANDLE_CAKE);
         blockStateModelGenerator.registerCandle(ModBlocks.EM_CANDLE, ModBlocks.EM_CANDLE_CAKE);
         blockStateModelGenerator.registerCandle(ModBlocks.CROC_CANDLE, ModBlocks.CROC_CANDLE_CAKE);
-        blockStateModelGenerator.registerCandle(ModBlocks.CAT_CANDLE, ModBlocks.CAT_CANDLE_CAKE);
-        blockStateModelGenerator.registerCandle(ModBlocks.LEAN_CANDLE, ModBlocks.LEAN_CANDLE_CAKE);
-        blockStateModelGenerator.registerCandle(ModBlocks.DELUXE_CANDLE, ModBlocks.DELUXE_CANDLE_CAKE);
         blockStateModelGenerator.registerCandle(ModBlocks.JK_CANDLE, ModBlocks.JK_CANDLE_CAKE);
         blockStateModelGenerator.registerCandle(ModBlocks.MUST_CANDLE, ModBlocks.MUST_CANDLE_CAKE);
         blockStateModelGenerator.registerCandle(ModBlocks.SOAP_CANDLE, ModBlocks.SOAP_CANDLE_CAKE);
         blockStateModelGenerator.registerCandle(ModBlocks.GEO_CANDLE, ModBlocks.GEO_CANDLE_CAKE);
-        blockStateModelGenerator.registerCandle(ModBlocks.TONY_CANDLE, ModBlocks.TONY_CANDLE_CAKE);
-        blockStateModelGenerator.registerCandle(ModBlocks.PRAI_CANDLE, ModBlocks.PRAI_CANDLE_CAKE);
-        blockStateModelGenerator.registerCandle(ModBlocks.GARY_CANDLE, ModBlocks.GARY_CANDLE_CAKE);
-        blockStateModelGenerator.registerCandle(ModBlocks.MAY_CANDLE, ModBlocks.MAY_CANDLE_CAKE);
 
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.CANDLELESS_FLOOR_BLOCK);
     }
