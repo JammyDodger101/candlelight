@@ -43,6 +43,7 @@ public class PlayerCandleHandler
         listAdder(ModBlocks.SOAP_CANDLE, "ashpffwho", false);
         listAdder(ModBlocks.GEO_CANDLE, "georgehminer", false);
         //season four!!!!
+        listAdder(ModBlocks.TEA_CANDLE, "teaish7", false);
     }
 
     public static void listAdder(Block block, String playerName, Boolean candleStatusBool) {

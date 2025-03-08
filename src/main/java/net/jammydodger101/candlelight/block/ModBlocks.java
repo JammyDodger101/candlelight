@@ -23,6 +23,7 @@ public class ModBlocks {
     public static final Block MUST_CANDLE = registerBlock("must_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE).resistance(999)));
     public static final Block SOAP_CANDLE = registerBlock("soap_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE).resistance(999)));
     public static final Block GEO_CANDLE = registerBlock("geo_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE).resistance(999)));
+    public static final Block TEA_CANDLE = registerBlock("tea_candle", new PlayerCandleBlock(AbstractBlock.Settings.copy(Blocks.CANDLE).resistance(999)));
     public static final Block JAMMY_CANDLE_CAKE = registerBlock("jammy_candle_cake", new CandleCakeBlock(Blocks.CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
     public static final Block POM_CANDLE_CAKE = registerBlock("pom_candle_cake", new CandleCakeBlock(Blocks.CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
     public static final Block SPAM_CANDLE_CAKE = registerBlock("spam_candle_cake", new CandleCakeBlock(Blocks.CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
@@ -33,6 +34,7 @@ public class ModBlocks {
     public static final Block MUST_CANDLE_CAKE = registerBlock("must_candle_cake", new CandleCakeBlock(Blocks.CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
     public static final Block SOAP_CANDLE_CAKE = registerBlock("soap_candle_cake", new CandleCakeBlock(Blocks.CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
     public static final Block GEO_CANDLE_CAKE = registerBlock("geo_candle_cake", new CandleCakeBlock(Blocks.CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
+    public static final Block TEA_CANDLE_CAKE = registerBlock("tea_candle_cake", new CandleCakeBlock(Blocks.CANDLE, AbstractBlock.Settings.copy(Blocks.CANDLE_CAKE)));
 
     public static final Block CANDLELESS_FLOOR_BLOCK = registerBlock("candleless_floor_block", new Block(AbstractBlock.Settings.copy(Blocks.BEDROCK)));
 

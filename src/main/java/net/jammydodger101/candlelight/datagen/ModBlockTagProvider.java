@@ -28,6 +28,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.MUST_CANDLE)
                 .add(ModBlocks.SOAP_CANDLE)
                 .add(ModBlocks.GEO_CANDLE)
+                .add(ModBlocks.TEA_CANDLE)
                 .add(ModBlocks.JK_CANDLE);
 
         getOrCreateTagBuilder(BlockTags.CANDLE_CAKES)
@@ -40,6 +41,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.MUST_CANDLE_CAKE)
                 .add(ModBlocks.SOAP_CANDLE_CAKE)
                 .add(ModBlocks.GEO_CANDLE_CAKE)
+                .add(ModBlocks.TEA_CANDLE_CAKE)
                 .add(ModBlocks.CRAY_CANDLE_CAKE);
 
         getOrCreateTagBuilder(BlockTags.CANDLES)
@@ -52,6 +54,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.MUST_CANDLE)
                 .add(ModBlocks.SOAP_CANDLE)
                 .add(ModBlocks.GEO_CANDLE)
+                .add(ModBlocks.TEA_CANDLE)
                 .add(ModBlocks.CRAY_CANDLE);
 
         getOrCreateTagBuilder(BlockTags.PREVENT_MOB_SPAWNING_INSIDE)
@@ -64,6 +67,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.MUST_CANDLE)
                 .add(ModBlocks.SOAP_CANDLE)
                 .add(ModBlocks.GEO_CANDLE)
+                .add(ModBlocks.TEA_CANDLE)
                 .add(ModBlocks.CRAY_CANDLE);
 
         getOrCreateTagBuilder(BlockTags.DRAGON_IMMUNE)
@@ -76,6 +80,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.MUST_CANDLE)
                 .add(ModBlocks.SOAP_CANDLE)
                 .add(ModBlocks.GEO_CANDLE)
+                .add(ModBlocks.TEA_CANDLE)
                 .add(ModBlocks.CRAY_CANDLE);
 
         getOrCreateTagBuilder(BlockTags.WITHER_IMMUNE)
@@ -88,6 +93,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.MUST_CANDLE)
                 .add(ModBlocks.SOAP_CANDLE)
                 .add(ModBlocks.GEO_CANDLE)
+                .add(ModBlocks.TEA_CANDLE)
                 .add(ModBlocks.CRAY_CANDLE);
 
     }
