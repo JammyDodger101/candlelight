@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.jammydodger101.candlelight.block.ModBlocks;
 import net.jammydodger101.candlelight.command.ModCommands;
 import net.jammydodger101.candlelight.component.ModDataComponentTypes;
+import net.jammydodger101.candlelight.effect.ModEffects;
 import net.jammydodger101.candlelight.event.AttackEntityHandler;
 import net.jammydodger101.candlelight.item.ModItemGroups;
 import net.jammydodger101.candlelight.item.ModItems;
@@ -47,5 +48,7 @@ public class Candlelight implements ModInitializer {
 		ModCommands.init();
 
 		ModDataComponentTypes.registerDataComponentTypes();
+
+		ModEffects.registerEffects();
 	}
 }

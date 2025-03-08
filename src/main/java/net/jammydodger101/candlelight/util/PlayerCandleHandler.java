@@ -2,6 +2,7 @@ package net.jammydodger101.candlelight.util;
 
 import net.jammydodger101.candlelight.Candlelight;
 import net.jammydodger101.candlelight.block.ModBlocks;
+import net.jammydodger101.candlelight.effect.ModEffects;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -145,19 +146,16 @@ public class PlayerCandleHandler
             if(trapped!=null) {
                 String playerName = candleOwners.get(listPos);
 
-                ServerPlayerEntity serverPlayer = world.getServer().getPlayerManager().getPlayer(playerName);
+                ServerPlayerEntity serverPlayer = Objects.requireNonNull(world.getServer()).getPlayerManager().getPlayer(playerName);
 
-                if (trapped || serverPlayer.getCommandTags().contains("trapped")) {
+                if (serverPlayer != null) {
+                    if (trapped || serverPlayer.getCommandTags().contains("trapped")) {
 
-                    if (serverPlayer != null) {
+
                         if (world.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
-                            if (!serverPlayer.hasStatusEffect(StatusEffects.DARKNESS)) {
+                            if (!serverPlayer.hasStatusEffect(ModEffects.EXTINGUISHED)) {
                                 // serverPlayer.sendMessage(Text.literal(trapped.toString()));
-                                serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 999999999 , 1, false, false, false));
-                                serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 999999999 , 0, false, false, false));
-                                serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 999999999 , 1, false, false, false));
-                                serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999 , 254, false, false, false));
-                                //serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 999999999 , 1, false, false, false));
+                                serverPlayer.addStatusEffect(new StatusEffectInstance(ModEffects.EXTINGUISHED, -1 , 0, false, false, false));
 
                             }
                         }
@@ -189,7 +187,7 @@ public class PlayerCandleHandler
 
                     if (serverPlayer != null) {
                         if (trapped) {
-                            serverPlayer.sendMessage(Text.literal(String.valueOf(serverPlayer.getCommandTags())));
+                            // serverPlayer.sendMessage(Text.literal(String.valueOf(serverPlayer.getCommandTags())));
 
                             serverPlayer.removeCommandTag("trapped");
                             if (serverWorld.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
@@ -200,13 +198,9 @@ public class PlayerCandleHandler
                                 serverPlayer.fallDistance = 0.0f;
 
                                 trappedPlayerBools.set(listPos, false);
-                                if (serverPlayer.hasStatusEffect(StatusEffects.DARKNESS)) {
+                                if (serverPlayer.hasStatusEffect(ModEffects.EXTINGUISHED)) {
 
-                                    serverPlayer.removeStatusEffect(StatusEffects.DARKNESS);
-                                    serverPlayer.removeStatusEffect(StatusEffects.NIGHT_VISION);
-                                    serverPlayer.removeStatusEffect(StatusEffects.RESISTANCE);
-                                    serverPlayer.removeStatusEffect(StatusEffects.SLOWNESS);
-                                    serverPlayer.removeStatusEffect(StatusEffects.SLOW_FALLING);
+                                    serverPlayer.removeStatusEffect(ModEffects.EXTINGUISHED);
                                 }
                             }
                         }

@@ -19,5 +19,7 @@
   "item.candlelight.lifesteal_heart" : "Heart",
   "item.candlelight.crocksmarter_blade" : "Crocksmarter Blade",
 
-  "itemgroup.candlelight" : "Candlelight Group"
+  "itemgroup.candlelight" : "Candlelight Group",
+
+  "effect.candlelight.extinguished": "Extinguished"
 }
