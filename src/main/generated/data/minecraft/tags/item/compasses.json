@@ -1,5 +1,6 @@
 {
   "values": [
-    "candlelight:candle_compass"
+    "candlelight:candle_compass",
+    "candlelight:player_compass"
   ]
 }
