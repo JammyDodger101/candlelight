@@ -10,6 +10,10 @@
     "candlelight:soap_candle",
     "candlelight:geo_candle",
     "candlelight:tea_candle",
-    "candlelight:jk_candle"
+    "candlelight:jk_candle",
+    "candlelight:smoo_candle",
+    "candlelight:lean_candle",
+    "candlelight:mars_candle",
+    "candlelight:deli_candle"
   ]
 }

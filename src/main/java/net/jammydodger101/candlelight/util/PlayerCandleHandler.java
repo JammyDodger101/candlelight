@@ -35,16 +35,21 @@ public class PlayerCandleHandler
         listAdder(ModBlocks.JAMMY_CANDLE, "jammydodger101", false);
         listAdder(ModBlocks.POM_CANDLE, "pompomdexter", false);
         listAdder(ModBlocks.SPAM_CANDLE, "citramin", false);
+        //season two!!
         listAdder(ModBlocks.CRAY_CANDLE, "crayzink", false);
         listAdder(ModBlocks.EM_CANDLE, "longpotter", false);
         listAdder(ModBlocks.CROC_CANDLE, "crocksmarter", false);
-        listAdder(ModBlocks.JK_CANDLE, "not_jk", false);
         //season three!!!
+        listAdder(ModBlocks.JK_CANDLE, "not_jk", false);
         listAdder(ModBlocks.MUST_CANDLE, "callmemustard_", false);
         listAdder(ModBlocks.SOAP_CANDLE, "ashpffwho", false);
         listAdder(ModBlocks.GEO_CANDLE, "georgehminer", false);
         //season four!!!!
         listAdder(ModBlocks.TEA_CANDLE, "teaish7", false);
+        listAdder(ModBlocks.LEAN_CANDLE, "leantheliquid", false);
+        listAdder(ModBlocks.MARS_CANDLE, "jellirolls", false);
+        listAdder(ModBlocks.DELI_CANDLE, "deliwarp", false);
+        listAdder(ModBlocks.SMOO_CANDLE, "smooothie", false);
     }
 
     public static void listAdder(Block block, String playerName, Boolean candleStatusBool) {
@@ -156,6 +161,7 @@ public class PlayerCandleHandler
                             if (!serverPlayer.hasStatusEffect(ModEffects.EXTINGUISHED)) {
                                 // serverPlayer.sendMessage(Text.literal(trapped.toString()));
                                 serverPlayer.addStatusEffect(new StatusEffectInstance(ModEffects.EXTINGUISHED, -1 , 0, false, false, false));
+                                serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, -1 , 0, false, false, false));
 
                             }
                         }
@@ -201,6 +207,7 @@ public class PlayerCandleHandler
                                 if (serverPlayer.hasStatusEffect(ModEffects.EXTINGUISHED)) {
 
                                     serverPlayer.removeStatusEffect(ModEffects.EXTINGUISHED);
+                                    serverPlayer.removeStatusEffect(StatusEffects.DARKNESS);
                                 }
                             }
                         }

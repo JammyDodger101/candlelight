@@ -26,6 +26,10 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerCandle(ModBlocks.SOAP_CANDLE, ModBlocks.SOAP_CANDLE_CAKE);
         blockStateModelGenerator.registerCandle(ModBlocks.GEO_CANDLE, ModBlocks.GEO_CANDLE_CAKE);
         blockStateModelGenerator.registerCandle(ModBlocks.TEA_CANDLE, ModBlocks.TEA_CANDLE_CAKE);
+        blockStateModelGenerator.registerCandle(ModBlocks.LEAN_CANDLE, ModBlocks.LEAN_CANDLE_CAKE);
+        blockStateModelGenerator.registerCandle(ModBlocks.SMOO_CANDLE, ModBlocks.SMOO_CANDLE_CAKE);
+        blockStateModelGenerator.registerCandle(ModBlocks.DELI_CANDLE, ModBlocks.DELI_CANDLE_CAKE);
+        blockStateModelGenerator.registerCandle(ModBlocks.MARS_CANDLE, ModBlocks.MARS_CANDLE_CAKE);
 
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.CANDLELESS_FLOOR_BLOCK);
     }

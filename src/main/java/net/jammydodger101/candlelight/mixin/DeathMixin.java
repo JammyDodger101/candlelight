@@ -2,10 +2,14 @@ package net.jammydodger101.candlelight.mixin;
 
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -35,6 +39,12 @@ public abstract class DeathMixin {
                     oldPlayer.setSpawnPoint(ModDimension.CANDLELESS_KEY, new BlockPos(0, 100, 0), 0f, true, false);
                     PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, true);
                     oldPlayer.addCommandTag("trapped");
+                    // play global sound
+                    if (!oldPlayer.getWorld().isClient) {
+                        for (PlayerEntity player : oldPlayer.getWorld().getPlayers()) {
+                            player.playSoundToPlayer(SoundEvents.ENTITY_WARDEN_SONIC_BOOM, SoundCategory.PLAYERS, 1f, 0.5f);
+                        }
+                    }
                 }
             }
         }

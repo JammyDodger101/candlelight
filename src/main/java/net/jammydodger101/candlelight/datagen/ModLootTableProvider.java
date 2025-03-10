@@ -26,6 +26,10 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.SOAP_CANDLE);
         addDrop(ModBlocks.GEO_CANDLE);
         addDrop(ModBlocks.TEA_CANDLE);
+        addDrop(ModBlocks.LEAN_CANDLE);
+        addDrop(ModBlocks.DELI_CANDLE);
+        addDrop(ModBlocks.MARS_CANDLE);
+        addDrop(ModBlocks.SMOO_CANDLE);
         addDrop(ModBlocks.JAMMY_CANDLE_CAKE, candleCakeDrops(ModBlocks.JAMMY_CANDLE));
         addDrop(ModBlocks.POM_CANDLE_CAKE, candleCakeDrops(ModBlocks.POM_CANDLE));
         addDrop(ModBlocks.SPAM_CANDLE_CAKE, candleCakeDrops(ModBlocks.SPAM_CANDLE));
@@ -37,5 +41,9 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.SOAP_CANDLE_CAKE, candleCakeDrops(ModBlocks.SOAP_CANDLE));
         addDrop(ModBlocks.GEO_CANDLE_CAKE, candleCakeDrops(ModBlocks.GEO_CANDLE));
         addDrop(ModBlocks.TEA_CANDLE_CAKE, candleCakeDrops(ModBlocks.TEA_CANDLE));
+        addDrop(ModBlocks.LEAN_CANDLE_CAKE, candleCakeDrops(ModBlocks.LEAN_CANDLE));
+        addDrop(ModBlocks.DELI_CANDLE_CAKE, candleCakeDrops(ModBlocks.DELI_CANDLE));
+        addDrop(ModBlocks.MARS_CANDLE_CAKE, candleCakeDrops(ModBlocks.MARS_CANDLE));
+        addDrop(ModBlocks.SMOO_CANDLE_CAKE, candleCakeDrops(ModBlocks.SMOO_CANDLE));
     }
 }
