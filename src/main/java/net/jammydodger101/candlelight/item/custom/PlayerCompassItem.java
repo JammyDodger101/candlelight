@@ -111,9 +111,9 @@ public class PlayerCompassItem extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        if (world.isClient) {
-            return;
-        }
+        //if (world.isClient) {
+          //  return;
+        //}
 
         // update player list
         playerList.clear();
