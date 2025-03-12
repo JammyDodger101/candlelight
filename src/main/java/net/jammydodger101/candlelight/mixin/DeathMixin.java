@@ -40,11 +40,7 @@ public abstract class DeathMixin {
                     PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, true);
                     oldPlayer.addCommandTag("trapped");
                     // play global sound
-                    if (!oldPlayer.getWorld().isClient) {
-                        for (PlayerEntity player : oldPlayer.getWorld().getPlayers()) {
-                            player.playSoundToPlayer(SoundEvents.ENTITY_WARDEN_SONIC_BOOM, SoundCategory.PLAYERS, 1f, 0.5f);
-                        }
-                    }
+
                 }
             }
         }
