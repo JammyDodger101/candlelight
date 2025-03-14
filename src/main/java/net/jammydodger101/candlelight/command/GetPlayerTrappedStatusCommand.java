@@ -10,21 +10,27 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
+/*
+Returns whether a player is trapped in candleless or not.
+ */
+
 public class GetPlayerTrappedStatusCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("trapped")
                 .requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(2))
                 .then(CommandManager.argument("playerName", StringArgumentType.string())
                         .executes(GetPlayerTrappedStatusCommand::run)));
-
+        // takes in string of player name
+        // only allowed use by operators
     }
 
     private static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-
+        // gets player name and makes sure it isnt null
         ServerPlayerEntity player = context.getSource().getPlayer();
         assert player != null;
         String id = StringArgumentType.getString(context, "playerName");
 
+        // checks if player is trapped using player candle handler function
         Boolean trappedStatus = PlayerCandleHandler.checkPlayerTrappedStatusCommand(id);
         if (trappedStatus != null) {
             if (trappedStatus == Boolean.TRUE) {

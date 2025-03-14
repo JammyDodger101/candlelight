@@ -8,6 +8,10 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 
+/*
+Registers all the items used in the candlelight mod
+ */
+
 public class ModItems {
 
     public static final Item REVIVER = registerItem("reviver", new ReviverItem(new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));

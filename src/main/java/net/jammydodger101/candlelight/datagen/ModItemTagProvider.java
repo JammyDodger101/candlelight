@@ -17,6 +17,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
+        // adds the items to tags
         getOrCreateTagBuilder(ItemTags.COMPASSES)
                 .add(ModItems.CANDLE_COMPASS)
                 .add(ModItems.PLAYER_COMPASS);

@@ -1,6 +1,5 @@
 package net.jammydodger101.candlelight.util;
 
-import net.jammydodger101.candlelight.Candlelight;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
@@ -8,24 +7,26 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Calculations for the candle compass
+ */
+
 public class CandleCompassFunctionality {
     public static List<GlobalPos> candleCoordinates = new ArrayList<>();
     public static List<Double> candleDistances = new ArrayList<>();
     public static BlockPos intLimitPos = new BlockPos(2147483647, 2147483647, 2147483647);
 
+    // updates the candle coordinates list
     public static void fillCandleCoordinates(World world) {
         candleCoordinates = PlayerCandleHandler.candleCoordinates;
-
     }
 
     public static GlobalPos getNearestCandle(PlayerEntity player, World world) {
+        // updates the candle coordinates list
         fillCandleCoordinates(player.getWorld());
         calculateDistancesBetweenPlayerAndCandles(player, world);
-        //commented code is for making it not track the player's own candle
-        //String playerName = player.getEntityName().toLowerCase();
-        Candlelight.LOGGER.info(candleCoordinates.toString());
-        Candlelight.LOGGER.info(candleDistances.toString());
 
+        // goes through the list of candle distances, finding the shortest one
         try {
             int shortestDistanceIndex = 0;
             double shortestDistance = candleDistances.get(shortestDistanceIndex);
@@ -43,10 +44,10 @@ public class CandleCompassFunctionality {
     }
 
     public static void calculateDistancesBetweenPlayerAndCandles(PlayerEntity playerEntity, World world) {
+        // resets list
         candleDistances.clear();
-        //Candlelight.LOGGER.info(candleCoordinates.toString());
+        // goes through each coordinate, returning an error if the coordinate doesnt exist (candle isnt placed down) or if the candle is in another dimension
         for (GlobalPos candleCoordinate : candleCoordinates) {
-            //Candlelight.LOGGER.info(candleCoordinate.toShortString());
             if (candleCoordinate != null) {
                 if (world.getRegistryKey() == candleCoordinate.dimension()) {
                     double distance = candleCoordinate.pos().getSquaredDistance(playerEntity.getBlockPos().toCenterPos());

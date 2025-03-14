@@ -7,6 +7,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 
+/*
+Creates the candleless dimension
+ */
+
 public class ModDimension {
 
     public static final RegistryKey<World> CANDLELESS_KEY = RegistryKey.of(RegistryKeys.WORLD,

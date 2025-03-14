@@ -12,6 +12,7 @@ import net.minecraft.util.Identifier;
 
 public class ModEffects {
 
+    // adds all the attribute modifiers to the extinguished effect
     public static final RegistryEntry<StatusEffect> EXTINGUISHED = registerStatusEffect("extinguished",
             new ExtinguishedEffect(StatusEffectCategory.HARMFUL, 0xffffff)
                     .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED,

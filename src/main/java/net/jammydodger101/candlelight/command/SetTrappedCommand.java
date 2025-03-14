@@ -10,7 +10,9 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-import java.util.Objects;
+/*
+Sets a player as trapped or not
+ */
 
 public class SetTrappedCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
@@ -23,14 +25,16 @@ public class SetTrappedCommand {
     }
 
     private static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-
+        // takes in the stringof the player to be modified and the new trapped status
         ServerPlayerEntity player = context.getSource().getPlayer();
         assert player != null;
         String id = StringArgumentType.getString(context, "playerName");
-        Boolean trapped = BoolArgumentType.getBool(context, "trapped");
+        boolean trapped = BoolArgumentType.getBool(context, "trapped");
 
+        // checks to see if modified player is in the list
         if (PlayerCandleHandler.candleOwners.contains(id.toLowerCase())) {
-            PlayerCandleHandler.trappedPlayerBools.set(PlayerCandleHandler.candleOwners.indexOf(id.toLowerCase()), trapped);
+            // sets the trapped value of the modified player
+            PlayerCandleHandler.changePlayerTrappedStatus(id, trapped);
 
             return 1;
         }

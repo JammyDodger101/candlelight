@@ -9,6 +9,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+/*
+Makes the player invincible if they have the extinguished effect
+ */
+
 @Mixin(LivingEntity.class)
 public class ExtinguishedEffectMixin {
 

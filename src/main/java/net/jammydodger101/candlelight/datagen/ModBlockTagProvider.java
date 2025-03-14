@@ -18,6 +18,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
+        // adds everyones candles to tags that ensure they cant be easily broken
         getOrCreateTagBuilder(ModTags.Blocks.CUSTOM_CANDLES)
                 .add(ModBlocks.JAMMY_CANDLE)
                 .add(ModBlocks.POM_CANDLE)

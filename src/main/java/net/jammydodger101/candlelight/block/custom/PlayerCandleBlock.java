@@ -5,15 +5,12 @@ import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.jammydodger101.candlelight.Candlelight;
-import net.jammydodger101.candlelight.util.ModTags;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -26,7 +23,6 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.Util;
@@ -43,6 +39,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+/*
+The candles that are the basis of the server.
+Feedback their location and lit status every tick.
+Basically the same in every way to regular minecraft candles.
+ */
+
 public class PlayerCandleBlock
 
         extends AbstractCandleBlock
@@ -55,7 +57,7 @@ public class PlayerCandleBlock
     private static final Int2ObjectMap<List<Vec3d>> CANDLES_TO_PARTICLE_OFFSETS;
 
 
-
+    // constructor for the player candle
     public PlayerCandleBlock(AbstractBlock.Settings settings) {
         super(settings);
         this.setDefaultState((BlockState)((BlockState)((BlockState)((BlockState)this.getStateManager().getDefaultState()).with(CANDLES, 1)).with(LIT, false)).with(WATERLOGGED, false));
@@ -83,17 +85,21 @@ public class PlayerCandleBlock
         builder.add(new Property[]{CANDLES, LIT, WATERLOGGED});
     }
 
+    // only returns 1 as player candles cant be in groups
     @Override
     protected Iterable<Vec3d> getParticleOffsets(BlockState state) {
         return (Iterable)CANDLES_TO_PARTICLE_OFFSETS.get(1);
     }
 
+
     @Override
     protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        // extinguishes the candle if the player isnt holding anything
         if (stack.isEmpty() && player.getAbilities().allowModifyWorld && (Boolean)state.get(LIT)) {
             extinguish(player, state, world, pos);
             return ItemActionResult.success(world.isClient);
         } else if (player.getAbilities().allowModifyWorld && !state.get(LIT) && !state.get(WATERLOGGED)) {
+            // lights the candle if the player is using a flint and steel or a fire charge
             if (stack.isOf(Items.FLINT_AND_STEEL)) {
                 world.setBlockState(pos, (BlockState)state.with(LIT, true), 11);
 
@@ -115,12 +121,13 @@ public class PlayerCandleBlock
         return SHAPE;
     }
 
+    // for waterlogging the block
     @Override
     public boolean tryFillWithFluid(WorldAccess world, BlockPos pos, BlockState state, FluidState fluidState) {
         if (!(Boolean)state.get(WATERLOGGED) && fluidState.getFluid() == Fluids.WATER) {
-            BlockState blockState = (BlockState)state.with(WATERLOGGED, true);
-            if ((Boolean)state.get(LIT)) {
-                extinguish((PlayerEntity)null, blockState, world, pos);
+            BlockState blockState = state.with(WATERLOGGED, true);
+            if (state.get(LIT)) {
+                extinguish(null, blockState, world, pos);
             } else {
                 world.setBlockState(pos, blockState, 3);
             }
@@ -144,9 +151,9 @@ public class PlayerCandleBlock
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
+    // spawns particles at random times
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-
         if (!state.get(LIT)) {
             return;
         }
@@ -154,12 +161,13 @@ public class PlayerCandleBlock
         this.getParticleOffsets(state).forEach(offset -> PlayerCandleBlock.spawnCandleParticles(world, offset.add(pos.getX(), pos.getY(), pos.getZ()), random));
     }
 
+    // constantly updates the player candle handler to change its lit status and where it is in the world
+    // happens every tick
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         PlayerCandleHandler.changeCandleStatus(state.getBlock(), state.get(LIT), world);
         PlayerCandleHandler.setCandleCoordinates(pos, state, this, world);
         world.scheduleBlockTick(pos, state.getBlock(), 1);
-
     }
 
     public static void spawnCandleParticles(World world, Vec3d vec3d, Random random) {
@@ -173,6 +181,8 @@ public class PlayerCandleBlock
         world.addParticle(ParticleTypes.SMALL_FLAME, vec3d.x, vec3d.y, vec3d.z, 0.0, 0.0, 0.0);
     }
 
+    // updates the player candle handler coordinates when placed
+    // also starts the scheduled tick routine
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         PlayerCandleHandler.setCandleCoordinates(pos, state, this, world);

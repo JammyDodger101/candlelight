@@ -7,6 +7,10 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
+/*
+Adds the tags for the custom candles
+ */
+
 public class ModTags {
 
     public static class Blocks {

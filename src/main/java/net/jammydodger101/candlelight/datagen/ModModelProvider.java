@@ -13,6 +13,8 @@ public class ModModelProvider extends FabricModelProvider {
         super(output);
     }
 
+    // creates the item and block models for everything
+
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         blockStateModelGenerator.registerCandle(ModBlocks.JAMMY_CANDLE, ModBlocks.JAMMY_CANDLE_CAKE);

@@ -8,8 +8,12 @@ import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.dimension.DimensionTypes;
 import org.jetbrains.annotations.Nullable;
+
+/*
+Unused class for the effects that should be applied in the Candleless dimension
+Probably need to get this working someday
+ */
 
 public class ModDimensionEffects extends DimensionEffects{
 

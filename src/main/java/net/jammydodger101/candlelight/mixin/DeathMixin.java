@@ -2,14 +2,10 @@ package net.jammydodger101.candlelight.mixin;
 
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.jammydodger101.candlelight.world.dimension.ModDimension;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,6 +17,11 @@ import java.util.Objects;
 
 @Mixin(PlayerManager.class)
 public abstract class DeathMixin {
+
+    /*
+    Updates the player's respawn position if they are killed without their candle lit.
+    Uses tags to keep track of whether the player is trapped or not (for persistence reasons)
+     */
 
     @Inject(method = "respawnPlayer", at = @At("HEAD"))
     private void afterRespawn(ServerPlayerEntity oldPlayer, boolean alive, Entity.RemovalReason removalReason, CallbackInfoReturnable<ServerPlayerEntity> cir) {
@@ -45,6 +46,11 @@ public abstract class DeathMixin {
             }
         }
     }
+
+    /*
+    Carries over the hearts from the old player to the new one as attributes sometimes reset on death
+    And sets the health to remove the visual bug
+     */
 
     @Inject(method = "respawnPlayer", at = @At("RETURN"))
     private void carryHeartsFromPreviousPlayerInstance(ServerPlayerEntity oldPlayer, boolean alive, Entity.RemovalReason removalReason, CallbackInfoReturnable<ServerPlayerEntity> cir) {
