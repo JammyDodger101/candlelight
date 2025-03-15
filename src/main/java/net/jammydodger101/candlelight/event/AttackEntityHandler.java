@@ -25,9 +25,9 @@ public class AttackEntityHandler implements AttackEntityCallback {
         if (player.getStackInHand(hand).getItem() == ModItems.CROCKSMARTER_BLADE) {
             if (entity instanceof ServerPlayerEntity) {
                 ((ServerPlayerEntity) entity).networkHandler.disconnect(Text.literal("You were struck by crocksmarter's power"));
+            }else {
+                entity.remove(Entity.RemovalReason.DISCARDED);
             }
-        } else {
-            entity.remove(Entity.RemovalReason.DISCARDED);
         }
 
         return ActionResult.PASS;
