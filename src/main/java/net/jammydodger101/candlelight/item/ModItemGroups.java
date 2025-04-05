@@ -33,6 +33,7 @@ public class ModItemGroups {
         entries.add(ModBlocks.LEAN_CANDLE);
         entries.add(ModBlocks.DELUXE_CANDLE);
         entries.add(ModItems.REVIVER);
+        entries.add(ModItems.CUSTOM_BOW);
     }).build());
 
     public static void registerItemGroups() {

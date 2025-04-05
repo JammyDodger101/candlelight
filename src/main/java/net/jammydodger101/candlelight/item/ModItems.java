@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.jammydodger101.candlelight.Candlelight;
 import net.jammydodger101.candlelight.block.ModBlocks;
+import net.jammydodger101.candlelight.item.custom.CustomBowItem;
 import net.jammydodger101.candlelight.item.custom.ReviverItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -21,6 +22,7 @@ public class ModItems {
             //new Item(new FabricItemSettings().maxCount(1)));
 
     public static final Item REVIVER = registerItem("reviver", new ReviverItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item CUSTOM_BOW = registerItem("custom_bow", new CustomBowItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
     private static void addItemsToIngredientTabItemGroup(FabricItemGroupEntries entries) {
 
