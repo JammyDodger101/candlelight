@@ -8,8 +8,12 @@ import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.dimension.DimensionTypes;
 import org.jetbrains.annotations.Nullable;
+
+/*
+Unused class for the effects that should be applied in the Candleless dimension
+Probably need to get this working someday
+ */
 
 public class ModDimensionEffects extends DimensionEffects{
 
@@ -17,7 +21,7 @@ public class ModDimensionEffects extends DimensionEffects{
     private static final Object2ObjectMap<Identifier, DimensionEffects> BY_IDENTIFIER = Util.make(new Object2ObjectArrayMap(), map -> {
         DimensionEffects.Overworld overworld = new DimensionEffects.Overworld();
         map.defaultReturnValue(overworld);
-        map.put(new Identifier("candleless"), new Candleless());
+        map.put(Identifier.of("candleless"), new Candleless());
 
     });
 

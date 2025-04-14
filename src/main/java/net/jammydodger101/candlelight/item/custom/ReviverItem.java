@@ -10,7 +10,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
-import java.util.Objects;
+/*
+Revives all players that are trapped in Candleless when used
+ */
 
 public class ReviverItem extends Item {
     public ReviverItem(Settings settings) {
@@ -21,12 +23,13 @@ public class ReviverItem extends Item {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
 
+        // fails if not in the overworld
         if (world instanceof ServerWorld) {
             ServerWorld serverWorld = (world.getServer().getOverworld());
             if (serverWorld == null) {
                 return TypedActionResult.fail(itemStack);
             }
-            serverWorld.getServer().getPlayerManager().getPlayer(user.getEntityName());
+            // revives all players that are online and in candleless
             PlayerCandleHandler.reviveEveryone(serverWorld);
             user.incrementStat(Stats.USED.getOrCreateStat(this));
             if (!user.isSpectator()) {

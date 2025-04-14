@@ -1,29 +1,29 @@
 package net.jammydodger101.candlelight.item;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.jammydodger101.candlelight.Candlelight;
-import net.jammydodger101.candlelight.item.custom.CandleCompassItem;
-import net.jammydodger101.candlelight.item.custom.EventFragmentItem;
-import net.jammydodger101.candlelight.item.custom.LifestealHeartItem;
-import net.jammydodger101.candlelight.item.custom.ReviverItem;
+import net.jammydodger101.candlelight.item.custom.*;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 
+/*
+Registers all the items used in the candlelight mod
+ */
+
 public class ModItems {
 
-    public static final Item REVIVER = registerItem("reviver", new ReviverItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
-    public static final Item EVENT_FRAGMENT = registerItem("event_fragments", new EventFragmentItem(new FabricItemSettings().maxCount(16).rarity(Rarity.RARE)));
-    public static final Item CANDLE_COMPASS = registerItem("candle_compass", new CandleCompassItem(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
-    public static final Item LIFESTEAL_HEART = registerItem("lifesteal_heart", new LifestealHeartItem(new FabricItemSettings().rarity(Rarity.EPIC)));
-
-    public static final Item CROCKSMARTER_BLADE = registerItem("crocksmarter_blade", new SwordItem(ToolMaterials.DIAMOND, 2, -4f, new Item.Settings().rarity(Rarity.EPIC)));
+    public static final Item REVIVER = registerItem("reviver", new ReviverItem(new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item EVENT_FRAGMENT = registerItem("event_fragments", new EventFragmentItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE)));
+    public static final Item CANDLE_COMPASS = registerItem("candle_compass", new CandleCompassItem(new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item PLAYER_COMPASS = registerItem("player_compass", new PlayerCompassItem(new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item CROCKSMARTER_BLADE = registerItem("crocksmarter_blade", new SwordItem(ToolMaterials.DIAMOND, new Item.Settings().rarity(Rarity.EPIC)));
+    public static final Item LIFESTEAL_HEART = registerItem("lifesteal_heart", new LifestealHeartItem(new Item.Settings().rarity(Rarity.EPIC)));
 
 
     private static Item registerItem(String name, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(Candlelight.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(Candlelight.MOD_ID, name), item);
     }
 
     public static void registerModItems() {

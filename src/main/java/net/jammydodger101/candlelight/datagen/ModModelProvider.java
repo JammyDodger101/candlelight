@@ -13,6 +13,8 @@ public class ModModelProvider extends FabricModelProvider {
         super(output);
     }
 
+    // creates the item and block models for everything
+
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         blockStateModelGenerator.registerCandle(ModBlocks.JAMMY_CANDLE, ModBlocks.JAMMY_CANDLE_CAKE);
@@ -21,17 +23,15 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerCandle(ModBlocks.CRAY_CANDLE, ModBlocks.CRAY_CANDLE_CAKE);
         blockStateModelGenerator.registerCandle(ModBlocks.EM_CANDLE, ModBlocks.EM_CANDLE_CAKE);
         blockStateModelGenerator.registerCandle(ModBlocks.CROC_CANDLE, ModBlocks.CROC_CANDLE_CAKE);
-        blockStateModelGenerator.registerCandle(ModBlocks.CAT_CANDLE, ModBlocks.CAT_CANDLE_CAKE);
-        blockStateModelGenerator.registerCandle(ModBlocks.LEAN_CANDLE, ModBlocks.LEAN_CANDLE_CAKE);
-        blockStateModelGenerator.registerCandle(ModBlocks.DELUXE_CANDLE, ModBlocks.DELUXE_CANDLE_CAKE);
         blockStateModelGenerator.registerCandle(ModBlocks.JK_CANDLE, ModBlocks.JK_CANDLE_CAKE);
         blockStateModelGenerator.registerCandle(ModBlocks.MUST_CANDLE, ModBlocks.MUST_CANDLE_CAKE);
         blockStateModelGenerator.registerCandle(ModBlocks.SOAP_CANDLE, ModBlocks.SOAP_CANDLE_CAKE);
         blockStateModelGenerator.registerCandle(ModBlocks.GEO_CANDLE, ModBlocks.GEO_CANDLE_CAKE);
-        blockStateModelGenerator.registerCandle(ModBlocks.TONY_CANDLE, ModBlocks.TONY_CANDLE_CAKE);
-        blockStateModelGenerator.registerCandle(ModBlocks.PRAI_CANDLE, ModBlocks.PRAI_CANDLE_CAKE);
-        blockStateModelGenerator.registerCandle(ModBlocks.GARY_CANDLE, ModBlocks.GARY_CANDLE_CAKE);
-        blockStateModelGenerator.registerCandle(ModBlocks.MAY_CANDLE, ModBlocks.MAY_CANDLE_CAKE);
+        blockStateModelGenerator.registerCandle(ModBlocks.TEA_CANDLE, ModBlocks.TEA_CANDLE_CAKE);
+        blockStateModelGenerator.registerCandle(ModBlocks.LEAN_CANDLE, ModBlocks.LEAN_CANDLE_CAKE);
+        blockStateModelGenerator.registerCandle(ModBlocks.SMOO_CANDLE, ModBlocks.SMOO_CANDLE_CAKE);
+        blockStateModelGenerator.registerCandle(ModBlocks.DELI_CANDLE, ModBlocks.DELI_CANDLE_CAKE);
+        blockStateModelGenerator.registerCandle(ModBlocks.MARS_CANDLE, ModBlocks.MARS_CANDLE_CAKE);
 
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.CANDLELESS_FLOOR_BLOCK);
     }
@@ -41,7 +41,8 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.REVIVER, Models.GENERATED);
         itemModelGenerator.register(ModItems.EVENT_FRAGMENT, Models.GENERATED);
         itemModelGenerator.registerCompass(ModItems.CANDLE_COMPASS);
-        itemModelGenerator.register(ModItems.LIFESTEAL_HEART, Models.GENERATED);
+        itemModelGenerator.registerCompass(ModItems.PLAYER_COMPASS);
         itemModelGenerator.register(ModItems.CROCKSMARTER_BLADE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.LIFESTEAL_HEART, Models.GENERATED);
     }
 }

@@ -5,21 +5,24 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.jammydodger101.candlelight.block.ModBlocks;
 import net.jammydodger101.candlelight.item.ModItems;
 import net.minecraft.block.Blocks;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 
-import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
-    public ModRecipeProvider(FabricDataOutput output) {
-        super(output);
+    public ModRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(output, registryLookup);
     }
 
+    // creates recipes for everything except player compasses (not added yet)
+
     @Override
-    public void generate(Consumer<RecipeJsonProvider> exporter) {
+    public void generate(RecipeExporter exporter) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.REVIVER, 1)
                 .pattern("CGC")
                 .pattern("DTD")
@@ -29,7 +32,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('D', Items.DIAMOND)
                 .input('T', Items.TOTEM_OF_UNDYING)
                 .criterion(hasItem(Items.TOTEM_OF_UNDYING), conditionsFromItem(Items.TOTEM_OF_UNDYING))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.REVIVER)));
+                .offerTo(exporter, Identifier.of(getRecipeName(ModItems.REVIVER)));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.CANDLE_COMPASS, 1)
                 .pattern("FFF")
@@ -38,7 +41,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('F', ModItems.EVENT_FRAGMENT)
                 .input('C', Items.COMPASS)
                 .criterion(hasItem(ModItems.EVENT_FRAGMENT), conditionsFromItem(ModItems.EVENT_FRAGMENT))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.CANDLE_COMPASS)));
+                .offerTo(exporter, Identifier.of(getRecipeName(ModItems.CANDLE_COMPASS)));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.LIFESTEAL_HEART, 1)
                 .pattern("SFS")
@@ -48,7 +51,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('S', Items.NETHERITE_SCRAP)
                 .input('R', Blocks.RESPAWN_ANCHOR)
                 .criterion(hasItem(ModItems.EVENT_FRAGMENT), conditionsFromItem(ModItems.EVENT_FRAGMENT))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.LIFESTEAL_HEART)));
+                .offerTo(exporter, Identifier.of(getRecipeName(ModItems.LIFESTEAL_HEART)));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.CROCKSMARTER_BLADE, 1)
                 .pattern(" C ")
@@ -57,6 +60,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('C', ModBlocks.CANDLELESS_FLOOR_BLOCK)
                 .input('S', Items.STICK)
                 .criterion(hasItem(ModBlocks.CANDLELESS_FLOOR_BLOCK), conditionsFromItem(ModBlocks.CANDLELESS_FLOOR_BLOCK))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.CROCKSMARTER_BLADE)));
+                .offerTo(exporter, Identifier.of(getRecipeName(ModItems.CROCKSMARTER_BLADE)));
     }
 }

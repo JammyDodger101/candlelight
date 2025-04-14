@@ -1,9 +1,8 @@
 package net.jammydodger101.candlelight.util;
 
 import net.jammydodger101.candlelight.Candlelight;
-import net.jammydodger101.candlelight.PlayerData;
-import net.jammydodger101.candlelight.StateSaverAndLoader;
 import net.jammydodger101.candlelight.block.ModBlocks;
+import net.jammydodger101.candlelight.effect.ModEffects;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -11,9 +10,8 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.GlobalPos;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -21,38 +19,44 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-public class PlayerCandleHandler
+/*
+The main bulk of the candlelight mod
+Handles most of the logic to do with the candles
+ */
 
+public class PlayerCandleHandler
 {
+    // lists of variables to keep track of
     public static List<Block> candles = new ArrayList<>();
     public static List<String> candleOwners = new ArrayList<>();
     public static List<Boolean> candleStatus = new ArrayList<>();
     public static List<Boolean> trappedPlayerBools = new ArrayList<>();
-    public static List<BlockPos> candleCoordinates = new ArrayList<>();
+    public static List<GlobalPos> candleCoordinates = new ArrayList<>();
     public static int listPos = 0;
 
-
+    // adds the player specific data to the lists
     public static void addCandlesToList() {
         listAdder(ModBlocks.JAMMY_CANDLE, "jammydodger101", false);
         listAdder(ModBlocks.POM_CANDLE, "pompomdexter", false);
         listAdder(ModBlocks.SPAM_CANDLE, "citramin", false);
+        //season two!!
         listAdder(ModBlocks.CRAY_CANDLE, "crayzink", false);
         listAdder(ModBlocks.EM_CANDLE, "longpotter", false);
         listAdder(ModBlocks.CROC_CANDLE, "crocksmarter", false);
-        listAdder(ModBlocks.CAT_CANDLE, "a_random_cat", false);
-        listAdder(ModBlocks.LEAN_CANDLE, "leantheliquid", false);
-        listAdder(ModBlocks.DELUXE_CANDLE, "realdeluxe", false); //yikes
-        listAdder(ModBlocks.JK_CANDLE, "not_jk", false);
         //season three!!!
+        listAdder(ModBlocks.JK_CANDLE, "not_jk", false);
         listAdder(ModBlocks.MUST_CANDLE, "callmemustard_", false);
         listAdder(ModBlocks.SOAP_CANDLE, "ashpffwho", false);
         listAdder(ModBlocks.GEO_CANDLE, "georgehminer", false);
-        listAdder(ModBlocks.TONY_CANDLE, "livelaughthrive", false);
-        listAdder(ModBlocks.PRAI_CANDLE, "prairieranger", false);
-        listAdder(ModBlocks.GARY_CANDLE, "beefjerkyzxz", false);
-        listAdder(ModBlocks.MAY_CANDLE, "maytack", false);
+        //season four!!!!
+        listAdder(ModBlocks.TEA_CANDLE, "teaish7", false);
+        listAdder(ModBlocks.LEAN_CANDLE, "leantheliquid", false);
+        listAdder(ModBlocks.MARS_CANDLE, "jellirolls", false);
+        listAdder(ModBlocks.DELI_CANDLE, "deliwarp", false);
+        listAdder(ModBlocks.SMOO_CANDLE, "smooothie", false);
     }
 
+    // adds general variables to the list
     public static void listAdder(Block block, String playerName, Boolean candleStatusBool) {
         candles.add(block);
         candleOwners.add(playerName);
@@ -67,22 +71,21 @@ public class PlayerCandleHandler
 
     public static void setCandleCoordinates(BlockPos pos, BlockState state, Block block, World world) {
         if (!world.isClient()) {
-            StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(world.getServer());
+            int index;
             if (state.getBlock() == block) {
-                serverState.candleLocations.put(getListLocation(state.getBlock()), pos.toShortString());
-                candleCoordinates.set(getListLocation(block),pos);
+                index = getListLocation(block);
+                candleCoordinates.set(index,GlobalPos.create(world.getRegistryKey(), pos));
             } else if (block == null) {
-                candleCoordinates.set(getListLocation(state.getBlock()),null);
-                serverState.candleLocations.put(getListLocation(state.getBlock()), "");
+                index = getListLocation(state.getBlock());
+                candleCoordinates.set(index,null);
             }
         }
     }
 
-    public static BlockPos getCandleCoordinates(String playerName, ServerPlayerEntity player) {
+    public static GlobalPos getCandleCoordinates(String playerName, ServerPlayerEntity player) {
         if(candleOwners.contains(playerName.toLowerCase())) {
-            StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(player.getServer()));
-            Integer index = candleOwners.indexOf(playerName.toLowerCase());
-            return CandleLocationConverter.StringToBlockPos(serverState.candleLocations.get(index));
+            int index = candleOwners.indexOf(playerName.toLowerCase());
+            return candleCoordinates.get(index);
         }
         return null;
     }
@@ -102,20 +105,10 @@ public class PlayerCandleHandler
         return null;
     }
 
-    //public static void updatePlayerTrapped(World world) {
-    //    StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(world.getServer()));
-
-        //cheeky little code slide-in
-   //     for (int i = 0; i < trappedPlayerBools.size(); i++) {
-   //         trappedPlayerBools.set(i,serverState.playersTrapped.get(candleOwners.get(i)));
-    //    }
-    //}
-
     public static Boolean checkPlayerTrappedStatusCommand(String playerName) {
         if (candleOwners.contains(playerName.toLowerCase())) {
             return trappedPlayerBools.get(candleOwners.indexOf(playerName.toLowerCase()));
         }
-
         return null;
     }
 
@@ -126,18 +119,17 @@ public class PlayerCandleHandler
             return;
         }
         if (!world.isClient()) {
-            if (world.getServer() != null) {
-                StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(world.getServer()));
-                serverState.candleStatuses.put(candleOwners.get(candles.indexOf(candleBlock)), newStatus);
-
-            }
             candleStatus.set(listPos, newStatus);
         }
     }
 
     public static void changePlayerTrappedStatus(PlayerEntity player, boolean newStatus) {
+        changePlayerTrappedStatus(player.getName().getString(), newStatus);
+    }
+
+    public static void changePlayerTrappedStatus(String playerName, boolean newStatus) {
         try {
-            listPos = candleOwners.indexOf(player.getName().getString().toLowerCase());
+            listPos = candleOwners.indexOf(playerName.toLowerCase());
         } catch (Exception e) {
             return;
         }
@@ -153,27 +145,22 @@ public class PlayerCandleHandler
                 trappedPlayerBools) {
 
             if(trapped!=null) {
-                if (trapped) {
-                    String playerName = candleOwners.get(listPos);
+                String playerName = candleOwners.get(listPos);
 
-                    ServerPlayerEntity serverPlayer = world.getServer().getPlayerManager().getPlayer(playerName);
+                ServerPlayerEntity serverPlayer = Objects.requireNonNull(world.getServer()).getPlayerManager().getPlayer(playerName);
 
-                    if (serverPlayer != null) {
+                if (serverPlayer != null) {
+                    if (trapped || serverPlayer.getCommandTags().contains("trapped")) {
+
                         if (world.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
-                            if (!serverPlayer.hasStatusEffect(StatusEffects.DARKNESS)) {
-                                //serverPlayer.sendMessage(Text.literal(trapped.toString()));
-                                serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 999999999 , 1, false, false, false));
-                                serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 999999999 , 0, false, false, false));
-                                serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 999999999 , 1, false, false, false));
-                                serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 999999999 , 254, false, false, false));
-                                //serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 999999999 , 1, false, false, false));
+                            if (!serverPlayer.hasStatusEffect(ModEffects.EXTINGUISHED)) {
+                                serverPlayer.addStatusEffect(new StatusEffectInstance(ModEffects.EXTINGUISHED, -1 , 0, false, false, false));
+                                serverPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, -1 , 0, false, false, false));
 
                             }
                         }
                     }
-
                 }
-
             }
             listPos++;
         }
@@ -192,35 +179,29 @@ public class PlayerCandleHandler
                     trappedPlayerBools) {
 
                 if (trapped != null) {
-                    if (trapped) {
-                        String playerName = candleOwners.get(listPos);
+                    String playerName = candleOwners.get(listPos);
 
-                        ServerPlayerEntity serverPlayer = serverWorld.getServer().getPlayerManager().getPlayer(playerName);
+                    ServerPlayerEntity serverPlayer = serverWorld.getServer().getPlayerManager().getPlayer(playerName);
 
-                        if (serverPlayer != null) {
-                            StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(serverPlayer.getServer()));
+                    if (serverPlayer != null) {
+                        if (trapped) {
+                            serverPlayer.removeCommandTag("trapped");
                             if (serverWorld.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
 
                                 serverPlayer.stopRiding();
-                                serverPlayer.teleport(serverWorld.getServer().getOverworld(), worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ() , Set.of(), 0f, 0f);
+                                serverPlayer.teleport(serverWorld.getServer().getOverworld(), worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ(), Set.of(), 0f, 0f);
 
                                 serverPlayer.fallDistance = 0.0f;
 
                                 trappedPlayerBools.set(listPos, false);
-                                serverState.playersTrapped.put(serverPlayer.getDisplayName().getString(), false);
+                                if (serverPlayer.hasStatusEffect(ModEffects.EXTINGUISHED)) {
 
-                                if (serverPlayer.hasStatusEffect(StatusEffects.DARKNESS)) {
-
+                                    serverPlayer.removeStatusEffect(ModEffects.EXTINGUISHED);
                                     serverPlayer.removeStatusEffect(StatusEffects.DARKNESS);
-                                    serverPlayer.removeStatusEffect(StatusEffects.NIGHT_VISION);
-                                    serverPlayer.removeStatusEffect(StatusEffects.RESISTANCE);
-                                    serverPlayer.removeStatusEffect(StatusEffects.SLOWNESS);
-                                    serverPlayer.removeStatusEffect(StatusEffects.SLOW_FALLING);
                                 }
                             }
                         }
                     }
-
                 }
                 listPos++;
             }
@@ -228,50 +209,6 @@ public class PlayerCandleHandler
     }
 
     public static void reviveCommand(ServerWorld serverWorld) {
-        BlockPos worldSpawn = serverWorld.getSpawnPos();
-
-        int listPos = 0;
-
-        if (trappedPlayerBools.contains(true)) {
-
-            Candlelight.LOGGER.info("Reviving Players");
-
-            for (Boolean trapped :
-                    trappedPlayerBools) {
-
-                if (trapped != null) {
-                    if (trapped) {
-                        String playerName = candleOwners.get(listPos);
-
-                        ServerPlayerEntity serverPlayer = serverWorld.getServer().getPlayerManager().getPlayer(playerName);
-
-                        if (serverPlayer != null) {
-                            StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(serverPlayer.getServer()));
-
-                            if (serverWorld.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
-
-                                serverPlayer.stopRiding();
-                                serverPlayer.teleport(serverWorld.getServer().getOverworld(), worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ() , Set.of(), 0f, 0f);
-                                serverPlayer.setSpawnPoint(World.OVERWORLD,worldSpawn,0f,true,false);
-                                serverPlayer.fallDistance = 0.0f;
-
-                                trappedPlayerBools.set(listPos, false);
-                                serverState.playersTrapped.put(serverPlayer.getDisplayName().getString(), false);
-
-                                if (serverPlayer.hasStatusEffect(StatusEffects.DARKNESS)) {
-
-                                    serverPlayer.removeStatusEffect(StatusEffects.DARKNESS);
-                                    serverPlayer.removeStatusEffect(StatusEffects.NIGHT_VISION);
-                                    serverPlayer.removeStatusEffect(StatusEffects.RESISTANCE);
-                                    serverPlayer.removeStatusEffect(StatusEffects.SLOWNESS);
-                                    serverPlayer.removeStatusEffect(StatusEffects.SLOW_FALLING);
-                                }
-                            }
-                        }
-                    }
-                }
-                listPos++;
-            }
-        }
+        reviveEveryone(serverWorld);
     }
 }

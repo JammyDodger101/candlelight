@@ -4,27 +4,27 @@
   "block.candlelight.spam_candle" : "§bCandle - Citramin",
   "block.candlelight.cray_candle" : "§bCandle - CrayZink",
   "block.candlelight.em_candle" : "§bCandle - Longpotter",
-  "block.candlelight.croc_candle" : "§bCandle - CrockSmarter",
-  "block.candlelight.cat_candle" : "§bCandle - a_random_cat",
-  "block.candlelight.lean_candle" : "§bCandle - LeanTheLiquid",
-  "block.candlelight.deluxe_candle" : "§bCandle - RealDeluxe",
+  "block.candlelight.croc_candle" : "§bCandle - crocksmarter",
   "block.candlelight.jk_candle" : "§bCandle - not_JK",
   "block.candlelight.must_candle" : "§bCandle - CallmeMustard_",
   "block.candlelight.soap_candle" : "§bCandle - Ashpffwho",
   "block.candlelight.geo_candle" : "§bCandle - GeorgeHMiner",
-  "block.candlelight.tony_candle" : "§bCandle - LiveLaughThrive",
-  "block.candlelight.prai_candle" : "§bCandle - PrairieRanger",
-  "block.candlelight.gary_candle" : "§bCandle - Beefjerkyzxz",
-  "block.candlelight.may_candle" : "§bCandle - Maytack",
+  "block.candlelight.tea_candle" : "§bCandle - Teaish7",
+  "block.candlelight.lean_candle" : "§bCandle - LeanTheLiquid",
+  "block.candlelight.mars_candle" : "§bCandle - jellirolls",
+  "block.candlelight.deli_candle" : "§bCandle - Deliwarp",
+  "block.candlelight.smoo_candle" : "§bCandle - Smooothie",
 
-  "block.candlelight.ruby_block" : "Block of Ruby",
   "block.candlelight.candleless_floor_block" : "Candleless Floor Block",
 
   "item.candlelight.reviver" : "Reviver",
   "item.candlelight.event_fragments" : "Event Fragments",
   "item.candlelight.candle_compass" : "Candle Compass",
+  "item.candlelight.player_compass" : "Player Compass",
   "item.candlelight.lifesteal_heart" : "Heart",
   "item.candlelight.crocksmarter_blade" : "Crocksmarter Blade",
 
-  "itemgroup.candlelight" : "Candlelight Group"
+  "itemgroup.candlelight" : "Candlelight Group",
+
+  "effect.candlelight.extinguished": "Extinguished"
 }

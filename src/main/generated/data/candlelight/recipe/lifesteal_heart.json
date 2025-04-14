@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "candlelight:event_fragments"
+    },
+    "R": {
+      "item": "minecraft:respawn_anchor"
+    },
+    "S": {
+      "item": "minecraft:netherite_scrap"
+    }
+  },
+  "pattern": [
+    "SFS",
+    "FRF",
+    "SFS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "candlelight:lifesteal_heart"
+  }
+}

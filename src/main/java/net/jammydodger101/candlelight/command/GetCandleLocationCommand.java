@@ -9,7 +9,11 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.GlobalPos;
+
+/*
+Returns the location of a specified candle
+ */
 
 public class GetCandleLocationCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
@@ -17,17 +21,20 @@ public class GetCandleLocationCommand {
                 .requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(2))
                 .then(CommandManager.argument("playerName", StringArgumentType.string())
                         .executes(GetCandleLocationCommand::run)));
-
+        // takes in string of player name
+        // only allowed use by operators
     }
 
     private static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().getPlayer();
         String id = StringArgumentType.getString(context, "playerName");
 
-        BlockPos pos = PlayerCandleHandler.getCandleCoordinates(id, player);
+        GlobalPos pos = PlayerCandleHandler.getCandleCoordinates(id, player);
 
+        // returns an error if it can't find the player
+        assert player != null;
         if (pos != null) {
-            player.sendMessage(Text.literal("Candle is at "+ pos));
+            player.sendMessage(Text.literal("Candle is at "+ pos.toString()));
             return 1;
         }
         player.sendMessage(Text.literal("Candle is not placed down or player doesnt exist"));

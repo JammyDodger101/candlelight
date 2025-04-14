@@ -1,16 +1,12 @@
 package net.jammydodger101.candlelight.item.custom;
 
-import com.mojang.logging.LogUtils;
+import net.jammydodger101.candlelight.component.ModDataComponentTypes;
 import net.jammydodger101.candlelight.item.ModItems;
 import net.jammydodger101.candlelight.util.CandleCompassFunctionality;
 import net.jammydodger101.candlelight.util.ModTags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtHelper;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -20,52 +16,45 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
 
-import java.util.Optional;
 import java.util.Random;
 
+/*
+A compass that points to the nearest candle when used
+ */
+
 public class CandleCompassItem
-        extends Item
-        implements Vanishable {
+        extends Item {
 
-    private static final Logger LOGGER = LogUtils.getLogger();
-    public static final String CANDLE_POS_KEY = "CandlePos";
-    public static final String CANDLE_DIMENSION_KEY = "CandleDimension";
-    public static final String CANDLE_TRACKED_KEY = "CandleTracked";
-
+    // randomly assigns a distance from the candle where the compass breaks
     public static Integer trackingDistance = new Random().nextInt(400,600);
 
     public CandleCompassItem(Settings settings) {
         super(settings);
     }
 
+    // only returns true if the coordinate data component actually has a position stored
     public static boolean hasCandle(ItemStack stack) {
-        NbtCompound nbtCompound = stack.getNbt();
-        return nbtCompound != null && (nbtCompound.contains(CANDLE_DIMENSION_KEY) || nbtCompound.contains(CANDLE_POS_KEY));
-    }
-
-    private static Optional<RegistryKey<World>> getCandleDimension(NbtCompound nbt) {
-        return World.CODEC.parse(NbtOps.INSTANCE, nbt.get(CANDLE_DIMENSION_KEY)).result();
-    }
-
-    @Nullable
-    public static GlobalPos createCandlePos(NbtCompound nbt) {
-        Optional<RegistryKey<World>> optional;
-        boolean bl = nbt.contains(CANDLE_POS_KEY);
-        boolean bl2 = nbt.contains(CANDLE_DIMENSION_KEY);
-        if (bl && bl2 && (optional = CandleCompassItem.getCandleDimension(nbt)).isPresent()) {
-            BlockPos blockPos = NbtHelper.toBlockPos(nbt.getCompound(CANDLE_POS_KEY));
-            return GlobalPos.create(optional.get(), blockPos);
+        try {
+            return stack.get(ModDataComponentTypes.COORDINATES).pos() != null;
+        } catch (NullPointerException e) {
+            return false;
         }
-        return null;
     }
 
+    // returns the candle position
+    @Nullable
+    public static GlobalPos createCandlePos(ItemStack stack) {
+        return stack.get(ModDataComponentTypes.COORDINATES);
+    }
+
+    // returns the position of spawn
     @Nullable
     public static GlobalPos createSpawnPos(World world) {
         return world.getDimension().natural() ? GlobalPos.create(world.getRegistryKey(), world.getSpawnPos()) : null;
     }
 
+    // only makes the candle glint if it has a position stored
     @Override
     public boolean hasGlint(ItemStack stack) {
         return CandleCompassItem.hasCandle(stack) || super.hasGlint(stack);
@@ -78,32 +67,28 @@ public class CandleCompassItem
         }
 
         if (CandleCompassItem.hasCandle(stack)) {
+            GlobalPos globalPos = stack.get(ModDataComponentTypes.COORDINATES);
+            assert globalPos != null;
+            BlockPos blockPos = globalPos.pos();
+            RegistryKey<World> optional = globalPos.dimension();
 
-
-            BlockPos blockPos;
-            NbtCompound nbtCompound = stack.getOrCreateNbt();
-            if (nbtCompound.contains(CANDLE_TRACKED_KEY) && !nbtCompound.getBoolean(CANDLE_TRACKED_KEY)) {
-                return;
-            }
-            Optional<RegistryKey<World>> optional = CandleCompassItem.getCandleDimension(nbtCompound);
-
-            //code to make it spin if theres no candle anymore?? i think??
-            if (optional.isPresent() && optional.get() == world.getRegistryKey()
-                    && nbtCompound.contains(CANDLE_POS_KEY)
-                    && (!world.isInBuildLimit(blockPos = NbtHelper.toBlockPos(nbtCompound.getCompound(CANDLE_POS_KEY)))
+            // if the candle it's tracking is no longer there, it sets the location its tracking to the integer limit
+            if (optional == world.getRegistryKey()
+                    && (!world.isInBuildLimit(blockPos)
                     || !world.getBlockState(blockPos).isIn(ModTags.Blocks.CUSTOM_CANDLES)))
                      {
-                nbtCompound.remove(CANDLE_POS_KEY);
+                stack.set(ModDataComponentTypes.COORDINATES, GlobalPos.create(world.getRegistryKey(), CandleCompassFunctionality.intLimitPos));
 
-                if (blockPos.getY() < 200000) {
+                // if the candle is at the integer limit, it will try and point to the nearest candle it can
+                if (blockPos.getY() > 200000) {
                     CandleCompassFunctionality.fillCandleCoordinates(world);
-                    BlockPos nearestCandle = CandleCompassFunctionality.getNearestCandle((PlayerEntity) entity);
-                    this.writeNbt(world.getRegistryKey(), nearestCandle, stack.getOrCreateNbt());
+                    GlobalPos nearestCandle = CandleCompassFunctionality.getNearestCandle((PlayerEntity) entity, world);
+                    stack.set(ModDataComponentTypes.COORDINATES, nearestCandle);
                 }
 
             }
 
-            blockPos = NbtHelper.toBlockPos(nbtCompound.getCompound(CANDLE_POS_KEY));
+            // if the player location is closer to the block than the tracking distance, the compass breaks
             if (blockPos.getSquaredDistance(entity.getBlockPos().toCenterPos()) < trackingDistance) {
                 stack.decrement(1);
                 world.playSound(null, entity.getBlockPos(), SoundEvents.ITEM_SHIELD_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
@@ -113,47 +98,38 @@ public class CandleCompassItem
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        //BlockPos blockPos = user.getBlockPos();
-
+        // resets the tracking distance so its not the same everytime
         trackingDistance = new Random().nextInt(400,600);
 
-
+        // fills out the candle coordinates in the functionality class
         CandleCompassFunctionality.fillCandleCoordinates(world);
 
-        BlockPos blockPos = CandleCompassFunctionality.getNearestCandle(user);
+        // gets the nearest candle
+        GlobalPos blockPos = CandleCompassFunctionality.getNearestCandle(user, world);
 
+        // if there are no candles, the use action fails
         if (blockPos == null) {
             return TypedActionResult.fail(user.getStackInHand(hand));
         }
 
-        //if (world.getBlockState(blockPos).isOf(ModBlocks.JAMMY_CANDLE)) {
-        boolean bl;
         world.playSound(null, user.getBlockPos(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.PLAYERS, 1.0f, 1.0f);
 
+        // if creative, gives the player an extra compass instead of using up the original
+        // otherwise, it just updates the current compass to point in the right direction
         ItemStack itemStack = user.getStackInHand(hand);
-        boolean bl2 = bl = !user.getAbilities().creativeMode && itemStack.getCount() == 1;
-        if (bl) {
-            this.writeNbt(world.getRegistryKey(), blockPos, itemStack.getOrCreateNbt());
+        boolean isCreative = !user.getAbilities().creativeMode && itemStack.getCount() == 1;
+        if (isCreative) {
+            itemStack.set(ModDataComponentTypes.COORDINATES, blockPos);
         } else {
-            ItemStack itemStack2 = new ItemStack(ModItems.CANDLE_COMPASS, 1);
-            NbtCompound nbtCompound = itemStack.hasNbt() ? itemStack.getNbt().copy() : new NbtCompound();
-            itemStack2.setNbt(nbtCompound);
-            if (!user.getAbilities().creativeMode) {
-                itemStack.decrement(1);
-            }
-            this.writeNbt(world.getRegistryKey(), blockPos, nbtCompound);
+            ItemStack itemStack2 = itemStack.copyComponentsToNewStack(ModItems.CANDLE_COMPASS, 1);
+            itemStack.decrementUnlessCreative(1, user);
+            itemStack2.set(ModDataComponentTypes.COORDINATES, blockPos);
+            // drops the item if the players inventory is full
             if (!user.getInventory().insertStack(itemStack2)) {
                 user.dropItem(itemStack2, false);
             }
         }
         return TypedActionResult.success(user.getStackInHand(hand));
-    }
-
-
-    private void writeNbt(RegistryKey<World> worldKey, BlockPos pos, NbtCompound nbt) {
-        nbt.put(CANDLE_POS_KEY, NbtHelper.fromBlockPos(pos));
-        World.CODEC.encodeStart(NbtOps.INSTANCE, worldKey).resultOrPartial(LOGGER::error).ifPresent(nbtElement -> nbt.put(CANDLE_DIMENSION_KEY, (NbtElement)nbtElement));
-        nbt.putBoolean(CANDLE_TRACKED_KEY, true);
     }
 
     @Override

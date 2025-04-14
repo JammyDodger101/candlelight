@@ -1,9 +1,9 @@
-// 1.20.1	2024-06-09T16:55:34.5290614	Candlelight Mod/Recipes
-ad33a38180cdd2ff3ef532b2215f8d66fe555eac data\candlelight\recipes\lifesteal_heart.json
-059e69442a00d655651c5fb4b1e5d5778185131d data\candlelight\recipes\candle_compass.json
-8b8308d929018bed8646dde352f921d3400c4c3d data\candlelight\advancements\recipes\tools\reviver.json
-699eaca82993c1e3ab7848f7cadddc0231bcb107 data\candlelight\advancements\recipes\misc\candle_compass.json
-74dcf8554d22186d8582a7e2d15a4f80848bb90c data\candlelight\advancements\recipes\misc\lifesteal_heart.json
-62663f36485ded9f5487768b8121ab7da62e5a76 data\candlelight\advancements\recipes\misc\crocksmarter_blade.json
-9eb1db36e1b590fda9cb7d839a012955bdb2293e data\candlelight\recipes\reviver.json
-6e76a279612fb9842d706e1960a881d979d86d9a data\candlelight\recipes\crocksmarter_blade.json
+// 1.21	2025-03-10T19:30:43.9542646	Candlelight Mod/Recipes
+9cc91ed47d94f6f9dabd8b4c39026dd3aa1a174c data\candlelight\advancement\recipes\tools\reviver.json
+482444f3039440983c0007ff5dce2fb779f8d4b2 data\candlelight\advancement\recipes\misc\lifesteal_heart.json
+e610e3b1dc7100567158caf2808b26dc739f9dd7 data\candlelight\recipe\crocksmarter_blade.json
+b079a1ea96ca8e8e3567ac5b9eef8e499c8fb9e8 data\candlelight\advancement\recipes\misc\candle_compass.json
+5940ac402de28164b639548f857724471a172fb5 data\candlelight\recipe\lifesteal_heart.json
+b5ec32d3043dac3596dc3c1ddf4af66dec6958de data\candlelight\advancement\recipes\misc\crocksmarter_blade.json
+efa8ef9a7506c6acfe6488bfe47735b3dc960798 data\candlelight\recipe\reviver.json
+113a571ca507fbd05c25b5c426e9cdf83feabe66 data\candlelight\recipe\candle_compass.json

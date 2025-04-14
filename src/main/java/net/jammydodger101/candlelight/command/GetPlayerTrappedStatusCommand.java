@@ -4,15 +4,15 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.jammydodger101.candlelight.StateSaverAndLoader;
 import net.jammydodger101.candlelight.util.PlayerCandleHandler;
-import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
-import java.util.Objects;
+/*
+Returns whether a player is trapped in candleless or not.
+ */
 
 public class GetPlayerTrappedStatusCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
@@ -20,17 +20,18 @@ public class GetPlayerTrappedStatusCommand {
                 .requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(2))
                 .then(CommandManager.argument("playerName", StringArgumentType.string())
                         .executes(GetPlayerTrappedStatusCommand::run)));
-
+        // takes in string of player name
+        // only allowed use by operators
     }
 
     private static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-
+        // gets player name and makes sure it isnt null
         ServerPlayerEntity player = context.getSource().getPlayer();
         assert player != null;
-        StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(Objects.requireNonNull(player.getServer()));
         String id = StringArgumentType.getString(context, "playerName");
 
-        Boolean trappedStatus = serverState.playersTrapped.get(id);
+        // checks if player is trapped using player candle handler function
+        Boolean trappedStatus = PlayerCandleHandler.checkPlayerTrappedStatusCommand(id);
         if (trappedStatus != null) {
             if (trappedStatus == Boolean.TRUE) {
                 player.sendMessage(Text.literal("Player should be trapped in candleless"));
