@@ -1,0 +1,17 @@
+package net.jammydodger101.candlelight.command;
+
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+
+public final class ModCommands {
+    // registers all the commands using the dispatcher
+    public static void init() {
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+            GetCandleStatusCommand.register(dispatcher);
+            GetPlayerTrappedStatusCommand.register(dispatcher);
+            RevivePlayersCommand.register(dispatcher);
+            GetCandleLocationCommand.register(dispatcher);
+            WithdrawHeartCommand.register(dispatcher);
+            SetTrappedCommand.register(dispatcher);
+        });
+    }
+}

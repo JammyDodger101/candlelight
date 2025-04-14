@@ -23,7 +23,6 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.Util;
@@ -94,11 +93,11 @@ public class PlayerCandleBlock
 
 
     @Override
-    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         // extinguishes the candle if the player isnt holding anything
         if (stack.isEmpty() && player.getAbilities().allowModifyWorld && (Boolean)state.get(LIT)) {
             extinguish(player, state, world, pos);
-            return ActionResult.SUCCESS;
+            return ItemActionResult.success(world.isClient);
         } else if (player.getAbilities().allowModifyWorld && !state.get(LIT) && !state.get(WATERLOGGED)) {
             // lights the candle if the player is using a flint and steel or a fire charge
             if (stack.isOf(Items.FLINT_AND_STEEL)) {

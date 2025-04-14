@@ -1,0 +1,30 @@
+package net.jammydodger101.candlelight.util;
+
+import net.jammydodger101.candlelight.Candlelight;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
+
+/*
+Adds the tags for the custom candles
+ */
+
+public class ModTags {
+
+    public static class Blocks {
+        public static final TagKey<Block> CUSTOM_CANDLES =
+                createTag("custom_candles");
+
+        private static TagKey<Block> createTag(String name) {
+            return TagKey.of(RegistryKeys.BLOCK, Identifier.of(Candlelight.MOD_ID, name));
+        }
+    }
+
+    public static class Items {
+        private static TagKey<Item> createTag(String name) {
+            return TagKey.of(RegistryKeys.ITEM, Identifier.of(Candlelight.MOD_ID, name));
+        }
+    }
+}
