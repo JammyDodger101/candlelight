@@ -1,5 +1,6 @@
 package net.jammydodger101.candlelight.world.dimension;
 
+/*
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import net.fabricmc.api.EnvType;
@@ -13,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 /*
 Unused class for the effects that should be applied in the Candleless dimension
 Probably need to get this working someday
- */
+
 
 public class ModDimensionEffects extends DimensionEffects{
 
@@ -68,3 +69,5 @@ public class ModDimensionEffects extends DimensionEffects{
 
     }
 }
+
+ */

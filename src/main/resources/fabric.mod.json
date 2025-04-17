@@ -18,9 +18,6 @@
 		"main": [
 			"net.jammydodger101.candlelight.Candlelight"
 		],
-		"client": [
-			"net.jammydodger101.candlelight.CandlelightClient"
-		],
 		"fabric-datagen": [
 			"net.jammydodger101.candlelight.CandlelightDataGenerator"
 		]

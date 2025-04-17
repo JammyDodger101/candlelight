@@ -5,13 +5,15 @@ import net.jammydodger101.candlelight.item.ModItems;
 import net.jammydodger101.candlelight.util.CandleCompassFunctionality;
 import net.jammydodger101.candlelight.util.ModTags;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.world.World;
@@ -61,7 +63,7 @@ public class CandleCompassItem
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+    public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
         if (world.isClient) {
             return;
         }
@@ -91,13 +93,13 @@ public class CandleCompassItem
             // if the player location is closer to the block than the tracking distance, the compass breaks
             if (blockPos.getSquaredDistance(entity.getBlockPos().toCenterPos()) < trackingDistance) {
                 stack.decrement(1);
-                world.playSound(null, entity.getBlockPos(), SoundEvents.ITEM_SHIELD_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
+                world.playSoundClient(SoundEvents.ITEM_SHIELD_BREAK.value(), SoundCategory.PLAYERS, 1.0f, 1.0f);
             }
         }
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    public ActionResult use(World world, PlayerEntity user, Hand hand) {
         // resets the tracking distance so its not the same everytime
         trackingDistance = new Random().nextInt(400,600);
 
@@ -109,7 +111,7 @@ public class CandleCompassItem
 
         // if there are no candles, the use action fails
         if (blockPos == null) {
-            return TypedActionResult.fail(user.getStackInHand(hand));
+            return ActionResult.FAIL;
         }
 
         world.playSound(null, user.getBlockPos(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.PLAYERS, 1.0f, 1.0f);
@@ -129,11 +131,6 @@ public class CandleCompassItem
                 user.dropItem(itemStack2, false);
             }
         }
-        return TypedActionResult.success(user.getStackInHand(hand));
-    }
-
-    @Override
-    public String getTranslationKey(ItemStack stack) {
-        return CandleCompassItem.hasCandle(stack) ? "item.candlelight.candle_compass" : super.getTranslationKey(stack);
+        return ActionResult.SUCCESS;
     }
 }

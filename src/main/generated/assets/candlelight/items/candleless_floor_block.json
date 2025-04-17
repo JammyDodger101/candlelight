@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "candlelight:block/candleless_floor_block"
+  }
+}

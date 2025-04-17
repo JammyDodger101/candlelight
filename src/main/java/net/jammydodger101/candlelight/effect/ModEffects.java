@@ -15,17 +15,17 @@ public class ModEffects {
     // adds all the attribute modifiers to the extinguished effect
     public static final RegistryEntry<StatusEffect> EXTINGUISHED = registerStatusEffect("extinguished",
             new ExtinguishedEffect(StatusEffectCategory.HARMFUL, 0xffffff)
-                    .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED,
+                    .addAttributeModifier(EntityAttributes.MOVEMENT_SPEED,
                             Identifier.of(Candlelight.MOD_ID, "extinguished"), -0.25f, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-                    .addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE,
+                    .addAttributeModifier(EntityAttributes.ATTACK_DAMAGE,
                             Identifier.of(Candlelight.MOD_ID, "extinguished"), -10f, EntityAttributeModifier.Operation.ADD_VALUE)
-                    .addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED,
+                    .addAttributeModifier(EntityAttributes.ATTACK_SPEED,
                             Identifier.of(Candlelight.MOD_ID, "extinguished"), -4f, EntityAttributeModifier.Operation.ADD_VALUE)
-                    .addAttributeModifier(EntityAttributes.GENERIC_MAX_HEALTH,
+                    .addAttributeModifier(EntityAttributes.MAX_HEALTH,
                             Identifier.of(Candlelight.MOD_ID, "extinguished"), -19.5f, EntityAttributeModifier.Operation.ADD_VALUE)
-                    .addAttributeModifier(EntityAttributes.PLAYER_BLOCK_BREAK_SPEED,
+                    .addAttributeModifier(EntityAttributes.BLOCK_BREAK_SPEED,
                             Identifier.of(Candlelight.MOD_ID, "extinguished"), -1f, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-                    .addAttributeModifier(EntityAttributes.GENERIC_FALL_DAMAGE_MULTIPLIER,
+                    .addAttributeModifier(EntityAttributes.FALL_DAMAGE_MULTIPLIER,
                             Identifier.of(Candlelight.MOD_ID, "extinguished"), -1f, EntityAttributeModifier.Operation.ADD_VALUE));
 
     private static RegistryEntry<StatusEffect> registerStatusEffect(String name, StatusEffect statusEffect) {

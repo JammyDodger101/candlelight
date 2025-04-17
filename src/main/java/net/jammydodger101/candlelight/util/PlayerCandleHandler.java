@@ -189,7 +189,7 @@ public class PlayerCandleHandler
                             if (serverWorld.getServer().getPlayerManager().getPlayerList().contains(serverPlayer)) {
 
                                 serverPlayer.stopRiding();
-                                serverPlayer.teleport(serverWorld.getServer().getOverworld(), worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ(), Set.of(), 0f, 0f);
+                                serverPlayer.teleport(serverWorld.getServer().getOverworld(), worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ(), Set.of(), 0f, 0f, true);
 
                                 serverPlayer.fallDistance = 0.0f;
 

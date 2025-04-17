@@ -28,7 +28,7 @@ public class WithdrawHeartCommand {
         if (player.getMaxHealth() > 0f) {
             if ((player.getMaxHealth() - 2) > 0f) {
                 // modifies the max health of the player to remove 2 health
-                player.getAttributes().getCustomInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(player.getMaxHealth() - 2);
+                player.getAttributes().getCustomInstance(EntityAttributes.MAX_HEALTH).setBaseValue(player.getMaxHealth() - 2);
                 // tries to give the player the heart that they withdrew
                 boolean wasAdded = player.getInventory().insertStack(ModItems.LIFESTEAL_HEART.getDefaultStack());
                 if (!wasAdded) {

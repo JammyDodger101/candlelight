@@ -6,8 +6,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 /*
@@ -20,14 +20,14 @@ public class ReviverItem extends Item {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    public ActionResult use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
 
         // fails if not in the overworld
         if (world instanceof ServerWorld) {
             ServerWorld serverWorld = (world.getServer().getOverworld());
             if (serverWorld == null) {
-                return TypedActionResult.fail(itemStack);
+                return ActionResult.FAIL;
             }
             // revives all players that are online and in candleless
             PlayerCandleHandler.reviveEveryone(serverWorld);
@@ -35,9 +35,9 @@ public class ReviverItem extends Item {
             if (!user.isSpectator()) {
                 itemStack.decrement(1);
             }
-            return TypedActionResult.success(itemStack, world.isClient());
+            return ActionResult.SUCCESS;
         }
-        return TypedActionResult.fail(itemStack);
+        return ActionResult.FAIL;
     }
 
     @Override

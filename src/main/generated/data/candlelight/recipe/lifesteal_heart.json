@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "F": {
-      "item": "candlelight:event_fragments"
-    },
-    "R": {
-      "item": "minecraft:respawn_anchor"
-    },
-    "S": {
-      "item": "minecraft:netherite_scrap"
-    }
+    "F": "candlelight:event_fragments",
+    "R": "minecraft:respawn_anchor",
+    "S": "minecraft:netherite_scrap"
   },
   "pattern": [
     "SFS",

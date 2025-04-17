@@ -1,5 +1,6 @@
 package net.jammydodger101.candlelight;
 
+/*
 import net.fabricmc.api.ClientModInitializer;
 import net.jammydodger101.candlelight.component.ModDataComponentTypes;
 import net.jammydodger101.candlelight.item.ModItems;
@@ -32,3 +33,4 @@ public class CandlelightClient implements ClientModInitializer {
 
     }
 }
+*/

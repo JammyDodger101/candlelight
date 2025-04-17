@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:candle_compass"
+        "recipe": "candlelight:candle_compass"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:candle_compass"
+      "candlelight:candle_compass"
     ]
   }
 }

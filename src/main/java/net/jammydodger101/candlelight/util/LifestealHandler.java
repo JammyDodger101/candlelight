@@ -15,7 +15,7 @@ public class LifestealHandler {
         if (user.getMaxHealth() < 40f) {
             // makes sure the user is capped at 40 health
             if ((user.getMaxHealth() + amount) <= 40f) {
-                user.getAttributes().getCustomInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(user.getMaxHealth()+amount);
+                user.getAttributes().getCustomInstance(EntityAttributes.MAX_HEALTH).setBaseValue(user.getMaxHealth()+amount);
             }
         } else {
             if (user instanceof ServerPlayerEntity player) {
@@ -33,11 +33,8 @@ public class LifestealHandler {
     public static void decreaseHealth(LivingEntity user, Integer amount) {
         if (user.getMaxHealth() > 0f) {
             if ((user.getMaxHealth() - amount) > 0f) {
-                user.getAttributes().getCustomInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(user.getMaxHealth() - amount);
+                user.getAttributes().getCustomInstance(EntityAttributes.MAX_HEALTH).setBaseValue(user.getMaxHealth() - amount);
             }
-        } else {
-            // wont ever reach here as the lifesteal kill mixin will ban the player first
-            user.sendMessage(Text.literal("banned"));
         }
     }
 }

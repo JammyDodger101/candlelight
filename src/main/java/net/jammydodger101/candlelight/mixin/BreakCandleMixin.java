@@ -5,6 +5,7 @@ import net.jammydodger101.candlelight.util.PlayerCandleHandler;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,18 +25,18 @@ public abstract class BreakCandleMixin{
     @Shadow protected abstract Block asBlock();
 
     @Inject(method = "onStateReplaced", at = @At("HEAD"))
-    public void checkIfCandleBroke(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved, CallbackInfo ci) {
+    public void checkIfCandleBroke(BlockState state, ServerWorld world, BlockPos pos, boolean moved, CallbackInfo ci) {
         if(!world.isClient()){
             // checks to make sure we are updating the correct candle
             if (state.isIn(ModTags.Blocks.CUSTOM_CANDLES)) {
                 for (Block candleBlock :
                         PlayerCandleHandler.candles) {
                     if (state.isOf(candleBlock)) {
-                        if (!newState.isOf(this.asBlock())) {
+                        //if (!newState.isOf(this.asBlock())) {
                             // sets lit status to false and coordinates to null
                             PlayerCandleHandler.candleStatus.set(PlayerCandleHandler.candles.indexOf(candleBlock), false);
                             PlayerCandleHandler.setCandleCoordinates(pos, state, null, world);
-                        }
+                        //}
                     }
                 }
             }

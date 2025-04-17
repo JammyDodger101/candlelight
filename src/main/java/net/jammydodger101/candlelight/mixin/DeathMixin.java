@@ -31,13 +31,13 @@ public abstract class DeathMixin {
             if(PlayerCandleHandler.checkPlayerStatus(oldPlayer) != null) {
                 //if their candle is lit
                 if (PlayerCandleHandler.checkPlayerStatus(oldPlayer) == Boolean.TRUE) {
-                    if (oldPlayer.getSpawnPointDimension() == ModDimension.CANDLELESS_KEY) {
-                        oldPlayer.setSpawnPoint(World.OVERWORLD, worldSpawn, 0f, true, false);
+                    if (oldPlayer.getRespawn().dimension() == ModDimension.CANDLELESS_KEY) {
+                        oldPlayer.setSpawnPoint(new ServerPlayerEntity.Respawn(World.OVERWORLD, worldSpawn, 0f, true), false);
                     }
                     PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, false);
                     oldPlayer.removeCommandTag("trapped");
                 } else {
-                    oldPlayer.setSpawnPoint(ModDimension.CANDLELESS_KEY, new BlockPos(0, 100, 0), 0f, true, false);
+                    oldPlayer.setSpawnPoint(new ServerPlayerEntity.Respawn(ModDimension.CANDLELESS_KEY, new BlockPos(0, 100, 0), 0f, true), false);
                     PlayerCandleHandler.changePlayerTrappedStatus(oldPlayer, true);
                     oldPlayer.addCommandTag("trapped");
                     // play global sound
@@ -56,7 +56,7 @@ public abstract class DeathMixin {
     private void carryHeartsFromPreviousPlayerInstance(ServerPlayerEntity oldPlayer, boolean alive, Entity.RemovalReason removalReason, CallbackInfoReturnable<ServerPlayerEntity> cir) {
 
         ServerPlayerEntity serverPlayerEntity = cir.getReturnValue();
-        serverPlayerEntity.getAttributes().getCustomInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(oldPlayer.getMaxHealth());
+        serverPlayerEntity.getAttributes().getCustomInstance(EntityAttributes.MAX_HEALTH).setBaseValue(oldPlayer.getMaxHealth());
         serverPlayerEntity.setHealth(oldPlayer.getMaxHealth());
 
     }
